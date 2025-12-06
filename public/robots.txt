@@ -1,0 +1,16 @@
+# KORE - Complete CRM Marketing Suite
+# https://kore.app
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://kore.app/sitemap.xml
+
+# Crawl-delay (optional, for polite crawling)
+Crawl-delay: 1
+
+# Disallow admin and API routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /auth/
