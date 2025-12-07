@@ -1,14 +1,24 @@
 // ============================================
-// VOICE CALLS API ROUTE
-// Proxies to telnyx-voice Edge Function
+// MEET ROOMS API ROUTE
+// Proxies to telnyx-video Edge Function
 // ============================================
 
 import { NextRequest, NextResponse } from "next/server"
-import { TelnyxVoice } from "@/lib/edge-functions/client"
 import { createClient } from "@/lib/supabase/server"
+import { TelnyxVideo } from "@/lib/edge-functions/client"
+
+// Helper to generate unique room name
+function generateRoomName(prefix: string): string {
+  const adjectives = ['blue', 'green', 'red', 'swift', 'bright', 'calm', 'bold', 'cool']
+  const nouns = ['meeting', 'room', 'space', 'hub', 'zone', 'call', 'chat', 'team']
+  const adj = adjectives[Math.floor(Math.random() * adjectives.length)]
+  const noun = nouns[Math.floor(Math.random() * nouns.length)]
+  const num = Math.floor(Math.random() * 1000)
+  return `${prefix}-${adj}-${noun}-${num}`
+}
 
 // ============================================
-// GET - List Call History
+// GET - List Video Rooms
 // ============================================
 export async function GET(request: NextRequest) {
   try {
@@ -23,14 +33,14 @@ export async function GET(request: NextRequest) {
     }
 
     const searchParams = request.nextUrl.searchParams
-    const pageSize = parseInt(searchParams.get("page_size") || "20")
+    const page = parseInt(searchParams.get("page") || "1")
+    const pageSize = parseInt(searchParams.get("pageSize") || "20")
 
-    // Call Edge Function for active Telnyx calls
-    const result = await TelnyxVoice.listCalls(pageSize)
+    const result = await TelnyxVideo.listRooms(pageSize, page)
 
     return NextResponse.json(result)
   } catch (error: any) {
-    console.error("[Voice API] Error listing calls:", error)
+    console.error("[Meet API] Error fetching rooms:", error)
     return NextResponse.json(
       { success: false, error: error.message },
       { status: 500 }
@@ -39,7 +49,7 @@ export async function GET(request: NextRequest) {
 }
 
 // ============================================
-// POST - Create outbound call
+// POST - Create Video Room
 // ============================================
 export async function POST(request: NextRequest) {
   try {
@@ -62,26 +72,21 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
 
-    if (!body.to) {
-      return NextResponse.json(
-        { success: false, error: "Missing 'to' phone number" },
-        { status: 400 }
-      )
-    }
+    // Generate a unique name if not provided
+    const roomName = body.unique_name || generateRoomName("kore-meet")
 
-    // Call Edge Function
-    const result = await TelnyxVoice.createCall({
-      to: body.to,
-      from: body.from,
+    const result = await TelnyxVideo.createRoom({
+      uniqueName: roomName,
+      maxParticipants: body.max_participants || 50,
+      enableRecording: body.enable_recording ?? false,
       organizationId: membership?.organization_id,
+      userId: user.id,
       webhookUrl: body.webhook_url,
-      amdEnabled: body.amd_enabled,
-      clientState: body.client_state,
     })
 
     return NextResponse.json(result)
   } catch (error: any) {
-    console.error("[Voice API] Error creating call:", error)
+    console.error("[Meet API] Error creating room:", error)
     return NextResponse.json(
       { success: false, error: error.message },
       { status: 500 }

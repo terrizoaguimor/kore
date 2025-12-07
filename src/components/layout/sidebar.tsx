@@ -4,8 +4,32 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import {
-  // KORE OS
-  LayoutDashboard,
+  // The Core (AI)
+  Brain,
+  // KORE Link (CRM)
+  Link2,
+  UserCircle,
+  Building2,
+  Briefcase,
+  HandshakeIcon,
+  Receipt,
+  // KORE Voice (Telephony)
+  Phone,
+  PhoneCall,
+  PhoneIncoming,
+  PhoneOutgoing,
+  Voicemail,
+  MessageCircle,
+  // KORE Meet (Video)
+  Video,
+  // KORE Pulse (Marketing)
+  Activity,
+  Megaphone,
+  Share2,
+  BarChart3,
+  Mail,
+  Target,
+  Sparkles,
   // KORE Drive
   HardDrive,
   Files,
@@ -15,29 +39,8 @@ import {
   FileText,
   CheckSquare,
   StickyNote,
-  // KORE Pulse (Marketing)
-  Activity,
-  Megaphone,
-  Share2,
-  BarChart3,
-  Mail,
-  Target,
-  Sparkles,
-  // KORE Voice (Telephony)
-  Phone,
-  PhoneCall,
-  PhoneIncoming,
-  PhoneOutgoing,
-  Voicemail,
-  // KORE Link (CRM)
-  Link2,
-  UserCircle,
-  Building2,
-  Briefcase,
-  HandshakeIcon,
-  Receipt,
-  // The Core (AI)
-  Brain,
+  // KORE OS
+  LayoutDashboard,
   // General
   Settings,
   ChevronLeft,
@@ -72,32 +75,52 @@ interface NavModule {
   items: NavItem[]
 }
 
-// Define KORE modules
+// Define KORE modules in order:
+// 1. KORE Link (CRM)
+// 2. KORE Voice (Telephony)
+// 3. KORE Meet (Video)
+// 4. KORE Pulse (Marketing)
+// 5. KORE Drive (Files)
+// 6. KORE OS (Dashboard)
 const modules: NavModule[] = [
   {
-    name: "os",
-    label: "KORE // OS",
-    icon: LayoutDashboard,
-    description: "Command Center",
-    color: "#00E5FF",
+    name: "link",
+    label: "KORE Link",
+    icon: Link2,
+    description: "Relationships & CRM",
+    color: "#F39C12",
     items: [
-      { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+      { name: "Overview", href: "/link", icon: Link2 },
+      { name: "Contacts", href: "/link/contacts", icon: UserCircle },
+      { name: "Companies", href: "/link/companies", icon: Building2 },
+      { name: "Deals", href: "/link/deals", icon: Briefcase },
+      { name: "Leads", href: "/link/leads", icon: HandshakeIcon },
+      { name: "Invoices", href: "/link/invoices", icon: Receipt },
     ],
   },
   {
-    name: "drive",
-    label: "KORE Drive",
-    icon: HardDrive,
-    description: "Company Memory",
-    color: "#00E5FF",
+    name: "voice",
+    label: "KORE Voice",
+    icon: Phone,
+    description: "Telephony & WhatsApp",
+    color: "#9B59B6",
     items: [
-      { name: "Files", href: "/files", icon: Files },
-      { name: "Calendar", href: "/calendar", icon: Calendar },
-      { name: "Contacts", href: "/contacts", icon: Users },
-      { name: "Talk", href: "/talk", icon: MessageSquare },
-      { name: "Office", href: "/office", icon: FileText },
-      { name: "Tasks", href: "/tasks", icon: CheckSquare },
-      { name: "Notes", href: "/notes", icon: StickyNote },
+      { name: "Overview", href: "/voice", icon: Phone },
+      { name: "Call Center", href: "/voice/calls", icon: PhoneCall },
+      { name: "Incoming", href: "/voice/incoming", icon: PhoneIncoming },
+      { name: "Outgoing", href: "/voice/outgoing", icon: PhoneOutgoing },
+      { name: "Voicemail", href: "/voice/voicemail", icon: Voicemail },
+      { name: "WhatsApp", href: "/voice/whatsapp", icon: MessageCircle },
+    ],
+  },
+  {
+    name: "meet",
+    label: "KORE Meet",
+    icon: Video,
+    description: "Video Meetings",
+    color: "#00D4AA",
+    items: [
+      { name: "Meetings", href: "/meet", icon: Video },
     ],
   },
   {
@@ -117,32 +140,29 @@ const modules: NavModule[] = [
     ],
   },
   {
-    name: "voice",
-    label: "KORE Voice",
-    icon: Phone,
-    description: "Brand Voice",
-    color: "#9B59B6",
+    name: "drive",
+    label: "KORE Drive",
+    icon: HardDrive,
+    description: "Company Memory",
+    color: "#00E5FF",
     items: [
-      { name: "Overview", href: "/voice", icon: Phone },
-      { name: "Call Center", href: "/voice/calls", icon: PhoneCall },
-      { name: "Incoming", href: "/voice/incoming", icon: PhoneIncoming },
-      { name: "Outgoing", href: "/voice/outgoing", icon: PhoneOutgoing },
-      { name: "Voicemail", href: "/voice/voicemail", icon: Voicemail },
+      { name: "Files", href: "/files", icon: Files },
+      { name: "Calendar", href: "/calendar", icon: Calendar },
+      { name: "Contacts", href: "/contacts", icon: Users },
+      { name: "Talk", href: "/talk", icon: MessageSquare },
+      { name: "Office", href: "/office", icon: FileText },
+      { name: "Tasks", href: "/tasks", icon: CheckSquare },
+      { name: "Notes", href: "/notes", icon: StickyNote },
     ],
   },
   {
-    name: "link",
-    label: "KORE Link",
-    icon: Link2,
-    description: "Relationships",
-    color: "#F39C12",
+    name: "os",
+    label: "KORE // OS",
+    icon: LayoutDashboard,
+    description: "Command Center",
+    color: "#00E5FF",
     items: [
-      { name: "Overview", href: "/link", icon: Link2 },
-      { name: "Contacts", href: "/link/contacts", icon: UserCircle },
-      { name: "Companies", href: "/link/companies", icon: Building2 },
-      { name: "Deals", href: "/link/deals", icon: Briefcase },
-      { name: "Leads", href: "/link/leads", icon: HandshakeIcon },
-      { name: "Invoices", href: "/link/invoices", icon: Receipt },
+      { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     ],
   },
 ]
@@ -282,7 +302,7 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
         "flex h-16 shrink-0 items-center border-b border-[#1F1F1F] px-4",
         isCollapsed ? "justify-center" : "justify-between"
       )}>
-        <Link href="/dashboard" className="flex items-center">
+        <Link href="/core" className="flex items-center">
           {isCollapsed ? (
             <KoreLogo variant="icon" size="sm" color="primary" />
           ) : (

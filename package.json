@@ -18,6 +18,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.86.2",
+    "@telnyx/video": "^1.0.2",
     "@tiptap/extension-bubble-menu": "^3.13.0",
     "@tiptap/extension-color": "^3.13.0",
     "@tiptap/extension-floating-menu": "^3.13.0",

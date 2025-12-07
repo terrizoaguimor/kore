@@ -38,17 +38,36 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Protected routes
-  const protectedPaths = ["/files", "/calendar", "/contacts", "/talk", "/tasks", "/notes", "/settings", "/admin"]
+  // Protected routes - all dashboard routes require authentication
+  const protectedPaths = [
+    "/core",      // The Core (AI)
+    "/link",      // KORE Link (CRM)
+    "/voice",     // KORE Voice (Telephony)
+    "/meet",      // KORE Meet (Video)
+    "/pulse",     // KORE Pulse (Marketing)
+    "/files",     // KORE Drive
+    "/calendar",  // KORE Drive
+    "/contacts",  // KORE Drive
+    "/talk",      // KORE Drive
+    "/office",    // KORE Drive
+    "/tasks",     // KORE Drive
+    "/notes",     // KORE Drive
+    "/dashboard", // KORE OS
+    "/settings",  // Settings
+    "/admin",     // Admin
+  ]
   const isProtectedPath = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   )
 
-  // Auth routes (should redirect to dashboard if logged in)
+  // Auth routes (should redirect to The Core if logged in)
   const authPaths = ["/login", "/register", "/forgot-password"]
   const isAuthPath = authPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   )
+
+  // Root path - redirect to The Core if logged in, or login if not
+  const isRootPath = request.nextUrl.pathname === "/"
 
   if (isProtectedPath && !user) {
     // Redirect to login if trying to access protected route without auth
@@ -58,10 +77,17 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  if (isAuthPath && user) {
-    // Redirect to dashboard if already logged in
+  if ((isAuthPath || isRootPath) && user) {
+    // Redirect to The Core if already logged in
     const url = request.nextUrl.clone()
-    url.pathname = "/files"
+    url.pathname = "/core"
+    return NextResponse.redirect(url)
+  }
+
+  if (isRootPath && !user) {
+    // Redirect to login if not logged in and visiting root
+    const url = request.nextUrl.clone()
+    url.pathname = "/login"
     return NextResponse.redirect(url)
   }
 

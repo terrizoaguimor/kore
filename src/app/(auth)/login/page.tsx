@@ -22,7 +22,7 @@ import { createClient } from "@/lib/supabase/client"
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirect = searchParams.get("redirect") || "/files"
+  const redirect = searchParams.get("redirect") || "/core"
   const { resolvedTheme } = useTheme()
   const isDark = resolvedTheme === "dark"
   const t = useTranslations()

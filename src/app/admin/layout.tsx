@@ -43,7 +43,7 @@ export default async function AdminLayout({
     .in("role", ["owner", "admin"])
 
   if (!memberships || memberships.length === 0) {
-    redirect("/files")
+    redirect("/core")
   }
 
   return (
@@ -51,7 +51,7 @@ export default async function AdminLayout({
       {/* Sidebar */}
       <div className="w-64 border-r bg-muted/30">
         <div className="flex h-14 items-center border-b px-4">
-          <Link href="/files" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+          <Link href="/core" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
             <span className="text-sm">Back to App</span>
           </Link>
