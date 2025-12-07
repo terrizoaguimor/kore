@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect } from "react"
 import Link from "next/link"
 import {
   Link2,
@@ -10,88 +10,17 @@ import {
   HandshakeIcon,
   Receipt,
   DollarSign,
-  TrendingUp,
   Users,
   Target,
   Plus,
-  ArrowUpRight,
+  Loader2,
 } from "lucide-react"
 import { motion } from "motion/react"
 import { cn } from "@/lib/utils"
-
-const stats = [
-  {
-    name: "Total Contacts",
-    value: "892",
-    change: "+24",
-    icon: Users,
-  },
-  {
-    name: "Active Deals",
-    value: "34",
-    change: "+5",
-    icon: Briefcase,
-  },
-  {
-    name: "Pipeline Value",
-    value: "$1.2M",
-    change: "+$180K",
-    icon: DollarSign,
-  },
-  {
-    name: "Conversion Rate",
-    value: "24%",
-    change: "+3%",
-    icon: Target,
-  },
-]
-
-const modules = [
-  {
-    name: "Contacts",
-    description: "Manage individual contacts and relationships",
-    icon: UserCircle,
-    href: "/link/contacts",
-    count: "892",
-  },
-  {
-    name: "Companies",
-    description: "Track organizations and accounts",
-    icon: Building2,
-    href: "/link/companies",
-    count: "156",
-  },
-  {
-    name: "Deals",
-    description: "Manage sales pipeline and opportunities",
-    icon: Briefcase,
-    href: "/link/deals",
-    count: "34 Active",
-  },
-  {
-    name: "Leads",
-    description: "Capture and nurture potential customers",
-    icon: HandshakeIcon,
-    href: "/link/leads",
-    count: "128 New",
-  },
-  {
-    name: "Invoices",
-    description: "Create and track invoices",
-    icon: Receipt,
-    href: "/link/invoices",
-    count: "12 Pending",
-  },
-]
-
-const recentDeals = [
-  { name: "Enterprise Package", company: "Acme Corp", value: "$45,000", stage: "Negotiation", probability: "75%" },
-  { name: "Annual Subscription", company: "Tech Solutions", value: "$12,000", stage: "Proposal", probability: "50%" },
-  { name: "Custom Integration", company: "Global Industries", value: "$28,000", stage: "Qualification", probability: "25%" },
-  { name: "Premium Support", company: "StartupXYZ", value: "$8,500", stage: "Closed Won", probability: "100%" },
-]
+import { useCRMDashboard, useDeals } from "@/hooks/use-crm"
 
 const stageColors: Record<string, string> = {
+  "Prospecting": "text-gray-400",
   "Qualification": "text-yellow-400",
   "Proposal": "text-blue-400",
   "Negotiation": "text-orange-400",
@@ -99,7 +28,64 @@ const stageColors: Record<string, string> = {
   "Closed Lost": "text-red-400",
 }
 
+const formatCurrency = (amount: number) => {
+  if (amount >= 1000000) {
+    return `$${(amount / 1000000).toFixed(1)}M`
+  }
+  if (amount >= 1000) {
+    return `$${(amount / 1000).toFixed(0)}K`
+  }
+  return `$${amount.toLocaleString()}`
+}
+
 export default function LinkPage() {
+  const { stats, loading: statsLoading } = useCRMDashboard()
+  const { deals, loading: dealsLoading, getPipelineStats } = useDeals()
+
+  const pipelineStats = getPipelineStats()
+  const recentDeals = deals.slice(0, 4)
+
+  // Calculate win rate for display
+  const winRate = pipelineStats.win_rate.toFixed(0)
+  // Dynamic modules with real counts
+  const modules = [
+    {
+      name: "Contacts",
+      description: "Manage individual contacts and relationships",
+      icon: UserCircle,
+      href: "/link/contacts",
+      count: statsLoading ? "-" : `${stats?.total_contacts || 0}`,
+    },
+    {
+      name: "Companies",
+      description: "Track organizations and accounts",
+      icon: Building2,
+      href: "/link/companies",
+      count: statsLoading ? "-" : `${stats?.total_accounts || 0}`,
+    },
+    {
+      name: "Deals",
+      description: "Manage sales pipeline and opportunities",
+      icon: Briefcase,
+      href: "/link/deals",
+      count: statsLoading ? "-" : `${stats?.total_deals || 0} Active`,
+    },
+    {
+      name: "Leads",
+      description: "Capture and nurture potential customers",
+      icon: HandshakeIcon,
+      href: "/link/leads",
+      count: statsLoading ? "-" : `${stats?.total_leads || 0} New`,
+    },
+    {
+      name: "Invoices",
+      description: "Create and track invoices",
+      icon: Receipt,
+      href: "/link/invoices",
+      count: statsLoading ? "-" : `${stats?.open_invoices || 0} Pending`,
+    },
+  ]
+
   return (
     <div className="min-h-full bg-[#0B0B0B] p-6">
       {/* Header */}
@@ -119,10 +105,12 @@ export default function LinkPage() {
             </div>
           </div>
         </motion.div>
-        <button className="flex items-center gap-2 rounded-lg bg-[#F39C12] px-4 py-2 text-sm font-medium text-white hover:bg-[#F39C12]/90 transition-colors">
-          <Plus className="h-4 w-4" />
-          New Contact
-        </button>
+        <Link href="/link/contacts">
+          <button className="flex items-center gap-2 rounded-lg bg-[#F39C12] px-4 py-2 text-sm font-medium text-white hover:bg-[#F39C12]/90 transition-colors">
+            <Plus className="h-4 w-4" />
+            New Contact
+          </button>
+        </Link>
       </div>
 
       {/* Stats Grid */}
@@ -132,24 +120,49 @@ export default function LinkPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4"
       >
-        {stats.map((stat) => {
-          const Icon = stat.icon
-          return (
-            <div
-              key={stat.name}
-              className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4"
-            >
-              <div className="flex items-center justify-between">
-                <Icon className="h-5 w-5 text-[#A1A1AA]" />
-                <span className="text-xs font-medium text-green-400">
-                  {stat.change}
-                </span>
-              </div>
-              <p className="mt-3 text-2xl font-bold text-white">{stat.value}</p>
-              <p className="text-sm text-[#A1A1AA]">{stat.name}</p>
-            </div>
-          )
-        })}
+        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+          <div className="flex items-center justify-between">
+            <Users className="h-5 w-5 text-[#A1A1AA]" />
+            {statsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
+          </div>
+          <p className="mt-3 text-2xl font-bold text-white">
+            {statsLoading ? "-" : stats?.total_contacts || 0}
+          </p>
+          <p className="text-sm text-[#A1A1AA]">Total Contacts</p>
+        </div>
+
+        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+          <div className="flex items-center justify-between">
+            <Briefcase className="h-5 w-5 text-[#A1A1AA]" />
+            {statsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
+          </div>
+          <p className="mt-3 text-2xl font-bold text-white">
+            {statsLoading ? "-" : stats?.total_deals || 0}
+          </p>
+          <p className="text-sm text-[#A1A1AA]">Active Deals</p>
+        </div>
+
+        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+          <div className="flex items-center justify-between">
+            <DollarSign className="h-5 w-5 text-[#A1A1AA]" />
+            {statsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
+          </div>
+          <p className="mt-3 text-2xl font-bold text-[#F39C12]">
+            {statsLoading ? "-" : formatCurrency(stats?.pipeline_value || 0)}
+          </p>
+          <p className="text-sm text-[#A1A1AA]">Pipeline Value</p>
+        </div>
+
+        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+          <div className="flex items-center justify-between">
+            <Target className="h-5 w-5 text-[#A1A1AA]" />
+            {dealsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
+          </div>
+          <p className="mt-3 text-2xl font-bold text-white">
+            {dealsLoading ? "-" : `${winRate}%`}
+          </p>
+          <p className="text-sm text-[#A1A1AA]">Win Rate</p>
+        </div>
       </motion.div>
 
       {/* Modules Grid */}
@@ -196,29 +209,47 @@ export default function LinkPage() {
           </Link>
         </div>
         <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] divide-y divide-[#2A2A2A]">
-          {recentDeals.map((deal, index) => (
-            <div key={index} className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F39C12]/10">
-                  <Briefcase className="h-5 w-5 text-[#F39C12]" />
-                </div>
-                <div>
-                  <p className="font-medium text-white">{deal.name}</p>
-                  <p className="text-sm text-[#A1A1AA]">{deal.company}</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-8 text-sm">
-                <div className="text-right">
-                  <p className="text-white font-semibold">{deal.value}</p>
-                  <p className="text-[#A1A1AA]">Value</p>
-                </div>
-                <div className="text-right min-w-[100px]">
-                  <p className={cn("font-medium", stageColors[deal.stage])}>{deal.stage}</p>
-                  <p className="text-[#A1A1AA]">{deal.probability}</p>
-                </div>
-              </div>
+          {dealsLoading ? (
+            <div className="flex items-center justify-center p-8">
+              <Loader2 className="h-6 w-6 animate-spin text-[#F39C12]" />
             </div>
-          ))}
+          ) : recentDeals.length === 0 ? (
+            <div className="flex flex-col items-center justify-center p-8 text-center">
+              <Briefcase className="h-10 w-10 text-[#A1A1AA] mb-2" />
+              <p className="text-[#A1A1AA]">No deals yet</p>
+              <Link href="/link/deals" className="mt-2 text-sm text-[#F39C12] hover:underline">
+                Create your first deal
+              </Link>
+            </div>
+          ) : (
+            recentDeals.map((deal) => (
+              <div key={deal.id} className="flex items-center justify-between p-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F39C12]/10">
+                    <Briefcase className="h-5 w-5 text-[#F39C12]" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">{deal.deal_name}</p>
+                    <p className="text-sm text-[#A1A1AA]">
+                      {(deal as any).account?.account_name || "No account"}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-8 text-sm">
+                  <div className="text-right">
+                    <p className="text-white font-semibold">{formatCurrency(deal.amount || 0)}</p>
+                    <p className="text-[#A1A1AA]">Value</p>
+                  </div>
+                  <div className="text-right min-w-[100px]">
+                    <p className={cn("font-medium", stageColors[deal.stage] || "text-gray-400")}>
+                      {deal.stage}
+                    </p>
+                    <p className="text-[#A1A1AA]">{deal.probability || 0}%</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </motion.div>
     </div>
