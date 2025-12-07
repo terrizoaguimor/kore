@@ -2,188 +2,24 @@
 
 import { useState } from "react"
 import { motion } from "motion/react"
-import { Briefcase, Plus, ArrowLeft, TrendingUp, DollarSign } from "lucide-react"
+import { Briefcase, Plus, ArrowLeft, TrendingUp, DollarSign, RefreshCw } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CRMDataTable, CRMDealStageBadge, type CRMColumn } from "@/components/crm"
 import { DealDialog } from "@/components/crm/deal-dialog"
-import type { CRMDeal, CRMAccount, CRMContact } from "@/types/crm"
-
-// Mock data - replace with actual Supabase data
-const mockDeals: CRMDeal[] = [
-  {
-    id: "1",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    account_id: "acc-1",
-    contact_id: "con-1",
-    deal_no: "DEA-001000",
-    deal_name: "Enterprise Software License",
-    amount: 75000,
-    currency: "USD",
-    stage: "Proposal",
-    probability: 50,
-    expected_close_date: "2024-03-15",
-    actual_close_date: null,
-    lead_source: "Web",
-    campaign_id: null,
-    deal_type: "New Business",
-    next_step: "Schedule demo with stakeholders",
-    description: "Full enterprise license for 500 users",
-    created_at: "2024-01-10T10:00:00Z",
-    updated_at: "2024-01-15T14:30:00Z",
-    deleted_at: null,
-  },
-  {
-    id: "2",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    account_id: "acc-2",
-    contact_id: "con-2",
-    deal_no: "DEA-001001",
-    deal_name: "Annual Support Contract",
-    amount: 24000,
-    currency: "USD",
-    stage: "Negotiation",
-    probability: 75,
-    expected_close_date: "2024-02-28",
-    actual_close_date: null,
-    lead_source: "Referral",
-    campaign_id: null,
-    deal_type: "Renewal",
-    next_step: "Send revised pricing",
-    description: "Annual support and maintenance renewal",
-    created_at: "2024-01-05T09:00:00Z",
-    updated_at: "2024-01-14T11:00:00Z",
-    deleted_at: null,
-  },
-  {
-    id: "3",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    account_id: "acc-3",
-    contact_id: null,
-    deal_no: "DEA-001002",
-    deal_name: "Consulting Services",
-    amount: 45000,
-    currency: "USD",
-    stage: "Qualification",
-    probability: 25,
-    expected_close_date: "2024-04-30",
-    actual_close_date: null,
-    lead_source: "Trade Show",
-    campaign_id: null,
-    deal_type: "New Business",
-    next_step: "Needs assessment call",
-    description: "Implementation and training services",
-    created_at: "2024-01-12T16:00:00Z",
-    updated_at: "2024-01-12T16:00:00Z",
-    deleted_at: null,
-  },
-  {
-    id: "4",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    account_id: "acc-1",
-    contact_id: "con-1",
-    deal_no: "DEA-001003",
-    deal_name: "Cloud Migration Project",
-    amount: 150000,
-    currency: "USD",
-    stage: "Closed Won",
-    probability: 100,
-    expected_close_date: "2024-01-20",
-    actual_close_date: "2024-01-18",
-    lead_source: "Partner",
-    campaign_id: null,
-    deal_type: "New Business",
-    next_step: null,
-    description: "Complete cloud infrastructure migration",
-    created_at: "2023-12-01T10:00:00Z",
-    updated_at: "2024-01-18T15:00:00Z",
-    deleted_at: null,
-  },
-]
-
-const mockAccounts: CRMAccount[] = [
-  {
-    id: "acc-1",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    account_no: "ACC-001000",
-    account_name: "Tech Innovations Inc",
-    parent_id: null,
-    account_type: "Customer",
-    industry: "Technology",
-    annual_revenue: 5000000,
-    rating: "Hot",
-    ownership: "Private",
-    employees: 150,
-    phone: "+1 555-0123",
-    other_phone: null,
-    email: "info@techinnovations.com",
-    secondary_email: null,
-    website: "https://techinnovations.com",
-    fax: null,
-    billing_street: "123 Innovation Blvd",
-    billing_city: "San Francisco",
-    billing_state: "CA",
-    billing_code: "94102",
-    billing_country: "USA",
-    shipping_street: null,
-    shipping_city: null,
-    shipping_state: null,
-    shipping_code: null,
-    shipping_country: null,
-    description: null,
-    sic_code: null,
-    ticker_symbol: null,
-    email_opt_out: false,
-    created_at: "2024-01-01T00:00:00Z",
-    updated_at: "2024-01-01T00:00:00Z",
-    deleted_at: null,
-  },
-]
-
-const mockContacts: CRMContact[] = [
-  {
-    id: "con-1",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    account_id: "acc-1",
-    contact_no: "CON-001000",
-    salutation: "Mr.",
-    first_name: "John",
-    last_name: "Smith",
-    title: "CTO",
-    department: "Technology",
-    email: "john.smith@techinnovations.com",
-    secondary_email: null,
-    phone: "+1 555-0123",
-    mobile: "+1 555-0124",
-    fax: null,
-    mailing_street: null,
-    mailing_city: null,
-    mailing_state: null,
-    mailing_code: null,
-    mailing_country: null,
-    other_street: null,
-    other_city: null,
-    other_state: null,
-    other_code: null,
-    other_country: null,
-    description: null,
-    lead_source: "Web",
-    reports_to: null,
-    birthday: null,
-    do_not_call: false,
-    email_opt_out: false,
-    photo_url: null,
-    created_at: "2024-01-01T00:00:00Z",
-    updated_at: "2024-01-01T00:00:00Z",
-    deleted_at: null,
-  },
-]
+import { useDeals, useAccounts, useContacts } from "@/hooks/use-crm"
+import { useToast } from "@/hooks/use-toast"
+import type { CRMDeal, CRMDealInsert } from "@/types/crm"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 
 const formatCurrency = (amount: number, currency: string = "USD") => {
   return new Intl.NumberFormat("en-US", {
@@ -263,11 +99,16 @@ const columns: CRMColumn<CRMDeal>[] = [
 ]
 
 export default function DealsPage() {
-  const [deals, setDeals] = useState<CRMDeal[]>(mockDeals)
+  const { deals, loading, error, fetchDeals, createDeal, updateDeal, deleteDeal, getPipelineStats } = useDeals()
+  const { accounts } = useAccounts()
+  const { contacts } = useContacts()
+  const { toast } = useToast()
   const [selectedDeals, setSelectedDeals] = useState<string[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingDeal, setEditingDeal] = useState<CRMDeal | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [dealToDelete, setDealToDelete] = useState<CRMDeal | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
 
   const handleNewDeal = () => {
     setEditingDeal(null)
@@ -284,39 +125,63 @@ export default function DealsPage() {
     setDialogOpen(true)
   }
 
-  const handleDeleteDeal = async (deal: CRMDeal) => {
-    // TODO: Implement delete with Supabase
-    setDeals(deals.filter((d) => d.id !== deal.id))
+  const handleDeleteClick = (deal: CRMDeal) => {
+    setDealToDelete(deal)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!dealToDelete) return
+
+    try {
+      await deleteDeal(dealToDelete.id)
+      toast({
+        title: "Deal deleted",
+        description: "The deal has been deleted successfully.",
+      })
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to delete the deal. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setDeleteDialogOpen(false)
+      setDealToDelete(null)
+    }
   }
 
   const handleSaveDeal = async (dealData: Partial<CRMDeal>) => {
-    // TODO: Implement save with Supabase
-    if (dealData.id) {
-      // Update existing deal
-      setDeals(deals.map((d) => (d.id === dealData.id ? { ...d, ...dealData } : d)))
-    } else {
-      // Create new deal
-      const newDeal: CRMDeal = {
-        ...dealData as CRMDeal,
-        id: `deal-${Date.now()}`,
-        organization_id: "org-1",
-        owner_id: "user-1",
-        deal_no: `DEA-${String(1004 + deals.length).padStart(6, "0")}`,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        deleted_at: null,
+    setIsSaving(true)
+    try {
+      if (editingDeal?.id) {
+        await updateDeal(editingDeal.id, dealData as Partial<CRMDealInsert>)
+        toast({
+          title: "Deal updated",
+          description: "The deal has been updated successfully.",
+        })
+      } else {
+        await createDeal(dealData as Omit<CRMDealInsert, "organization_id">)
+        toast({
+          title: "Deal created",
+          description: "The new deal has been created successfully.",
+        })
       }
-      setDeals([newDeal, ...deals])
+      setDialogOpen(false)
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to save the deal. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSaving(false)
     }
   }
 
   // Calculate stats
-  const totalPipelineValue = deals
-    .filter((d) => !["Closed Won", "Closed Lost"].includes(d.stage))
-    .reduce((sum, d) => sum + d.amount, 0)
-  const wonValue = deals
-    .filter((d) => d.stage === "Closed Won")
-    .reduce((sum, d) => sum + d.amount, 0)
+  const pipelineStats = getPipelineStats()
+  const openDeals = deals.filter((d) => !["Closed Won", "Closed Lost"].includes(d.stage))
   const avgDealSize = deals.length > 0 ? deals.reduce((sum, d) => sum + d.amount, 0) / deals.length : 0
 
   return (
@@ -347,14 +212,32 @@ export default function DealsPage() {
             </div>
           </div>
         </motion.div>
-        <Button
-          onClick={handleNewDeal}
-          className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          New Deal
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => fetchDeals()}
+            disabled={loading}
+            className="border-[#2A2A2A]"
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+          </Button>
+          <Button
+            onClick={handleNewDeal}
+            className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            New Deal
+          </Button>
+        </div>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 rounded-lg bg-red-500/10 border border-red-500/20 p-4 text-red-400">
+          {error}
+        </div>
+      )}
 
       {/* Stats Cards */}
       <motion.div
@@ -369,7 +252,7 @@ export default function DealsPage() {
             <p className="text-sm">Pipeline Value</p>
           </div>
           <p className="mt-1 text-2xl font-bold text-[#F39C12]">
-            {formatCurrency(totalPipelineValue)}
+            {loading ? "-" : formatCurrency(pipelineStats.total_value - pipelineStats.won_value - pipelineStats.lost_value)}
           </p>
         </div>
         <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
@@ -378,19 +261,19 @@ export default function DealsPage() {
             <p className="text-sm">Won Revenue</p>
           </div>
           <p className="mt-1 text-2xl font-bold text-green-400">
-            {formatCurrency(wonValue)}
+            {loading ? "-" : formatCurrency(pipelineStats.won_value)}
           </p>
         </div>
         <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
           <p className="text-sm text-[#A1A1AA]">Open Deals</p>
           <p className="mt-1 text-2xl font-bold text-white">
-            {deals.filter((d) => !["Closed Won", "Closed Lost"].includes(d.stage)).length}
+            {loading ? "-" : openDeals.length}
           </p>
         </div>
         <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
           <p className="text-sm text-[#A1A1AA]">Avg. Deal Size</p>
           <p className="mt-1 text-2xl font-bold text-white">
-            {formatCurrency(avgDealSize)}
+            {loading ? "-" : formatCurrency(avgDealSize)}
           </p>
         </div>
       </motion.div>
@@ -404,18 +287,16 @@ export default function DealsPage() {
       >
         <h3 className="mb-4 text-sm font-medium text-[#A1A1AA]">Pipeline Stages</h3>
         <div className="flex gap-2">
-          {["Prospecting", "Qualification", "Proposal", "Negotiation", "Closed Won", "Closed Lost"].map((stage) => {
-            const stageDeals = deals.filter((d) => d.stage === stage)
-            const stageValue = stageDeals.reduce((sum, d) => sum + d.amount, 0)
-            const stageColor = stage === "Closed Won" ? "#10B981" : stage === "Closed Lost" ? "#EF4444" : "#F39C12"
+          {pipelineStats.by_stage.map((stageData) => {
+            const stageColor = stageData.stage === "Closed Won" ? "#10B981" : stageData.stage === "Closed Lost" ? "#EF4444" : "#F39C12"
 
             return (
-              <div key={stage} className="flex-1 rounded-lg bg-[#2A2A2A] p-3">
-                <p className="text-xs text-[#A1A1AA]">{stage}</p>
+              <div key={stageData.stage} className="flex-1 rounded-lg bg-[#2A2A2A] p-3">
+                <p className="text-xs text-[#A1A1AA]">{stageData.stage}</p>
                 <p className="text-lg font-bold" style={{ color: stageColor }}>
-                  {stageDeals.length}
+                  {stageData.count}
                 </p>
-                <p className="text-xs text-[#A1A1AA]">{formatCurrency(stageValue)}</p>
+                <p className="text-xs text-[#A1A1AA]">{formatCurrency(stageData.value)}</p>
               </div>
             )
           })}
@@ -431,11 +312,11 @@ export default function DealsPage() {
         <CRMDataTable
           data={deals}
           columns={columns}
-          isLoading={isLoading}
+          isLoading={loading}
           searchPlaceholder="Search deals..."
           onView={handleViewDeal}
           onEdit={handleEditDeal}
-          onDelete={handleDeleteDeal}
+          onDelete={handleDeleteClick}
           selectedItems={selectedDeals}
           onSelectionChange={setSelectedDeals}
           emptyMessage="No deals found. Click 'New Deal' to create one."
@@ -448,10 +329,33 @@ export default function DealsPage() {
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         deal={editingDeal}
-        accounts={mockAccounts}
-        contacts={mockContacts}
+        accounts={accounts}
+        contacts={contacts}
         onSave={handleSaveDeal}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-white">Delete Deal</AlertDialogTitle>
+            <AlertDialogDescription className="text-[#A1A1AA]">
+              Are you sure you want to delete the deal "{dealToDelete?.deal_name}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmDelete}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

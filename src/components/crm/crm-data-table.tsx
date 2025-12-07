@@ -55,6 +55,7 @@ interface CRMDataTableProps<T extends { id: string }> {
   onSelectionChange?: (ids: string[]) => void
   emptyMessage?: string
   accentColor?: string
+  customActions?: (item: T) => React.ReactNode
 }
 
 export function CRMDataTable<T extends { id: string }>({
@@ -71,6 +72,7 @@ export function CRMDataTable<T extends { id: string }>({
   onSelectionChange,
   emptyMessage = "No items found",
   accentColor = "#F39C12",
+  customActions,
 }: CRMDataTableProps<T>) {
   const [searchQuery, setSearchQuery] = useState("")
   const [sortKey, setSortKey] = useState<string | null>(null)
@@ -248,6 +250,7 @@ export function CRMDataTable<T extends { id: string }>({
                               Delete
                             </DropdownMenuItem>
                           )}
+                          {customActions && customActions(item)}
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>

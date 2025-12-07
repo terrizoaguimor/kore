@@ -2,130 +2,24 @@
 
 import { useState } from "react"
 import { motion } from "motion/react"
-import { HandshakeIcon, Plus, ArrowLeft } from "lucide-react"
+import { HandshakeIcon, Plus, ArrowLeft, RefreshCw, UserCheck } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CRMDataTable, CRMLeadStatusBadge, CRMRatingBadge, type CRMColumn } from "@/components/crm"
 import { LeadDialog } from "@/components/crm/lead-dialog"
-import type { CRMLead } from "@/types/crm"
-
-// Mock data - replace with actual Supabase data
-const mockLeads: CRMLead[] = [
-  {
-    id: "1",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    lead_no: "LEA-001000",
-    salutation: "Mr.",
-    first_name: "John",
-    last_name: "Smith",
-    company: "Tech Innovations Inc",
-    email: "john.smith@techinnovations.com",
-    secondary_email: null,
-    phone: "+1 555-0123",
-    mobile: "+1 555-0124",
-    fax: null,
-    website: "https://techinnovations.com",
-    street: "123 Innovation Blvd",
-    city: "San Francisco",
-    state: "CA",
-    postal_code: "94102",
-    country: "USA",
-    lead_source: "Web",
-    lead_status: "Qualified",
-    rating: "Hot",
-    industry: "Technology",
-    annual_revenue: 5000000,
-    employees: 150,
-    title: "CTO",
-    description: "Interested in enterprise solutions",
-    email_opt_out: false,
-    converted: false,
-    converted_contact_id: null,
-    converted_account_id: null,
-    converted_deal_id: null,
-    converted_at: null,
-    created_at: "2024-01-15T10:00:00Z",
-    updated_at: "2024-01-15T10:00:00Z",
-    deleted_at: null,
-  },
-  {
-    id: "2",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    lead_no: "LEA-001001",
-    salutation: "Ms.",
-    first_name: "Sarah",
-    last_name: "Johnson",
-    company: "Global Marketing Co",
-    email: "sarah.j@globalmarketing.com",
-    secondary_email: null,
-    phone: "+1 555-0125",
-    mobile: null,
-    fax: null,
-    website: null,
-    street: null,
-    city: "New York",
-    state: "NY",
-    postal_code: "10001",
-    country: "USA",
-    lead_source: "Referral",
-    lead_status: "Contacted",
-    rating: "Warm",
-    industry: "Marketing",
-    annual_revenue: 2000000,
-    employees: 50,
-    title: "Marketing Director",
-    description: null,
-    email_opt_out: false,
-    converted: false,
-    converted_contact_id: null,
-    converted_account_id: null,
-    converted_deal_id: null,
-    converted_at: null,
-    created_at: "2024-01-16T14:30:00Z",
-    updated_at: "2024-01-16T14:30:00Z",
-    deleted_at: null,
-  },
-  {
-    id: "3",
-    organization_id: "org-1",
-    owner_id: "user-1",
-    lead_no: "LEA-001002",
-    salutation: null,
-    first_name: "Michael",
-    last_name: "Chen",
-    company: "FinServ Solutions",
-    email: "mchen@finserv.com",
-    secondary_email: null,
-    phone: "+1 555-0126",
-    mobile: "+1 555-0127",
-    fax: null,
-    website: "https://finservsolutions.com",
-    street: "456 Finance Ave",
-    city: "Chicago",
-    state: "IL",
-    postal_code: "60601",
-    country: "USA",
-    lead_source: "Trade Show",
-    lead_status: "New",
-    rating: "Cold",
-    industry: "Finance",
-    annual_revenue: 10000000,
-    employees: 300,
-    title: "VP of Operations",
-    description: "Met at FinTech Conference 2024",
-    email_opt_out: false,
-    converted: false,
-    converted_contact_id: null,
-    converted_account_id: null,
-    converted_deal_id: null,
-    converted_at: null,
-    created_at: "2024-01-17T09:15:00Z",
-    updated_at: "2024-01-17T09:15:00Z",
-    deleted_at: null,
-  },
-]
+import { useLeads } from "@/hooks/use-crm"
+import { useToast } from "@/hooks/use-toast"
+import type { CRMLead, CRMLeadInsert } from "@/types/crm"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 
 const columns: CRMColumn<CRMLead>[] = [
   {
@@ -187,11 +81,16 @@ const columns: CRMColumn<CRMLead>[] = [
 ]
 
 export default function LeadsPage() {
-  const [leads, setLeads] = useState<CRMLead[]>(mockLeads)
+  const { leads, loading, error, fetchLeads, createLead, updateLead, deleteLead, convertLead } = useLeads()
+  const { toast } = useToast()
   const [selectedLeads, setSelectedLeads] = useState<string[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingLead, setEditingLead] = useState<CRMLead | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [leadToDelete, setLeadToDelete] = useState<CRMLead | null>(null)
+  const [convertDialogOpen, setConvertDialogOpen] = useState(false)
+  const [leadToConvert, setLeadToConvert] = useState<CRMLead | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
 
   const handleNewLead = () => {
     setEditingLead(null)
@@ -208,35 +107,107 @@ export default function LeadsPage() {
     setDialogOpen(true)
   }
 
-  const handleDeleteLead = async (lead: CRMLead) => {
-    // TODO: Implement delete with Supabase
-    setLeads(leads.filter((l) => l.id !== lead.id))
+  const handleDeleteClick = (lead: CRMLead) => {
+    setLeadToDelete(lead)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!leadToDelete) return
+
+    try {
+      await deleteLead(leadToDelete.id)
+      toast({
+        title: "Lead deleted",
+        description: "The lead has been deleted successfully.",
+      })
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to delete the lead. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setDeleteDialogOpen(false)
+      setLeadToDelete(null)
+    }
+  }
+
+  const handleConvertClick = (lead: CRMLead) => {
+    setLeadToConvert(lead)
+    setConvertDialogOpen(true)
+  }
+
+  const handleConfirmConvert = async () => {
+    if (!leadToConvert) return
+
+    try {
+      setIsSaving(true)
+      const result = await convertLead(leadToConvert.id, true, true)
+      toast({
+        title: "Lead converted",
+        description: `Created Account, Contact, and Deal from lead "${leadToConvert.company}".`,
+      })
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to convert the lead. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSaving(false)
+      setConvertDialogOpen(false)
+      setLeadToConvert(null)
+    }
   }
 
   const handleSaveLead = async (leadData: Partial<CRMLead>) => {
-    // TODO: Implement save with Supabase
-    if (leadData.id) {
-      // Update existing lead
-      setLeads(leads.map((l) => (l.id === leadData.id ? { ...l, ...leadData } : l)))
-    } else {
-      // Create new lead
-      const newLead: CRMLead = {
-        ...leadData as CRMLead,
-        id: `lead-${Date.now()}`,
-        organization_id: "org-1",
-        owner_id: "user-1",
-        lead_no: `LEA-${String(1003 + leads.length).padStart(6, "0")}`,
-        converted: false,
-        converted_contact_id: null,
-        converted_account_id: null,
-        converted_deal_id: null,
-        converted_at: null,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        deleted_at: null,
+    setIsSaving(true)
+    try {
+      if (editingLead?.id) {
+        await updateLead(editingLead.id, leadData as Partial<CRMLeadInsert>)
+        toast({
+          title: "Lead updated",
+          description: "The lead has been updated successfully.",
+        })
+      } else {
+        await createLead(leadData as Omit<CRMLeadInsert, "organization_id">)
+        toast({
+          title: "Lead created",
+          description: "The new lead has been created successfully.",
+        })
       }
-      setLeads([newLead, ...leads])
+      setDialogOpen(false)
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to save the lead. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSaving(false)
     }
+  }
+
+  // Custom actions for leads (convert)
+  const customActions = (lead: CRMLead) => {
+    if (lead.lead_status === "Qualified" && !lead.converted) {
+      return (
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-green-500 hover:text-green-400 hover:bg-green-500/10"
+          onClick={(e) => {
+            e.stopPropagation()
+            handleConvertClick(lead)
+          }}
+        >
+          <UserCheck className="h-4 w-4 mr-1" />
+          Convert
+        </Button>
+      )
+    }
+    return null
   }
 
   return (
@@ -267,14 +238,32 @@ export default function LeadsPage() {
             </div>
           </div>
         </motion.div>
-        <Button
-          onClick={handleNewLead}
-          className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          New Lead
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => fetchLeads()}
+            disabled={loading}
+            className="border-[#2A2A2A]"
+          >
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+          </Button>
+          <Button
+            onClick={handleNewLead}
+            className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            New Lead
+          </Button>
+        </div>
       </div>
+
+      {/* Error Message */}
+      {error && (
+        <div className="mb-6 rounded-lg bg-red-500/10 border border-red-500/20 p-4 text-red-400">
+          {error}
+        </div>
+      )}
 
       {/* Stats Cards */}
       <motion.div
@@ -295,7 +284,7 @@ export default function LeadsPage() {
           >
             <p className="text-sm text-[#A1A1AA]">{stat.label}</p>
             <p className="mt-1 text-2xl font-bold" style={{ color: stat.color }}>
-              {stat.value}
+              {loading ? "-" : stat.value}
             </p>
           </div>
         ))}
@@ -310,15 +299,16 @@ export default function LeadsPage() {
         <CRMDataTable
           data={leads}
           columns={columns}
-          isLoading={isLoading}
+          isLoading={loading}
           searchPlaceholder="Search leads..."
           onView={handleViewLead}
           onEdit={handleEditLead}
-          onDelete={handleDeleteLead}
+          onDelete={handleDeleteClick}
           selectedItems={selectedLeads}
           onSelectionChange={setSelectedLeads}
           emptyMessage="No leads found. Click 'New Lead' to create one."
           accentColor="#F39C12"
+          customActions={customActions}
         />
       </motion.div>
 
@@ -329,6 +319,58 @@ export default function LeadsPage() {
         lead={editingLead}
         onSave={handleSaveLead}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-white">Delete Lead</AlertDialogTitle>
+            <AlertDialogDescription className="text-[#A1A1AA]">
+              Are you sure you want to delete the lead "{leadToDelete?.first_name} {leadToDelete?.last_name}" from {leadToDelete?.company}? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmDelete}
+              className="bg-red-600 hover:bg-red-700 text-white"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Convert Confirmation Dialog */}
+      <AlertDialog open={convertDialogOpen} onOpenChange={setConvertDialogOpen}>
+        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-white">Convert Lead</AlertDialogTitle>
+            <AlertDialogDescription className="text-[#A1A1AA]">
+              Convert "{leadToConvert?.first_name} {leadToConvert?.last_name}" from {leadToConvert?.company} into:
+              <ul className="mt-2 list-disc list-inside space-y-1">
+                <li>A new <strong className="text-white">Account</strong> ({leadToConvert?.company})</li>
+                <li>A new <strong className="text-white">Contact</strong> ({leadToConvert?.first_name} {leadToConvert?.last_name})</li>
+                <li>A new <strong className="text-white">Deal</strong> (Opportunity)</li>
+              </ul>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmConvert}
+              disabled={isSaving}
+              className="bg-green-600 hover:bg-green-700 text-white"
+            >
+              {isSaving ? "Converting..." : "Convert Lead"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }
