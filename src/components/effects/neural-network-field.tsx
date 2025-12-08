@@ -22,8 +22,8 @@ interface NeuralNetworkFieldProps {
 }
 
 export function NeuralNetworkField({
-  particleCount = 120,
-  hubCount = 8,
+  particleCount = 200,
+  hubCount = 10,
   className = "",
 }: NeuralNetworkFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -58,9 +58,9 @@ export function NeuralNetworkField({
         baseY: y,
         vx: 0,
         vy: 0,
-        radius: 4 + Math.random() * 2, // Larger hubs
+        radius: 5 + Math.random() * 3, // Even larger hubs
         isHub: true,
-        alpha: 0.8,
+        alpha: 0.9,
         pulsePhase: Math.random() * Math.PI * 2, // Random start phase for heartbeat
       })
     }
@@ -74,11 +74,11 @@ export function NeuralNetworkField({
         y,
         baseX: x,
         baseY: y,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 1.5 + 0.5,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 2 + 1, // Larger particles
         isHub: false,
-        alpha: Math.random() * 0.4 + 0.2,
+        alpha: Math.random() * 0.5 + 0.3, // More visible
         pulsePhase: 0,
       })
     }
@@ -285,8 +285,8 @@ export function NeuralNetworkField({
         }
 
         // Connect to nearest hub
-        if (nearestDist < 180) {
-          const opacity = (1 - nearestDist / 180) * 0.2
+        if (nearestDist < 250) {
+          const opacity = (1 - nearestDist / 250) * 0.25
 
           // Gradient from blue to yellow
           const gradient = ctx.createLinearGradient(p.x, p.y, nearestHub.x, nearestHub.y)
@@ -308,13 +308,13 @@ export function NeuralNetworkField({
           const dy2 = p.y - p2.y
           const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2)
 
-          if (dist2 < 80) {
-            const opacity = (1 - dist2 / 80) * 0.15
+          if (dist2 < 120) {
+            const opacity = (1 - dist2 / 120) * 0.2
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
             ctx.strokeStyle = `rgba(${blueColor.r}, ${blueColor.g}, ${blueColor.b}, ${opacity})`
-            ctx.lineWidth = 0.3
+            ctx.lineWidth = 0.5
             ctx.stroke()
           }
         }

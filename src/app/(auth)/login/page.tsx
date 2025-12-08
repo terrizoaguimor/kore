@@ -294,8 +294,8 @@ function LoginForm() {
       <div className="relative hidden lg:block lg:w-1/2 bg-card overflow-hidden">
         {/* Interactive neural network field */}
         <NeuralNetworkField
-          particleCount={150}
-          hubCount={8}
+          particleCount={500}
+          hubCount={15}
         />
 
         {/* Subtle grid pattern overlay */}

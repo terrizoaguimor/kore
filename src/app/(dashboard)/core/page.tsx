@@ -117,8 +117,8 @@ export default function CorePage() {
         {messages.length === 0 && (
           <div className="absolute inset-0 z-0 overflow-hidden">
             <NeuralNetworkField
-              particleCount={100}
-              hubCount={6}
+              particleCount={400}
+              hubCount={12}
             />
           </div>
         )}
