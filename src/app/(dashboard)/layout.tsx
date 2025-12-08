@@ -9,6 +9,7 @@ import { useCommandPalette } from "@/hooks/use-command-palette"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/stores/auth-store"
 import { Loader2 } from "lucide-react"
+import FloatingDialer from "@/components/voice/floating-dialer"
 
 export default function DashboardLayout({
   children,
@@ -102,6 +103,9 @@ export default function DashboardLayout({
     <>
       {/* Command Palette - Global */}
       <CommandPalette isOpen={isCommandPaletteOpen} onClose={closeCommandPalette} />
+
+      {/* Floating Dialer - Global */}
+      <FloatingDialer />
 
       <div className="flex h-screen bg-[#0B0B0B]">
         {/* Sidebar */}
