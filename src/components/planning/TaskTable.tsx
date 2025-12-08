@@ -1,0 +1,266 @@
+'use client'
+
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  ChevronDown,
+  ChevronRight,
+  MoreHorizontal,
+  Edit2,
+  Trash2,
+  Plus,
+  Calendar,
+  User,
+  CheckCircle2,
+  Circle,
+  Link2
+} from 'lucide-react'
+import { Task } from '@/types/planning'
+import PriorityBadge from './PriorityBadge'
+import StatusBadge from './StatusBadge'
+import CategoryBadge from './CategoryBadge'
+import ProgressBar from './ProgressBar'
+import { toast } from 'sonner'
+
+interface TaskTableProps {
+  tasks: Task[]
+  onEdit: (task: Task) => void
+  onDelete: (taskId: string) => void
+  onAddSubtask: (parentId: string) => void
+  onToggleComplete: (taskId: string, completed: boolean) => void
+  onRefresh: () => void
+}
+
+export default function TaskTable({
+  tasks,
+  onEdit,
+  onDelete,
+  onAddSubtask,
+  onToggleComplete,
+  onRefresh
+}: TaskTableProps) {
+  const [expandedTasks, setExpandedTasks] = useState<Set<string>>(new Set())
+  const [updating, setUpdating] = useState<string | null>(null)
+
+  const toggleExpanded = (taskId: string) => {
+    const newExpanded = new Set(expandedTasks)
+    if (newExpanded.has(taskId)) {
+      newExpanded.delete(taskId)
+    } else {
+      newExpanded.add(taskId)
+    }
+    setExpandedTasks(newExpanded)
+  }
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: 'short'
+    })
+  }
+
+  const handleQuickComplete = async (task: Task) => {
+    const newStatus = task.status === 'COMPLETED' ? 'PENDING' : 'COMPLETED'
+    setUpdating(task.id)
+
+    try {
+      const response = await fetch(`/api/planning/tasks/${task.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        onToggleComplete(task.id, newStatus === 'COMPLETED')
+        onRefresh()
+      } else if (data.blockedBy) {
+        toast.error(`Bloqueada por: ${data.blockedBy.join(', ')}`)
+      } else {
+        toast.error(data.error || 'Error al actualizar')
+      }
+    } catch {
+      toast.error('Error al actualizar')
+    } finally {
+      setUpdating(null)
+    }
+  }
+
+  const isOverdue = (dueDate: string) => {
+    return new Date(dueDate) < new Date() && new Date(dueDate).toDateString() !== new Date().toDateString()
+  }
+
+  const renderTask = (task: Task, isSubtask = false, index = 0) => {
+    const hasSubtasks = (task.subtasks && task.subtasks.length > 0) || (task._count?.subtasks && task._count.subtasks > 0)
+    const isExpanded = expandedTasks.has(task.id)
+    const isBlocked = task.dependsOn && task.dependsOn.some(d => d.blockingTask.status !== 'COMPLETED')
+
+    return (
+      <motion.div
+        key={task.id}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.05 }}
+        className={`${isSubtask ? 'ml-8 border-l-2 border-base-300 pl-4' : ''}`}
+      >
+        <div
+          className={`
+            flex items-center gap-3 p-3 rounded-lg transition-colors
+            ${task.status === 'COMPLETED' ? 'bg-success/10' : 'bg-base-200 hover:bg-base-300/50'}
+            ${isBlocked ? 'opacity-70' : ''}
+          `}
+        >
+          {/* Expand/Collapse */}
+          <button
+            onClick={() => hasSubtasks && toggleExpanded(task.id)}
+            className={`btn btn-ghost btn-xs btn-circle ${!hasSubtasks ? 'invisible' : ''}`}
+          >
+            {isExpanded ? (
+              <ChevronDown className="w-4 h-4" />
+            ) : (
+              <ChevronRight className="w-4 h-4" />
+            )}
+          </button>
+
+          {/* Complete Toggle */}
+          <button
+            onClick={() => handleQuickComplete(task)}
+            disabled={updating === task.id || isBlocked}
+            className={`btn btn-ghost btn-xs btn-circle ${isBlocked ? 'cursor-not-allowed' : ''}`}
+            title={isBlocked ? 'Tarea bloqueada' : task.status === 'COMPLETED' ? 'Marcar pendiente' : 'Marcar completada'}
+          >
+            {updating === task.id ? (
+              <span className="loading loading-spinner loading-xs" />
+            ) : task.status === 'COMPLETED' ? (
+              <CheckCircle2 className="w-5 h-5 text-success" />
+            ) : (
+              <Circle className="w-5 h-5 text-base-content/40" />
+            )}
+          </button>
+
+          {/* Title & Info */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className={`font-medium truncate ${task.status === 'COMPLETED' ? 'line-through text-base-content/50' : ''}`}>
+                {task.title}
+              </span>
+              {isBlocked && (
+                <span className="badge badge-error badge-xs">Bloqueada</span>
+              )}
+              {hasSubtasks && (
+                <span className="badge badge-ghost badge-xs">
+                  {task._count?.subtasks || task.subtasks?.length} subtareas
+                </span>
+              )}
+            </div>
+            {task.description && (
+              <p className="text-xs text-base-content/60 truncate mt-0.5">
+                {task.description}
+              </p>
+            )}
+          </div>
+
+          {/* Category */}
+          <CategoryBadge category={task.category} size="sm" />
+
+          {/* Priority */}
+          <PriorityBadge priority={task.priority} size="sm" />
+
+          {/* Status */}
+          <StatusBadge status={task.status} size="sm" />
+
+          {/* Progress */}
+          <div className="w-24">
+            <ProgressBar progress={task.progress} size="sm" />
+          </div>
+
+          {/* Dates */}
+          <div className="flex items-center gap-1 text-xs text-base-content/60 w-28">
+            {task.dueDate && (
+              <span className={`flex items-center gap-1 ${isOverdue(task.dueDate) && task.status !== 'COMPLETED' ? 'text-error' : ''}`}>
+                <Calendar className="w-3 h-3" />
+                {formatDate(task.dueDate)}
+              </span>
+            )}
+          </div>
+
+          {/* Assignee */}
+          <div className="w-24">
+            {task.assignedTo ? (
+              <div className="flex items-center gap-1 text-xs">
+                <User className="w-3 h-3 text-base-content/60" />
+                <span className="truncate">{task.assignedTo.name.split(' ')[0]}</span>
+              </div>
+            ) : (
+              <span className="text-xs text-base-content/40">Sin asignar</span>
+            )}
+          </div>
+
+          {/* Actions Dropdown */}
+          <div className="dropdown dropdown-end">
+            <button tabIndex={0} className="btn btn-ghost btn-xs btn-circle">
+              <MoreHorizontal className="w-4 h-4" />
+            </button>
+            <ul tabIndex={0} className="dropdown-content z-10 menu p-2 shadow-lg bg-base-100 rounded-box w-52">
+              <li>
+                <button onClick={() => onEdit(task)}>
+                  <Edit2 className="w-4 h-4" />
+                  Editar
+                </button>
+              </li>
+              {!isSubtask && (
+                <li>
+                  <button onClick={() => onAddSubtask(task.id)}>
+                    <Plus className="w-4 h-4" />
+                    Agregar Subtarea
+                  </button>
+                </li>
+              )}
+              <li>
+                <button onClick={() => {}}>
+                  <Link2 className="w-4 h-4" />
+                  Gestionar Dependencias
+                </button>
+              </li>
+              <li>
+                <button onClick={() => onDelete(task.id)} className="text-error">
+                  <Trash2 className="w-4 h-4" />
+                  Eliminar
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Subtasks */}
+        <AnimatePresence>
+          {isExpanded && task.subtasks && task.subtasks.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-2 space-y-2"
+            >
+              {task.subtasks.map((subtask, idx) => renderTask(subtask, true, idx))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    )
+  }
+
+  if (tasks.length === 0) {
+    return (
+      <div className="text-center py-12 text-base-content/60">
+        <p>No hay tareas. Crea una nueva para comenzar.</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-2">
+      {tasks.map((task, index) => renderTask(task, false, index))}
+    </div>
+  )
+}

@@ -30,6 +30,9 @@ import {
   Mail,
   Target,
   Sparkles,
+  // KORE Planning
+  ClipboardList,
+  FolderKanban,
   // KORE Drive
   HardDrive,
   Files,
@@ -137,6 +140,17 @@ const modules: NavModule[] = [
       { name: "Email Marketing", href: "/pulse/email", icon: Mail },
       { name: "Audience", href: "/pulse/audience", icon: Target },
       { name: "AI Content", href: "/pulse/ai", icon: Sparkles },
+    ],
+  },
+  {
+    name: "planning",
+    label: "KORE Planning",
+    icon: ClipboardList,
+    description: "Action Plans & Tasks",
+    color: "#10B981",
+    items: [
+      { name: "Overview", href: "/planning", icon: ClipboardList },
+      { name: "Plans", href: "/planning/plans", icon: FolderKanban },
     ],
   },
   {
