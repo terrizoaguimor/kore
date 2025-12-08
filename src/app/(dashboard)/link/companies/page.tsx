@@ -45,7 +45,7 @@ const columns: CRMColumn<CRMAccount>[] = [
     label: "Account #",
     sortable: true,
     render: (account) => (
-      <span className="font-mono text-[#F39C12]">{account.account_no}</span>
+      <span className="font-mono text-[#FFB830]">{account.account_no}</span>
     ),
   },
   {
@@ -54,8 +54,8 @@ const columns: CRMColumn<CRMAccount>[] = [
     sortable: true,
     render: (account) => (
       <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#F39C12]/20">
-          <Building2 className="h-4 w-4 text-[#F39C12]" />
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FFB830]/20">
+          <Building2 className="h-4 w-4 text-[#FFB830]" />
         </div>
         <div>
           <p className="font-medium">{account.account_name}</p>
@@ -64,7 +64,7 @@ const columns: CRMColumn<CRMAccount>[] = [
               href={account.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[#A1A1AA] hover:text-[#F39C12] flex items-center gap-1"
+              className="text-xs text-[#A1A1AA] hover:text-[#FFB830] flex items-center gap-1"
               onClick={(e) => e.stopPropagation()}
             >
               <Globe className="h-3 w-3" />
@@ -227,8 +227,8 @@ export default function CompaniesPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F39C12]/20">
-              <Building2 className="h-5 w-5 text-[#F39C12]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
+              <Building2 className="h-5 w-5 text-[#FFB830]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Companies</h1>
@@ -248,7 +248,7 @@ export default function CompaniesPage() {
           </Button>
           <Button
             onClick={handleNewAccount}
-            className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
+            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Company
@@ -275,7 +275,7 @@ export default function CompaniesPage() {
             <Building2 className="h-4 w-4" />
             <p className="text-sm">Total Companies</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#F39C12]">{loading ? "-" : accounts.length}</p>
+          <p className="mt-1 text-2xl font-bold text-[#FFB830]">{loading ? "-" : accounts.length}</p>
         </div>
         <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
@@ -315,7 +315,7 @@ export default function CompaniesPage() {
           selectedItems={selectedAccounts}
           onSelectionChange={setSelectedAccounts}
           emptyMessage="No companies found. Click 'New Company' to create one."
-          accentColor="#F39C12"
+          accentColor="#FFB830"
         />
       </motion.div>
 

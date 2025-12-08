@@ -31,30 +31,30 @@ export function ModulePageTemplate({
   // Map color to tailwind class for icons
   const getIconColorClass = (color: string) => {
     const colorMap: Record<string, string> = {
-      "#FF6B6B": "text-[#FF6B6B]",
-      "#9B59B6": "text-[#9B59B6]",
-      "#F39C12": "text-[#F39C12]",
+      "#FF4757": "text-[#FF4757]",
       "#00E5FF": "text-[#00E5FF]",
+      "#00D68F": "text-[#00D68F]",
+      "#FFB830": "text-[#FFB830]",
     }
     return colorMap[color] || "text-[#00E5FF]"
   }
 
   const getBgColorClass = (color: string) => {
     const colorMap: Record<string, string> = {
-      "#FF6B6B": "bg-[#FF6B6B]/20",
-      "#9B59B6": "bg-[#9B59B6]/20",
-      "#F39C12": "bg-[#F39C12]/20",
+      "#FF4757": "bg-[#FF4757]/20",
       "#00E5FF": "bg-[#00E5FF]/20",
+      "#00D68F": "bg-[#00D68F]/20",
+      "#FFB830": "bg-[#FFB830]/20",
     }
     return colorMap[color] || "bg-[#00E5FF]/20"
   }
 
   const getBtnColorClass = (color: string) => {
     const colorMap: Record<string, string> = {
-      "#FF6B6B": "bg-[#FF6B6B] hover:bg-[#FF6B6B]/90",
-      "#9B59B6": "bg-[#9B59B6] hover:bg-[#9B59B6]/90",
-      "#F39C12": "bg-[#F39C12] hover:bg-[#F39C12]/90",
+      "#FF4757": "bg-[#FF4757] hover:bg-[#FF4757]/90",
       "#00E5FF": "bg-[#00E5FF] hover:bg-[#00E5FF]/90",
+      "#00D68F": "bg-[#00D68F] hover:bg-[#00D68F]/90",
+      "#FFB830": "bg-[#FFB830] hover:bg-[#FFB830]/90",
     }
     return colorMap[color] || "bg-[#00E5FF] hover:bg-[#00E5FF]/90"
   }

@@ -5,6 +5,16 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X, Calendar, User, Flag, Tag, FileText, Loader2, Sparkles, Wand2 } from 'lucide-react'
 import { TaskPriority, TaskStatus, TaskCategory, Task } from '@/types/planning'
 import { toast } from 'sonner'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 interface TaskModalProps {
   isOpen: boolean
@@ -192,50 +202,53 @@ export default function TaskModal({
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative bg-base-100 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
+          className="relative bg-[#0B0B0B] rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-base-200">
-            <h2 className="text-xl font-bold text-base-content">
+          <div className="flex items-center justify-between p-6 border-b border-[#2A2A2A]">
+            <h2 className="text-xl font-bold text-white">
               {task ? 'Editar Tarea' : 'Nueva Tarea'}
             </h2>
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={onClose}
-              className="btn btn-ghost btn-sm btn-circle"
+              className="h-8 w-8"
             >
               <X className="w-5 h-5" />
-            </button>
+            </Button>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-6">
             {/* Title */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Titulo *</span>
-              </label>
-              <input
+            <div className="space-y-2">
+              <Label htmlFor="title" className="text-white font-medium">Titulo *</Label>
+              <Input
+                id="title"
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="input input-bordered w-full"
+                className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white"
                 placeholder="Nombre de la tarea"
                 required
               />
             </div>
 
             {/* Description with AI */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium flex items-center gap-2">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="description" className="text-white font-medium flex items-center gap-2">
                   <FileText className="w-4 h-4" />
                   Descripcion
-                </span>
-                <button
+                </Label>
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="sm"
                   onClick={handleImproveWithAI}
                   disabled={aiLoading || !formData.title.trim()}
-                  className="btn btn-ghost btn-xs gap-1 text-primary hover:bg-primary/10"
+                  className="gap-1 text-[#00E5FF] hover:bg-[#00E5FF]/10 h-7 text-xs"
                 >
                   {aiLoading ? (
                     <>
@@ -248,12 +261,13 @@ export default function TaskModal({
                       Mejorar con IA
                     </>
                   )}
-                </button>
-              </label>
+                </Button>
+              </div>
               <textarea
+                id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="textarea textarea-bordered h-24"
+                className="w-full h-24 px-3 py-2 rounded-md bg-[#1F1F1F] border border-[#2A2A2A] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF] focus:border-transparent resize-none"
                 placeholder="Descripcion de la tarea..."
               />
             </div>
@@ -263,23 +277,25 @@ export default function TaskModal({
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-primary/5 border border-primary/20 rounded-xl p-4"
+                className="bg-[#00E5FF]/5 border border-[#00E5FF]/20 rounded-xl p-4"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                  <span className="font-medium text-sm text-primary">Sugerencias de IA</span>
-                  <button
+                  <Sparkles className="w-4 h-4 text-[#00E5FF]" />
+                  <span className="font-medium text-sm text-[#00E5FF]">Sugerencias de IA</span>
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     onClick={() => setShowAiSuggestions(false)}
-                    className="ml-auto btn btn-ghost btn-xs btn-circle"
+                    className="ml-auto h-6 w-6"
                   >
                     <X className="w-3 h-3" />
-                  </button>
+                  </Button>
                 </div>
                 <ul className="space-y-2">
                   {aiSuggestions.map((suggestion, index) => (
-                    <li key={index} className="flex items-start gap-2 text-sm text-base-content/80">
-                      <span className="text-primary mt-0.5">•</span>
+                    <li key={index} className="flex items-start gap-2 text-sm text-white/80">
+                      <span className="text-[#00E5FF] mt-0.5">•</span>
                       {suggestion}
                     </li>
                   ))}
@@ -289,128 +305,120 @@ export default function TaskModal({
 
             {/* Priority, Status, Category */}
             <div className="grid grid-cols-3 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium flex items-center gap-2">
-                    <Flag className="w-4 h-4" />
-                    Prioridad
-                  </span>
-                </label>
-                <select
-                  value={formData.priority}
-                  onChange={(e) => setFormData({ ...formData, priority: e.target.value as TaskPriority })}
-                  className="select select-bordered w-full"
-                >
-                  {priorities.map(p => (
-                    <option key={p.value} value={p.value}>{p.label}</option>
-                  ))}
-                </select>
+              <div className="space-y-2">
+                <Label className="text-white font-medium flex items-center gap-2">
+                  <Flag className="w-4 h-4" />
+                  Prioridad
+                </Label>
+                <Select value={formData.priority} onValueChange={(value) => setFormData({ ...formData, priority: value as TaskPriority })}>
+                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                    {priorities.map(p => (
+                      <SelectItem key={p.value} value={p.value} className="text-white">{p.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium">Estado</span>
-                </label>
-                <select
-                  value={formData.status}
-                  onChange={(e) => setFormData({ ...formData, status: e.target.value as TaskStatus })}
-                  className="select select-bordered w-full"
-                >
-                  {statuses.map(s => (
-                    <option key={s.value} value={s.value}>{s.label}</option>
-                  ))}
-                </select>
+              <div className="space-y-2">
+                <Label className="text-white font-medium">Estado</Label>
+                <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value as TaskStatus })}>
+                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                    {statuses.map(s => (
+                      <SelectItem key={s.value} value={s.value} className="text-white">{s.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium flex items-center gap-2">
-                    <Tag className="w-4 h-4" />
-                    Categoria
-                  </span>
-                </label>
-                <select
-                  value={formData.category}
-                  onChange={(e) => setFormData({ ...formData, category: e.target.value as TaskCategory })}
-                  className="select select-bordered w-full"
-                >
-                  {categories.map(c => (
-                    <option key={c.value} value={c.value}>{c.label}</option>
-                  ))}
-                </select>
+              <div className="space-y-2">
+                <Label className="text-white font-medium flex items-center gap-2">
+                  <Tag className="w-4 h-4" />
+                  Categoria
+                </Label>
+                <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value as TaskCategory })}>
+                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                    {categories.map(c => (
+                      <SelectItem key={c.value} value={c.value} className="text-white">{c.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
             {/* Dates */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Fecha Inicio
-                  </span>
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="startDate" className="text-white font-medium flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  Fecha Inicio
+                </Label>
+                <Input
+                  id="startDate"
                   type="date"
                   value={formData.startDate}
                   onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                  className="input input-bordered w-full"
+                  className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white"
                 />
               </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Fecha Vencimiento
-                  </span>
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="dueDate" className="text-white font-medium flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  Fecha Vencimiento
+                </Label>
+                <Input
+                  id="dueDate"
                   type="date"
                   value={formData.dueDate}
                   onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                  className="input input-bordered w-full"
+                  className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white"
                 />
               </div>
             </div>
 
             {/* Assigned To */}
             {users.length > 0 && (
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text font-medium flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    Asignar a
-                  </span>
-                </label>
-                <select
-                  value={formData.assignedToId}
-                  onChange={(e) => setFormData({ ...formData, assignedToId: e.target.value })}
-                  className="select select-bordered w-full"
-                >
-                  <option value="">Sin asignar</option>
-                  {users.map(u => (
-                    <option key={u.id} value={u.id}>{u.name}</option>
-                  ))}
-                </select>
+              <div className="space-y-2">
+                <Label className="text-white font-medium flex items-center gap-2">
+                  <User className="w-4 h-4" />
+                  Asignar a
+                </Label>
+                <Select value={formData.assignedToId} onValueChange={(value) => setFormData({ ...formData, assignedToId: value })}>
+                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                    <SelectValue placeholder="Sin asignar" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                    <SelectItem value="" className="text-white">Sin asignar</SelectItem>
+                    {users.map(u => (
+                      <SelectItem key={u.id} value={u.id} className="text-white">{u.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             )}
 
             {/* Progress */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Progreso: {formData.progress}%</span>
-              </label>
+            <div className="space-y-2">
+              <Label className="text-white font-medium">Progreso: {formData.progress}%</Label>
               <input
                 type="range"
                 min="0"
                 max="100"
                 value={formData.progress}
                 onChange={(e) => setFormData({ ...formData, progress: parseInt(e.target.value) })}
-                className="range range-primary"
+                className="w-full h-2 bg-[#2A2A2A] rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00E5FF] [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#00E5FF] [&::-moz-range-thumb]:border-0"
                 step="10"
               />
-              <div className="w-full flex justify-between text-xs px-2 mt-1">
+              <div className="w-full flex justify-between text-xs px-2 text-[#A1A1AA]">
                 <span>0%</span>
                 <span>25%</span>
                 <span>50%</span>
@@ -420,31 +428,30 @@ export default function TaskModal({
             </div>
 
             {/* Notes */}
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text font-medium">Notas</span>
-              </label>
+            <div className="space-y-2">
+              <Label htmlFor="notes" className="text-white font-medium">Notas</Label>
               <textarea
+                id="notes"
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                className="textarea textarea-bordered h-20"
+                className="w-full h-20 px-3 py-2 rounded-md bg-[#1F1F1F] border border-[#2A2A2A] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF] focus:border-transparent resize-none"
                 placeholder="Notas adicionales..."
               />
             </div>
 
             {/* Actions */}
-            <div className="flex justify-end gap-3 pt-4 border-t border-base-200">
-              <button
+            <div className="flex justify-end gap-3 pt-4 border-t border-[#2A2A2A]">
+              <Button
                 type="button"
+                variant="ghost"
                 onClick={onClose}
-                className="btn btn-ghost"
                 disabled={loading}
               >
                 Cancelar
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
-                className="btn btn-primary"
+                className="bg-[#00E5FF] text-black hover:bg-[#00E5FF]/90"
                 disabled={loading}
               >
                 {loading ? (
@@ -455,7 +462,7 @@ export default function TaskModal({
                 ) : (
                   task ? 'Actualizar' : 'Crear Tarea'
                 )}
-              </button>
+              </Button>
             </div>
           </form>
         </motion.div>

@@ -243,7 +243,7 @@ export default function WhatsAppPage() {
   const [selectedConversation, setSelectedConversation] = useState<WhatsAppConversation | null>(null)
   const [messages, setMessages] = useState<WhatsAppMessage[]>([])
 
-  const accentColor = "#25D366"
+  const accentColor = "#00D68F"
 
   const handleSelectConversation = (conversation: WhatsAppConversation) => {
     setSelectedConversation(conversation)

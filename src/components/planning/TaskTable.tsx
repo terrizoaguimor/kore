@@ -13,7 +13,8 @@ import {
   User,
   CheckCircle2,
   Circle,
-  Link2
+  Link2,
+  Loader2
 } from 'lucide-react'
 import { Task } from '@/types/planning'
 import PriorityBadge from './PriorityBadge'
@@ -21,6 +22,13 @@ import StatusBadge from './StatusBadge'
 import CategoryBadge from './CategoryBadge'
 import ProgressBar from './ProgressBar'
 import { toast } from 'sonner'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 interface TaskTableProps {
   tasks: Task[]
@@ -102,60 +110,64 @@ export default function TaskTable({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
-        className={`${isSubtask ? 'ml-8 border-l-2 border-base-300 pl-4' : ''}`}
+        className={`${isSubtask ? 'ml-8 border-l-2 border-[#2A2A2A] pl-4' : ''}`}
       >
         <div
           className={`
             flex items-center gap-3 p-3 rounded-lg transition-colors
-            ${task.status === 'COMPLETED' ? 'bg-success/10' : 'bg-base-200 hover:bg-base-300/50'}
+            ${task.status === 'COMPLETED' ? 'bg-[#00D68F]/10' : 'bg-[#1F1F1F] hover:bg-[#2A2A2A]/50'}
             ${isBlocked ? 'opacity-70' : ''}
           `}
         >
           {/* Expand/Collapse */}
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => hasSubtasks && toggleExpanded(task.id)}
-            className={`btn btn-ghost btn-xs btn-circle ${!hasSubtasks ? 'invisible' : ''}`}
+            className={`h-8 w-8 ${!hasSubtasks ? 'invisible' : ''}`}
           >
             {isExpanded ? (
               <ChevronDown className="w-4 h-4" />
             ) : (
               <ChevronRight className="w-4 h-4" />
             )}
-          </button>
+          </Button>
 
           {/* Complete Toggle */}
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => handleQuickComplete(task)}
             disabled={updating === task.id || isBlocked}
-            className={`btn btn-ghost btn-xs btn-circle ${isBlocked ? 'cursor-not-allowed' : ''}`}
+            className={`h-8 w-8 ${isBlocked ? 'cursor-not-allowed' : ''}`}
             title={isBlocked ? 'Tarea bloqueada' : task.status === 'COMPLETED' ? 'Marcar pendiente' : 'Marcar completada'}
           >
             {updating === task.id ? (
-              <span className="loading loading-spinner loading-xs" />
+              <Loader2 className="w-4 h-4 animate-spin" />
             ) : task.status === 'COMPLETED' ? (
-              <CheckCircle2 className="w-5 h-5 text-success" />
+              <CheckCircle2 className="w-5 h-5 text-[#00D68F]" />
             ) : (
-              <Circle className="w-5 h-5 text-base-content/40" />
+              <Circle className="w-5 h-5 text-white/40" />
             )}
-          </button>
+          </Button>
 
           {/* Title & Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className={`font-medium truncate ${task.status === 'COMPLETED' ? 'line-through text-base-content/50' : ''}`}>
+              <span className={`font-medium truncate ${task.status === 'COMPLETED' ? 'line-through text-white/50' : 'text-white'}`}>
                 {task.title}
               </span>
               {isBlocked && (
-                <span className="badge badge-error badge-xs">Bloqueada</span>
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#FF4757]/20 text-[#FF4757]">Bloqueada</span>
               )}
               {hasSubtasks && (
-                <span className="badge badge-ghost badge-xs">
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#2A2A2A] text-[#A1A1AA]">
                   {task._count?.subtasks || task.subtasks?.length} subtareas
                 </span>
               )}
             </div>
             {task.description && (
-              <p className="text-xs text-base-content/60 truncate mt-0.5">
+              <p className="text-xs text-[#A1A1AA] truncate mt-0.5">
                 {task.description}
               </p>
             )}
@@ -176,9 +188,9 @@ export default function TaskTable({
           </div>
 
           {/* Dates */}
-          <div className="flex items-center gap-1 text-xs text-base-content/60 w-28">
+          <div className="flex items-center gap-1 text-xs text-[#A1A1AA] w-28">
             {task.dueDate && (
-              <span className={`flex items-center gap-1 ${isOverdue(task.dueDate) && task.status !== 'COMPLETED' ? 'text-error' : ''}`}>
+              <span className={`flex items-center gap-1 ${isOverdue(task.dueDate) && task.status !== 'COMPLETED' ? 'text-[#FF4757]' : ''}`}>
                 <Calendar className="w-3 h-3" />
                 {formatDate(task.dueDate)}
               </span>
@@ -188,49 +200,43 @@ export default function TaskTable({
           {/* Assignee */}
           <div className="w-24">
             {task.assignedTo ? (
-              <div className="flex items-center gap-1 text-xs">
-                <User className="w-3 h-3 text-base-content/60" />
+              <div className="flex items-center gap-1 text-xs text-white">
+                <User className="w-3 h-3 text-[#A1A1AA]" />
                 <span className="truncate">{task.assignedTo.name.split(' ')[0]}</span>
               </div>
             ) : (
-              <span className="text-xs text-base-content/40">Sin asignar</span>
+              <span className="text-xs text-white/40">Sin asignar</span>
             )}
           </div>
 
           {/* Actions Dropdown */}
-          <div className="dropdown dropdown-end">
-            <button tabIndex={0} className="btn btn-ghost btn-xs btn-circle">
-              <MoreHorizontal className="w-4 h-4" />
-            </button>
-            <ul tabIndex={0} className="dropdown-content z-10 menu p-2 shadow-lg bg-base-100 rounded-box w-52">
-              <li>
-                <button onClick={() => onEdit(task)}>
-                  <Edit2 className="w-4 h-4" />
-                  Editar
-                </button>
-              </li>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-8 w-8">
+                <MoreHorizontal className="w-4 h-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-52 bg-[#0B0B0B] border-[#2A2A2A]">
+              <DropdownMenuItem onClick={() => onEdit(task)} className="cursor-pointer">
+                <Edit2 className="w-4 h-4 mr-2" />
+                Editar
+              </DropdownMenuItem>
               {!isSubtask && (
-                <li>
-                  <button onClick={() => onAddSubtask(task.id)}>
-                    <Plus className="w-4 h-4" />
-                    Agregar Subtarea
-                  </button>
-                </li>
+                <DropdownMenuItem onClick={() => onAddSubtask(task.id)} className="cursor-pointer">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Agregar Subtarea
+                </DropdownMenuItem>
               )}
-              <li>
-                <button onClick={() => {}}>
-                  <Link2 className="w-4 h-4" />
-                  Gestionar Dependencias
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onDelete(task.id)} className="text-error">
-                  <Trash2 className="w-4 h-4" />
-                  Eliminar
-                </button>
-              </li>
-            </ul>
-          </div>
+              <DropdownMenuItem onClick={() => {}} className="cursor-pointer">
+                <Link2 className="w-4 h-4 mr-2" />
+                Gestionar Dependencias
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => onDelete(task.id)} className="cursor-pointer text-[#FF4757]">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Eliminar
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Subtasks */}
@@ -252,7 +258,7 @@ export default function TaskTable({
 
   if (tasks.length === 0) {
     return (
-      <div className="text-center py-12 text-base-content/60">
+      <div className="text-center py-12 text-[#A1A1AA]">
         <p>No hay tareas. Crea una nueva para comenzar.</p>
       </div>
     )

@@ -58,7 +58,7 @@ const statusConfig: Record<string, { label: string; color: string }> = {
 export function CallLogs({
   calls,
   isLoading = false,
-  accentColor = "#10B981",
+  accentColor = "#00E5FF",
   onCallBack,
   onViewDetails,
 }: CallLogsProps) {

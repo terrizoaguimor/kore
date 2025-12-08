@@ -118,7 +118,7 @@ export default function CampaignsPage() {
   const [showAnalytics, setShowAnalytics] = useState(false)
   const [analyticsData, setAnalyticsData] = useState<CampaignAnalyticsType | null>(null)
 
-  const accentColor = "#FF6B6B"
+  const accentColor = "#FF4757"
 
   // Load campaigns from Supabase
   useEffect(() => {

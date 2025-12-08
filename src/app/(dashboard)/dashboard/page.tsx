@@ -32,7 +32,7 @@ const modules = [
     description: "Marketing & Social Media",
     icon: Activity,
     href: "/pulse",
-    color: "#FF6B6B",
+    color: "#FF4757",
     stats: { label: "Campaigns", value: "12" },
   },
   {
@@ -40,7 +40,7 @@ const modules = [
     description: "Telephony & Communications",
     icon: Phone,
     href: "/voice",
-    color: "#9B59B6",
+    color: "#00E5FF",
     stats: { label: "Calls Today", value: "48" },
   },
   {
@@ -48,7 +48,7 @@ const modules = [
     description: "CRM & Relationships",
     icon: Link2,
     href: "/link",
-    color: "#F39C12",
+    color: "#FFB830",
     stats: { label: "Contacts", value: "892" },
   },
 ]

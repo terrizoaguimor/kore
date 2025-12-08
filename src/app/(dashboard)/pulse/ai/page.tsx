@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast"
 
 export default function AIContentPage() {
   const { toast } = useToast()
-  const accentColor = "#FF6B6B"
+  const accentColor = "#FF4757"
 
   const handleContentGenerated = (content: string) => {
     toast({

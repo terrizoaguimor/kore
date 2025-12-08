@@ -9,7 +9,7 @@ export default function AnalyticsPage() {
       title="Analytics"
       description="Deep dive into your marketing performance data"
       icon={BarChart3}
-      iconColor="#FF6B6B"
+      iconColor="#FF4757"
       backHref="/pulse"
       backLabel="Back to Pulse"
     />

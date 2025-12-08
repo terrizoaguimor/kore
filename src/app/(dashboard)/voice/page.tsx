@@ -50,7 +50,7 @@ const modules = [
     icon: MessageCircle,
     href: "/voice/whatsapp",
     count: "12 Activos",
-    color: "#25D366",
+    color: "#00D68F",
   },
   {
     name: "Centro de Llamadas",
@@ -58,7 +58,7 @@ const modules = [
     icon: PhoneCall,
     href: "/voice/calls",
     count: "3 Activas",
-    color: "#9B59B6",
+    color: "#00E5FF",
   },
   {
     name: "Llamadas Entrantes",
@@ -66,7 +66,7 @@ const modules = [
     icon: PhoneIncoming,
     href: "/voice/incoming",
     count: "24 Hoy",
-    color: "#9B59B6",
+    color: "#00E5FF",
   },
   {
     name: "Llamadas Salientes",
@@ -74,7 +74,7 @@ const modules = [
     icon: PhoneOutgoing,
     href: "/voice/outgoing",
     count: "21 Hoy",
-    color: "#9B59B6",
+    color: "#00E5FF",
   },
   {
     name: "Buzón de Voz",
@@ -82,7 +82,7 @@ const modules = [
     icon: Voicemail,
     href: "/voice/voicemail",
     count: "5 Nuevos",
-    color: "#9B59B6",
+    color: "#00E5FF",
   },
 ]
 
@@ -100,7 +100,7 @@ const recentWhatsApp = [
 ]
 
 export default function VoicePage() {
-  const accentColor = "#9B59B6"
+  const accentColor = "#00E5FF"
 
   return (
     <div className="min-h-full bg-[#0B0B0B] p-6">
@@ -112,8 +112,8 @@ export default function VoicePage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#9B59B6]/20">
-              <Phone className="h-5 w-5 text-[#9B59B6]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#00E5FF]/20">
+              <Phone className="h-5 w-5 text-[#00E5FF]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">KORE Voice</h1>
@@ -123,7 +123,7 @@ export default function VoicePage() {
         </motion.div>
         <Link
           href="/voice/whatsapp"
-          className="flex items-center gap-2 rounded-lg bg-[#25D366] px-4 py-2 text-sm font-medium text-white hover:bg-[#25D366]/90 transition-colors"
+          className="flex items-center gap-2 rounded-lg bg-[#00D68F] px-4 py-2 text-sm font-medium text-white hover:bg-[#00D68F]/90 transition-colors"
         >
           <MessageCircle className="h-4 w-4" />
           WhatsApp
@@ -146,7 +146,7 @@ export default function VoicePage() {
             >
               <div className="flex items-center justify-between">
                 <Icon className="h-5 w-5 text-[#A1A1AA]" />
-                <span className="text-xs font-medium text-[#9B59B6]">
+                <span className="text-xs font-medium text-[#00E5FF]">
                   {stat.change}
                 </span>
               </div>
@@ -198,7 +198,7 @@ export default function VoicePage() {
         >
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Llamadas Recientes</h2>
-            <Link href="/voice/calls" className="text-sm text-[#9B59B6] hover:underline">
+            <Link href="/voice/calls" className="text-sm text-[#00E5FF] hover:underline">
               Ver todas
             </Link>
           </div>
@@ -246,7 +246,7 @@ export default function VoicePage() {
         >
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Chats WhatsApp</h2>
-            <Link href="/voice/whatsapp" className="text-sm text-[#25D366] hover:underline">
+            <Link href="/voice/whatsapp" className="text-sm text-[#00D68F] hover:underline">
               Ver todos
             </Link>
           </div>
@@ -254,8 +254,8 @@ export default function VoicePage() {
             {recentWhatsApp.map((chat, index) => (
               <div key={index} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366]/20">
-                    <span className="text-sm font-medium text-[#25D366]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#00D68F]/20">
+                    <span className="text-sm font-medium text-[#00D68F]">
                       {chat.name.split(' ').map(n => n[0]).join('')}
                     </span>
                   </div>
@@ -267,7 +267,7 @@ export default function VoicePage() {
                 <div className="flex items-center gap-3">
                   <span className="text-xs text-[#A1A1AA]">{chat.time}</span>
                   {chat.unread > 0 && (
-                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#25D366] text-xs font-medium text-white">
+                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#00D68F] text-xs font-medium text-white">
                       {chat.unread}
                     </span>
                   )}

@@ -9,7 +9,7 @@ export default function AudiencePage() {
       title="Audience"
       description="Understand and segment your audience for targeted campaigns"
       icon={Target}
-      iconColor="#FF6B6B"
+      iconColor="#FF4757"
       backHref="/pulse"
       backLabel="Back to Pulse"
       actionLabel="New Segment"

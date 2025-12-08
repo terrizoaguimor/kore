@@ -9,7 +9,7 @@ export default function EmailMarketingPage() {
       title="Email Marketing"
       description="Create, schedule and send email campaigns"
       icon={Mail}
-      iconColor="#FF6B6B"
+      iconColor="#FF4757"
       backHref="/pulse"
       backLabel="Back to Pulse"
       actionLabel="New Email"

@@ -36,7 +36,7 @@ const columns: CRMColumn<CRMDeal>[] = [
     label: "Deal #",
     sortable: true,
     render: (deal) => (
-      <span className="font-mono text-[#F39C12]">{deal.deal_no}</span>
+      <span className="font-mono text-[#FFB830]">{deal.deal_no}</span>
     ),
   },
   {
@@ -72,7 +72,7 @@ const columns: CRMColumn<CRMDeal>[] = [
       <div className="flex items-center gap-2">
         <div className="h-2 w-16 rounded-full bg-[#2A2A2A]">
           <div
-            className="h-full rounded-full bg-[#F39C12]"
+            className="h-full rounded-full bg-[#FFB830]"
             style={{ width: `${deal.probability}%` }}
           />
         </div>
@@ -203,8 +203,8 @@ export default function DealsPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F39C12]/20">
-              <Briefcase className="h-5 w-5 text-[#F39C12]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
+              <Briefcase className="h-5 w-5 text-[#FFB830]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Deals</h1>
@@ -224,7 +224,7 @@ export default function DealsPage() {
           </Button>
           <Button
             onClick={handleNewDeal}
-            className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
+            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Deal
@@ -251,7 +251,7 @@ export default function DealsPage() {
             <TrendingUp className="h-4 w-4" />
             <p className="text-sm">Pipeline Value</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#F39C12]">
+          <p className="mt-1 text-2xl font-bold text-[#FFB830]">
             {loading ? "-" : formatCurrency(pipelineStats.total_value - pipelineStats.won_value - pipelineStats.lost_value)}
           </p>
         </div>
@@ -288,7 +288,7 @@ export default function DealsPage() {
         <h3 className="mb-4 text-sm font-medium text-[#A1A1AA]">Pipeline Stages</h3>
         <div className="flex gap-2">
           {pipelineStats.by_stage.map((stageData) => {
-            const stageColor = stageData.stage === "Closed Won" ? "#10B981" : stageData.stage === "Closed Lost" ? "#EF4444" : "#F39C12"
+            const stageColor = stageData.stage === "Closed Won" ? "#00D68F" : stageData.stage === "Closed Lost" ? "#FF4757" : "#FFB830"
 
             return (
               <div key={stageData.stage} className="flex-1 rounded-lg bg-[#2A2A2A] p-3">
@@ -320,7 +320,7 @@ export default function DealsPage() {
           selectedItems={selectedDeals}
           onSelectionChange={setSelectedDeals}
           emptyMessage="No deals found. Click 'New Deal' to create one."
-          accentColor="#F39C12"
+          accentColor="#FFB830"
         />
       </motion.div>
 

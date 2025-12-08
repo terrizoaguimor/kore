@@ -121,10 +121,10 @@ const demoAutomations: MarketingAutomation[] = [
 ]
 
 const statusConfig = {
-  draft: { label: 'Borrador', color: 'bg-gray-500/20 text-gray-400' },
-  active: { label: 'Activa', color: 'bg-green-500/20 text-green-400' },
-  paused: { label: 'Pausada', color: 'bg-yellow-500/20 text-yellow-400' },
-  error: { label: 'Error', color: 'bg-red-500/20 text-red-400' },
+  draft: { label: 'Borrador', color: 'bg-[#71717A]/20 text-[#A1A1AA]' },
+  active: { label: 'Activa', color: 'bg-[#00D68F]/20 text-[#00D68F]' },
+  paused: { label: 'Pausada', color: 'bg-[#FFB830]/20 text-[#FFB830]' },
+  error: { label: 'Error', color: 'bg-[#FF4757]/20 text-[#FF4757]' },
 }
 
 export default function AutomationPage() {
@@ -133,7 +133,7 @@ export default function AutomationPage() {
   const [isBuilderOpen, setIsBuilderOpen] = useState(false)
   const [selectedAutomation, setSelectedAutomation] = useState<MarketingAutomation | null>(null)
 
-  const accentColor = "#FF6B6B"
+  const accentColor = "#FF4757"
 
   const handleCreate = () => {
     setSelectedAutomation(null)
@@ -266,7 +266,7 @@ export default function AutomationPage() {
           <p className="text-2xl font-bold text-white">{automations.length}</p>
         </div>
         <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
-          <p className="text-green-400 text-sm">Activas</p>
+          <p className="text-[#00D68F] text-sm">Activas</p>
           <p className="text-2xl font-bold text-white">
             {automations.filter(a => a.status === 'active').length}
           </p>
@@ -361,7 +361,7 @@ export default function AutomationPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleStatusChange(automation.id, 'paused')}
-                        className="text-yellow-400 hover:text-yellow-300 hover:bg-yellow-500/10"
+                        className="text-[#FFB830] hover:text-[#FFB830]/80 hover:bg-[#FFB830]/10"
                       >
                         <Pause className="h-4 w-4" />
                       </Button>
@@ -370,7 +370,7 @@ export default function AutomationPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleStatusChange(automation.id, 'active')}
-                        className="text-green-400 hover:text-green-300 hover:bg-green-500/10"
+                        className="text-[#00D68F] hover:text-[#00D68F]/80 hover:bg-[#00D68F]/10"
                       >
                         <Play className="h-4 w-4" />
                       </Button>
@@ -393,7 +393,7 @@ export default function AutomationPage() {
                         <DropdownMenuSeparator className="bg-[#2A2A2A]" />
                         <DropdownMenuItem
                           onClick={() => handleDelete(automation.id)}
-                          className="text-red-400 hover:bg-red-500/10"
+                          className="text-[#FF4757] hover:bg-[#FF4757]/10"
                         >
                           <Trash2 className="mr-2 h-4 w-4" />
                           Eliminar

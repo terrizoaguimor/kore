@@ -60,10 +60,10 @@ const roleIcons: Record<string, typeof Crown> = {
 }
 
 const roleColors: Record<string, string> = {
-  owner: "bg-yellow-500/10 text-yellow-500",
-  admin: "bg-blue-500/10 text-blue-500",
-  member: "bg-green-500/10 text-green-500",
-  guest: "bg-gray-500/10 text-gray-500",
+  owner: "bg-[#FFB830]/10 text-[#FFB830]",
+  admin: "bg-[#00E5FF]/10 text-[#00E5FF]",
+  member: "bg-[#00D68F]/10 text-[#00D68F]",
+  guest: "bg-[#A1A1AA]/10 text-[#A1A1AA]",
 }
 
 export default function OrganizationSettingsPage() {

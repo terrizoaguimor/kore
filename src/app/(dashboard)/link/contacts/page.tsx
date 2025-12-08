@@ -38,7 +38,7 @@ export default function CRMContactsPage() {
       label: "Contact #",
       sortable: true,
       render: (contact) => (
-        <span className="font-mono text-[#F39C12]">{contact.contact_no}</span>
+        <span className="font-mono text-[#FFB830]">{contact.contact_no}</span>
       ),
     },
     {
@@ -47,8 +47,8 @@ export default function CRMContactsPage() {
       sortable: true,
       render: (contact) => (
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F39C12]/20">
-            <UserCircle className="h-4 w-4 text-[#F39C12]" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFB830]/20">
+            <UserCircle className="h-4 w-4 text-[#FFB830]" />
           </div>
           <div>
             <p className="font-medium">
@@ -201,8 +201,8 @@ export default function CRMContactsPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F39C12]/20">
-              <UserCircle className="h-5 w-5 text-[#F39C12]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
+              <UserCircle className="h-5 w-5 text-[#FFB830]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Contacts</h1>
@@ -222,7 +222,7 @@ export default function CRMContactsPage() {
           </Button>
           <Button
             onClick={handleNewContact}
-            className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
+            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Contact
@@ -249,7 +249,7 @@ export default function CRMContactsPage() {
             <UserCircle className="h-4 w-4" />
             <p className="text-sm">Total Contacts</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#F39C12]">{loading ? "-" : totalContacts}</p>
+          <p className="mt-1 text-2xl font-bold text-[#FFB830]">{loading ? "-" : totalContacts}</p>
         </div>
         <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
@@ -288,7 +288,7 @@ export default function CRMContactsPage() {
           selectedItems={selectedContacts}
           onSelectionChange={setSelectedContacts}
           emptyMessage="No contacts found. Click 'New Contact' to create one."
-          accentColor="#F39C12"
+          accentColor="#FFB830"
         />
       </motion.div>
 

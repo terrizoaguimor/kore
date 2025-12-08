@@ -198,7 +198,7 @@ export default function CallsPage() {
   const { toast } = useToast()
   const [calls] = useState(demoCallLogs as unknown as VoiceCallLog[])
 
-  const accentColor = "#9B59B6"
+  const accentColor = "#00E5FF"
 
   const handleCallBack = (phoneNumber: string) => {
     toast({

@@ -9,7 +9,7 @@ export default function SocialMediaPage() {
       title="Social Media"
       description="Manage your social media presence across all platforms"
       icon={Share2}
-      iconColor="#FF6B6B"
+      iconColor="#FF4757"
       backHref="/pulse"
       backLabel="Back to Pulse"
       actionLabel="Connect Account"

@@ -239,7 +239,7 @@ export default function TemplatesPage() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingTemplate, setEditingTemplate] = useState<MarketingTemplate | null>(null)
 
-  const accentColor = "#FF6B6B"
+  const accentColor = "#FF4757"
 
   // Form state
   const [formData, setFormData] = useState({

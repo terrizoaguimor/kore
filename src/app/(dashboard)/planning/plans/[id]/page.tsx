@@ -14,8 +14,10 @@ import {
   CheckSquare,
   BarChart3,
   List,
-  LayoutGrid
+  LayoutGrid,
+  Loader2
 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import TaskTable from '@/components/planning/TaskTable'
 import TaskModal from '@/components/planning/TaskModal'
 import ProgressBar from '@/components/planning/ProgressBar'
@@ -144,16 +146,16 @@ export default function PlanDetailPage() {
   }
 
   const statusConfig: Record<ActionPlanStatus, { label: string; className: string }> = {
-    DRAFT: { label: 'Borrador', className: 'badge-ghost' },
-    ACTIVE: { label: 'Activo', className: 'badge-success' },
-    COMPLETED: { label: 'Completado', className: 'badge-info' },
-    ARCHIVED: { label: 'Archivado', className: 'badge-warning' }
+    DRAFT: { label: 'Borrador', className: 'bg-[#27272A] text-[#A1A1AA] border border-[#3F3F46]' },
+    ACTIVE: { label: 'Activo', className: 'bg-[#00D68F]/10 text-[#00D68F] border border-[#00D68F]/20' },
+    COMPLETED: { label: 'Completado', className: 'bg-[#00E5FF]/10 text-[#00E5FF] border border-[#00E5FF]/20' },
+    ARCHIVED: { label: 'Archivado', className: 'bg-[#FFB830]/10 text-[#FFB830] border border-[#FFB830]/20' }
   }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <span className="loading loading-spinner loading-lg"></span>
+        <Loader2 className="w-8 h-8 animate-spin text-[#00E5FF]" />
       </div>
     )
   }
@@ -170,52 +172,59 @@ export default function PlanDetailPage() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <Link
-            href="/planning/plans"
-            className="btn btn-ghost btn-sm gap-2 mb-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Volver a Planes
-          </Link>
+          <Button variant="ghost" size="sm" className="gap-2 mb-2" asChild>
+            <Link href="/planning/plans">
+              <ArrowLeft className="w-4 h-4" />
+              Volver a Planes
+            </Link>
+          </Button>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-base-content">{plan.name}</h1>
-            <span className={`badge ${statusConfig[plan.status].className}`}>
+            <h1 className="text-2xl font-bold text-white">{plan.name}</h1>
+            <span className={`px-2.5 py-1 text-xs font-medium rounded-md ${statusConfig[plan.status].className}`}>
               {statusConfig[plan.status].label}
             </span>
-            <span className="text-2xl font-bold text-primary">{plan.year}</span>
+            <span className="text-2xl font-bold text-[#00E5FF]">{plan.year}</span>
           </div>
           {plan.description && (
-            <p className="text-base-content/60 mt-1">{plan.description}</p>
+            <p className="text-[#A1A1AA] mt-1">{plan.description}</p>
           )}
         </div>
 
         <div className="flex gap-2">
-          <button
+          <Button
             onClick={fetchPlan}
-            className="btn btn-outline btn-sm gap-2"
+            variant="outline"
+            size="sm"
+            className="gap-2"
           >
             <RefreshCw className="w-4 h-4" />
-          </button>
-          <div className="dropdown dropdown-end">
-            <button tabIndex={0} className="btn btn-outline btn-sm gap-2">
+          </Button>
+          <div className="relative group">
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+            >
               <Settings className="w-4 h-4" />
-            </button>
-            <ul tabIndex={0} className="dropdown-content z-10 menu p-2 shadow-lg bg-base-100 rounded-box w-52">
-              <li>
-                <button onClick={handleDeletePlan} className="text-error">
-                  <Trash2 className="w-4 h-4" />
-                  Eliminar Plan
-                </button>
-              </li>
-            </ul>
+            </Button>
+            <div className="absolute right-0 top-full mt-2 w-52 bg-[#0B0B0B] border border-[#27272A] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+              <button
+                onClick={handleDeletePlan}
+                className="w-full px-4 py-2 text-left text-sm text-red-500 hover:bg-[#1F1F1F] rounded-lg flex items-center gap-2"
+              >
+                <Trash2 className="w-4 h-4" />
+                Eliminar Plan
+              </button>
+            </div>
           </div>
-          <button
+          <Button
             onClick={handleAddTask}
-            className="btn btn-primary btn-sm gap-2"
+            size="sm"
+            className="gap-2"
           >
             <Plus className="w-4 h-4" />
             Nueva Tarea
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -224,13 +233,13 @@ export default function PlanDetailPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-base-200 rounded-xl p-4"
+          className="bg-[#1F1F1F] rounded-xl p-4"
         >
           <div className="flex items-center gap-3">
-            <CheckSquare className="w-8 h-8 text-success" />
+            <CheckSquare className="w-8 h-8 text-[#00D68F]" />
             <div>
-              <p className="text-2xl font-bold">{completedTasks}/{totalTasks}</p>
-              <p className="text-sm text-base-content/60">Tareas</p>
+              <p className="text-2xl font-bold text-white">{completedTasks}/{totalTasks}</p>
+              <p className="text-sm text-[#A1A1AA]">Tareas</p>
             </div>
           </div>
         </motion.div>
@@ -239,13 +248,13 @@ export default function PlanDetailPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-base-200 rounded-xl p-4"
+          className="bg-[#1F1F1F] rounded-xl p-4"
         >
           <div className="flex items-center gap-3">
-            <BarChart3 className="w-8 h-8 text-primary" />
+            <BarChart3 className="w-8 h-8 text-[#00E5FF]" />
             <div>
-              <p className="text-2xl font-bold">{plan.overallProgress}%</p>
-              <p className="text-sm text-base-content/60">Progreso</p>
+              <p className="text-2xl font-bold text-white">{plan.overallProgress}%</p>
+              <p className="text-sm text-[#A1A1AA]">Progreso</p>
             </div>
           </div>
         </motion.div>
@@ -255,13 +264,13 @@ export default function PlanDetailPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-base-200 rounded-xl p-4"
+            className="bg-[#1F1F1F] rounded-xl p-4"
           >
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-info" />
+              <Calendar className="w-8 h-8 text-[#00E5FF]" />
               <div>
-                <p className="text-lg font-bold">{formatDate(plan.startDate)}</p>
-                <p className="text-sm text-base-content/60">Inicio</p>
+                <p className="text-lg font-bold text-white">{formatDate(plan.startDate)}</p>
+                <p className="text-sm text-[#A1A1AA]">Inicio</p>
               </div>
             </div>
           </motion.div>
@@ -272,13 +281,13 @@ export default function PlanDetailPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-base-200 rounded-xl p-4"
+            className="bg-[#1F1F1F] rounded-xl p-4"
           >
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-warning" />
+              <Calendar className="w-8 h-8 text-[#FFB830]" />
               <div>
-                <p className="text-lg font-bold">{formatDate(plan.endDate)}</p>
-                <p className="text-sm text-base-content/60">Fin</p>
+                <p className="text-lg font-bold text-white">{formatDate(plan.endDate)}</p>
+                <p className="text-sm text-[#A1A1AA]">Fin</p>
               </div>
             </div>
           </motion.div>
@@ -286,32 +295,36 @@ export default function PlanDetailPage() {
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-base-200 rounded-xl p-4 mb-6">
+      <div className="bg-[#1F1F1F] rounded-xl p-4 mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="font-medium">Progreso General</span>
-          <span className="font-bold text-primary">{plan.overallProgress}%</span>
+          <span className="font-medium text-white">Progreso General</span>
+          <span className="font-bold text-[#00E5FF]">{plan.overallProgress}%</span>
         </div>
         <ProgressBar progress={plan.overallProgress} size="lg" showLabel={false} />
       </div>
 
       {/* View Toggle */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold">Tareas ({totalTasks})</h2>
-        <div className="join">
-          <button
+        <h2 className="text-lg font-bold text-white">Tareas ({totalTasks})</h2>
+        <div className="flex border border-[#27272A] rounded-lg overflow-hidden">
+          <Button
             onClick={() => setView('list')}
-            className={`join-item btn btn-sm ${view === 'list' ? 'btn-primary' : 'btn-ghost'}`}
+            variant={view === 'list' ? 'default' : 'ghost'}
+            size="sm"
+            className="rounded-none border-r border-[#27272A]"
           >
             <List className="w-4 h-4" />
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setView('gantt')}
-            className={`join-item btn btn-sm ${view === 'gantt' ? 'btn-primary' : 'btn-ghost'}`}
+            variant={view === 'gantt' ? 'default' : 'ghost'}
+            size="sm"
             disabled
             title="Gantt - Proximamente"
+            className="rounded-none"
           >
             <LayoutGrid className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       </div>
 

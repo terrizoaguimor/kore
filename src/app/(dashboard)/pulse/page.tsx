@@ -132,8 +132,8 @@ export default function PulsePage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF6B6B]/20">
-              <Activity className="h-5 w-5 text-[#FF6B6B]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF4757]/20">
+              <Activity className="h-5 w-5 text-[#FF4757]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">KORE Pulse</h1>
@@ -143,7 +143,7 @@ export default function PulsePage() {
         </motion.div>
         <Link
           href="/pulse/campaigns"
-          className="flex items-center gap-2 rounded-lg bg-[#FF6B6B] px-4 py-2 text-sm font-medium text-white hover:bg-[#FF6B6B]/90 transition-colors"
+          className="flex items-center gap-2 rounded-lg bg-[#FF4757] px-4 py-2 text-sm font-medium text-white hover:bg-[#FF4757]/90 transition-colors"
         >
           <Plus className="h-4 w-4" />
           Nueva Campaña
@@ -169,7 +169,7 @@ export default function PulsePage() {
                 <span
                   className={cn(
                     "flex items-center gap-1 text-xs font-medium",
-                    stat.trend === "up" ? "text-green-400" : "text-red-400"
+                    stat.trend === "up" ? "text-[#00D68F]" : "text-[#FF4757]"
                   )}
                 >
                   {stat.trend === "up" ? (
@@ -200,10 +200,10 @@ export default function PulsePage() {
             const Icon = module.icon
             return (
               <Link key={module.name} href={module.href}>
-                <div className="group rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-5 transition-all hover:border-[#FF6B6B]/30 hover:shadow-[0_0_20px_rgba(255,107,107,0.1)]">
+                <div className="group rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-5 transition-all hover:border-[#FF4757]/30 hover:shadow-[0_0_20px_rgba(255,71,87,0.1)]">
                   <div className="flex items-start justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF6B6B]/10">
-                      <Icon className="h-5 w-5 text-[#FF6B6B]" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF4757]/10">
+                      <Icon className="h-5 w-5 text-[#FF4757]" />
                     </div>
                     <span className="rounded-full bg-[#0B0B0B] px-2 py-1 text-xs text-[#A1A1AA]">
                       {module.count}
@@ -226,7 +226,7 @@ export default function PulsePage() {
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-white">Campañas Recientes</h2>
-          <Link href="/pulse/campaigns" className="text-sm text-[#FF6B6B] hover:underline">
+          <Link href="/pulse/campaigns" className="text-sm text-[#FF4757] hover:underline">
             Ver todas
           </Link>
         </div>
@@ -235,7 +235,7 @@ export default function PulsePage() {
             <div key={index} className="flex items-center justify-between p-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0B0B0B]">
-                  <Megaphone className="h-5 w-5 text-[#FF6B6B]" />
+                  <Megaphone className="h-5 w-5 text-[#FF4757]" />
                 </div>
                 <div>
                   <p className="font-medium text-white">{campaign.name}</p>
@@ -243,9 +243,9 @@ export default function PulsePage() {
                     className={cn(
                       "text-xs capitalize",
                       campaign.status === "active"
-                        ? "text-green-400"
+                        ? "text-[#00D68F]"
                         : campaign.status === "scheduled"
-                        ? "text-yellow-400"
+                        ? "text-[#FFB830]"
                         : "text-[#A1A1AA]"
                     )}
                   >

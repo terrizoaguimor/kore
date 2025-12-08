@@ -30,7 +30,7 @@ interface ConversationsListProps {
 export function ConversationsList({
   conversations,
   selectedId,
-  accentColor = "#25D366",
+  accentColor = "#00D68F",
   onSelect,
   onNewConversation,
 }: ConversationsListProps) {

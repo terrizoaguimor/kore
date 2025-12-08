@@ -48,7 +48,7 @@ export default function InvoicesPage() {
       label: "Invoice #",
       sortable: true,
       render: (invoice) => (
-        <span className="font-mono text-[#F39C12]">{invoice.invoice_no}</span>
+        <span className="font-mono text-[#FFB830]">{invoice.invoice_no}</span>
       ),
     },
     {
@@ -203,8 +203,8 @@ export default function InvoicesPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F39C12]/20">
-              <Receipt className="h-5 w-5 text-[#F39C12]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
+              <Receipt className="h-5 w-5 text-[#FFB830]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Invoices</h1>
@@ -224,7 +224,7 @@ export default function InvoicesPage() {
           </Button>
           <Button
             onClick={handleNewInvoice}
-            className="bg-[#F39C12] hover:bg-[#F39C12]/90 text-white"
+            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Invoice
@@ -251,7 +251,7 @@ export default function InvoicesPage() {
             <Clock className="h-4 w-4" />
             <p className="text-sm">Outstanding</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#F39C12]">
+          <p className="mt-1 text-2xl font-bold text-[#FFB830]">
             {loading ? "-" : formatCurrency(stats.pending)}
           </p>
         </div>
@@ -333,7 +333,7 @@ export default function InvoicesPage() {
           selectedItems={selectedInvoices}
           onSelectionChange={setSelectedInvoices}
           emptyMessage="No invoices found. Click 'New Invoice' to create one."
-          accentColor="#F39C12"
+          accentColor="#FFB830"
         />
       </motion.div>
 

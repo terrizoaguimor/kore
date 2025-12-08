@@ -18,6 +18,8 @@ import {
   Target,
   Loader2
 } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import PlanCard from '@/components/planning/PlanCard'
 import ProgressBar from '@/components/planning/ProgressBar'
 import { Plan, PlanningStats, AISuggestion } from '@/types/planning'
@@ -109,23 +111,26 @@ export default function PlanningDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-base-content">KORE Planning</h1>
-          <p className="text-base-content/60 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-white">KORE Planning</h1>
+          <p className="text-[#A1A1AA] text-sm mt-1">
             Gestiona los planes de accion de tu equipo
           </p>
         </div>
         <div className="flex gap-2">
-          <button
+          <Button
             onClick={fetchData}
-            className="btn btn-outline btn-sm gap-2"
+            variant="outline"
+            size="sm"
           >
             <RefreshCw className="w-4 h-4" />
             Actualizar
-          </button>
-          <Link href="/planning/plans" className="btn btn-primary btn-sm gap-2">
-            <FolderKanban className="w-4 h-4" />
-            Ver Planes
-          </Link>
+          </Button>
+          <Button asChild size="sm">
+            <Link href="/planning/plans">
+              <FolderKanban className="w-4 h-4" />
+              Ver Planes
+            </Link>
+          </Button>
         </div>
       </div>
 
@@ -134,15 +139,15 @@ export default function PlanningDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-base-200 rounded-xl p-4"
+          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
-              <FolderKanban className="w-6 h-6 text-primary" />
+            <div className="w-12 h-12 bg-[#00E5FF]/20 rounded-full flex items-center justify-center">
+              <FolderKanban className="w-6 h-6 text-[#00E5FF]" />
             </div>
             <div>
-              <p className="text-2xl font-bold">{stats.totalPlans}</p>
-              <p className="text-sm text-base-content/60">Planes Totales</p>
+              <p className="text-2xl font-bold text-white">{stats.totalPlans}</p>
+              <p className="text-sm text-[#A1A1AA]">Planes Totales</p>
             </div>
           </div>
         </motion.div>
@@ -151,15 +156,15 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-base-200 rounded-xl p-4"
+          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-success/20 rounded-full flex items-center justify-center">
-              <CheckSquare className="w-6 h-6 text-success" />
+            <div className="w-12 h-12 bg-[#00D68F]/20 rounded-full flex items-center justify-center">
+              <CheckSquare className="w-6 h-6 text-[#00D68F]" />
             </div>
             <div>
-              <p className="text-2xl font-bold">{stats.completedTasks}/{stats.totalTasks}</p>
-              <p className="text-sm text-base-content/60">Tareas Completadas</p>
+              <p className="text-2xl font-bold text-white">{stats.completedTasks}/{stats.totalTasks}</p>
+              <p className="text-sm text-[#A1A1AA]">Tareas Completadas</p>
             </div>
           </div>
         </motion.div>
@@ -168,15 +173,15 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-base-200 rounded-xl p-4"
+          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-warning/20 rounded-full flex items-center justify-center">
-              <Clock className="w-6 h-6 text-warning" />
+            <div className="w-12 h-12 bg-[#FFB830]/20 rounded-full flex items-center justify-center">
+              <Clock className="w-6 h-6 text-[#FFB830]" />
             </div>
             <div>
-              <p className="text-2xl font-bold">{stats.activePlans}</p>
-              <p className="text-sm text-base-content/60">Planes Activos</p>
+              <p className="text-2xl font-bold text-white">{stats.activePlans}</p>
+              <p className="text-sm text-[#A1A1AA]">Planes Activos</p>
             </div>
           </div>
         </motion.div>
@@ -185,17 +190,17 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-base-200 rounded-xl p-4"
+          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-info/20 rounded-full flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-info" />
+            <div className="w-12 h-12 bg-[#00E5FF]/20 rounded-full flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-[#00E5FF]" />
             </div>
             <div>
-              <p className="text-2xl font-bold">
+              <p className="text-2xl font-bold text-white">
                 {stats.totalTasks > 0 ? Math.round((stats.completedTasks / stats.totalTasks) * 100) : 0}%
               </p>
-              <p className="text-sm text-base-content/60">Progreso Global</p>
+              <p className="text-sm text-[#A1A1AA]">Progreso Global</p>
             </div>
           </div>
         </motion.div>
@@ -207,36 +212,35 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-6 mb-8 border border-primary/20"
+          className="bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 rounded-2xl p-6 mb-8 border border-[#00E5FF]/20"
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <Calendar className="w-6 h-6 text-primary" />
-                <h2 className="text-xl font-bold">Plan {currentYear}</h2>
-                <span className="badge badge-success">Activo</span>
+                <Calendar className="w-6 h-6 text-[#00E5FF]" />
+                <h2 className="text-xl font-bold text-white">Plan {currentYear}</h2>
+                <Badge className="bg-[#00D68F] text-white border-0">Activo</Badge>
               </div>
-              <p className="text-base-content/70 mb-4">
+              <p className="text-[#A1A1AA] mb-4">
                 {activePlan.description || `Plan para ${currentYear}`}
               </p>
               <div className="flex items-center gap-6">
                 <div>
-                  <p className="text-sm text-base-content/60">Tareas</p>
-                  <p className="text-lg font-bold">{activePlan.completedTaskCount}/{activePlan.taskCount}</p>
+                  <p className="text-sm text-[#A1A1AA]">Tareas</p>
+                  <p className="text-lg font-bold text-white">{activePlan.completedTaskCount}/{activePlan.taskCount}</p>
                 </div>
                 <div className="flex-1 max-w-xs">
-                  <p className="text-sm text-base-content/60 mb-1">Progreso</p>
+                  <p className="text-sm text-[#A1A1AA] mb-1">Progreso</p>
                   <ProgressBar progress={activePlan.overallProgress} size="md" />
                 </div>
               </div>
             </div>
-            <Link
-              href={`/planning/plans/${activePlan.id}`}
-              className="btn btn-primary gap-2"
-            >
-              Ver Plan
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+            <Button asChild>
+              <Link href={`/planning/plans/${activePlan.id}`}>
+                Ver Plan
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
           </div>
         </motion.div>
       )}
@@ -253,8 +257,8 @@ export default function PlanningDashboard() {
             <Sparkles className="w-5 h-5 text-violet-500" />
           </div>
           <div>
-            <h2 className="text-lg font-bold">Sugerencias de IA</h2>
-            <p className="text-sm text-base-content/60">Recomendaciones basadas en tu contexto</p>
+            <h2 className="text-lg font-bold text-white">Sugerencias de IA</h2>
+            <p className="text-sm text-[#A1A1AA]">Recomendaciones basadas en tu contexto</p>
           </div>
           {aiLoading && (
             <Loader2 className="w-5 h-5 animate-spin text-violet-500 ml-auto" />
@@ -264,10 +268,10 @@ export default function PlanningDashboard() {
         {aiLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[1, 2, 3, 4].map(i => (
-              <div key={i} className="bg-base-100/50 rounded-xl p-4 animate-pulse">
-                <div className="h-4 bg-base-300 rounded w-3/4 mb-2"></div>
-                <div className="h-3 bg-base-300 rounded w-full mb-1"></div>
-                <div className="h-3 bg-base-300 rounded w-2/3"></div>
+              <div key={i} className="bg-[#0B0B0B]/50 rounded-xl p-4 animate-pulse">
+                <div className="h-4 bg-[#2A2A2A] rounded w-3/4 mb-2"></div>
+                <div className="h-3 bg-[#2A2A2A] rounded w-full mb-1"></div>
+                <div className="h-3 bg-[#2A2A2A] rounded w-2/3"></div>
               </div>
             ))}
           </div>
@@ -289,24 +293,24 @@ export default function PlanningDashboard() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index }}
-                  className="bg-base-100/80 rounded-xl p-4 hover:bg-base-100 transition-colors"
+                  className="bg-[#0B0B0B]/80 rounded-xl p-4 hover:bg-[#0B0B0B] transition-colors border border-[#2A2A2A]"
                 >
                   <div className="flex items-start gap-3">
                     <div className={`w-8 h-8 ${config.bg} rounded-lg flex items-center justify-center flex-shrink-0`}>
                       <Icon className={`w-4 h-4 ${config.color}`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-sm mb-1 line-clamp-1">{suggestion.title}</h3>
-                      <p className="text-xs text-base-content/60 line-clamp-2">{suggestion.description}</p>
+                      <h3 className="font-medium text-sm mb-1 line-clamp-1 text-white">{suggestion.title}</h3>
+                      <p className="text-xs text-[#A1A1AA] line-clamp-2">{suggestion.description}</p>
                       <div className="flex items-center gap-2 mt-2">
-                        <span className={`badge badge-xs ${
-                          suggestion.priority === 'URGENT' ? 'badge-error' :
-                          suggestion.priority === 'HIGH' ? 'badge-warning' :
-                          suggestion.priority === 'MEDIUM' ? 'badge-info' : 'badge-ghost'
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          suggestion.priority === 'URGENT' ? 'bg-[#FF4757]/20 text-[#FF4757]' :
+                          suggestion.priority === 'HIGH' ? 'bg-[#FFB830]/20 text-[#FFB830]' :
+                          suggestion.priority === 'MEDIUM' ? 'bg-[#00E5FF]/20 text-[#00E5FF]' : 'bg-[#2A2A2A] text-[#A1A1AA]'
                         }`}>
                           {suggestion.priority}
                         </span>
-                        <span className="badge badge-xs badge-ghost">{suggestion.category}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-[#2A2A2A] text-[#A1A1AA]">{suggestion.category}</span>
                       </div>
                     </div>
                   </div>
@@ -315,7 +319,7 @@ export default function PlanningDashboard() {
             })}
           </div>
         ) : (
-          <div className="text-center py-6 text-base-content/60">
+          <div className="text-center py-6 text-[#A1A1AA]">
             <Sparkles className="w-8 h-8 mx-auto mb-2 opacity-50" />
             <p className="text-sm">Las sugerencias se cargan automaticamente</p>
           </div>
@@ -325,28 +329,32 @@ export default function PlanningDashboard() {
       {/* Recent Plans */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold">Planes Recientes</h2>
-          <Link href="/planning/plans" className="btn btn-ghost btn-sm gap-2">
-            Ver todos
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          <h2 className="text-lg font-bold text-white">Planes Recientes</h2>
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/planning/plans">
+              Ver todos
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </div>
 
         {loading ? (
           <div className="flex items-center justify-center h-48">
-            <span className="loading loading-spinner loading-lg"></span>
+            <Loader2 className="w-8 h-8 animate-spin text-[#00E5FF]" />
           </div>
         ) : plans.length === 0 ? (
-          <div className="bg-base-200 rounded-xl p-12 text-center">
-            <FolderKanban className="w-16 h-16 mx-auto mb-4 text-base-content/30" />
-            <h3 className="text-lg font-medium mb-2">No hay planes creados</h3>
-            <p className="text-base-content/60 mb-4">
+          <div className="bg-[#1F1F1F] rounded-xl p-12 text-center border border-[#2A2A2A]">
+            <FolderKanban className="w-16 h-16 mx-auto mb-4 text-[#A1A1AA]/30" />
+            <h3 className="text-lg font-medium mb-2 text-white">No hay planes creados</h3>
+            <p className="text-[#A1A1AA] mb-4">
               Crea tu primer plan de accion para comenzar a organizar las tareas
             </p>
-            <Link href="/planning/plans" className="btn btn-primary gap-2">
-              <Plus className="w-4 h-4" />
-              Crear Plan
-            </Link>
+            <Button asChild>
+              <Link href="/planning/plans">
+                <Plus className="w-4 h-4" />
+                Crear Plan
+              </Link>
+            </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

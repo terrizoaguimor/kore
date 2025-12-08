@@ -29,7 +29,7 @@ interface WhatsAppChatProps {
 export function WhatsAppChat({
   conversation,
   messages,
-  accentColor = "#25D366",
+  accentColor = "#00D68F",
   onSendMessage,
   onBack,
 }: WhatsAppChatProps) {
