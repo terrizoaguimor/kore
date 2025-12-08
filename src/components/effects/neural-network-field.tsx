@@ -351,8 +351,8 @@ export function NeuralNetworkField({
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 w-full h-full pointer-events-auto ${className}`}
-      style={{ display: "block" }}
+      className={`absolute inset-0 w-full h-full ${className}`}
+      style={{ display: "block", pointerEvents: "auto" }}
     />
   )
 }

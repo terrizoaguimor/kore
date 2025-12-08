@@ -113,21 +113,23 @@ export default function CorePage() {
 
       {/* Messages Area */}
       <div className="relative flex-1 overflow-y-auto p-6">
-        {messages.length === 0 ? (
-          <div className="relative flex h-full flex-col items-center justify-center">
-            {/* Neural Network Background */}
-            <div className="absolute inset-0 -z-10">
-              <NeuralNetworkField
-                particleCount={100}
-                hubCount={6}
-              />
-            </div>
+        {/* Neural Network Background - Always visible */}
+        {messages.length === 0 && (
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <NeuralNetworkField
+              particleCount={100}
+              hubCount={6}
+            />
+          </div>
+        )}
 
+        {messages.length === 0 ? (
+          <div className="relative flex h-full flex-col items-center justify-center z-10">
             {/* Empty state with suggestions */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="relative z-10 text-center"
+              className="relative text-center"
             >
               <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 shadow-[0_0_40px_rgba(0,229,255,0.2)] backdrop-blur-sm">
                 <Brain className="h-10 w-10 text-[#00E5FF]" />
@@ -139,7 +141,7 @@ export default function CorePage() {
             </motion.div>
 
             {/* Suggestions Grid */}
-            <div className="relative z-10 mt-8 grid w-full max-w-2xl grid-cols-2 gap-4">
+            <div className="relative mt-8 grid w-full max-w-2xl grid-cols-2 gap-4">
               {suggestions.map((suggestion, index) => {
                 const Icon = suggestion.icon
                 return (

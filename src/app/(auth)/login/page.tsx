@@ -14,7 +14,7 @@ import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { KoreLogo } from "@/components/brand/kore-logo"
-import { ParticleField } from "@/components/effects/particle-field"
+import { NeuralNetworkField } from "@/components/effects/neural-network-field"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { LanguageSwitcher } from "@/components/ui/language-switcher"
 import { createClient } from "@/lib/supabase/client"
@@ -292,14 +292,10 @@ function LoginForm() {
 
       {/* Right side - Visual panel with interactive particles */}
       <div className="relative hidden lg:block lg:w-1/2 bg-card overflow-hidden">
-        {/* Interactive particle field - saturated */}
-        <ParticleField
-          particleCount={500}
-          particleColor={particleColor}
-          lineColor={particleColor}
-          maxDistance={80}
-          mouseRadius={200}
-          speed={0.2}
+        {/* Interactive neural network field */}
+        <NeuralNetworkField
+          particleCount={150}
+          hubCount={8}
         />
 
         {/* Subtle grid pattern overlay */}
