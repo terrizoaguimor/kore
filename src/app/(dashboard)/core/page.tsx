@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
 import { cn } from "@/lib/utils"
+import { NeuralNetworkField } from "@/components/effects/neural-network-field"
 
 interface Message {
   id: string
@@ -111,16 +112,24 @@ export default function CorePage() {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="relative flex-1 overflow-y-auto p-6">
         {messages.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center">
+          <div className="relative flex h-full flex-col items-center justify-center">
+            {/* Neural Network Background */}
+            <div className="absolute inset-0 -z-10">
+              <NeuralNetworkField
+                particleCount={100}
+                hubCount={6}
+              />
+            </div>
+
             {/* Empty state with suggestions */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="text-center"
+              className="relative z-10 text-center"
             >
-              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 shadow-[0_0_40px_rgba(0,229,255,0.2)]">
+              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 shadow-[0_0_40px_rgba(0,229,255,0.2)] backdrop-blur-sm">
                 <Brain className="h-10 w-10 text-[#00E5FF]" />
               </div>
               <h2 className="text-2xl font-bold text-white">Ask The Core</h2>
@@ -130,7 +139,7 @@ export default function CorePage() {
             </motion.div>
 
             {/* Suggestions Grid */}
-            <div className="mt-8 grid w-full max-w-2xl grid-cols-2 gap-4">
+            <div className="relative z-10 mt-8 grid w-full max-w-2xl grid-cols-2 gap-4">
               {suggestions.map((suggestion, index) => {
                 const Icon = suggestion.icon
                 return (
@@ -140,7 +149,7 @@ export default function CorePage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     onClick={() => handleSuggestionClick(suggestion.prompt)}
-                    className="group flex items-start gap-3 rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4 text-left transition-all hover:border-[#00E5FF]/30 hover:shadow-[0_0_20px_rgba(0,229,255,0.1)]"
+                    className="group flex items-start gap-3 rounded-xl border border-[#1F1F1F] bg-[#1F1F1F]/90 backdrop-blur-sm p-4 text-left transition-all hover:border-[#00E5FF]/30 hover:shadow-[0_0_20px_rgba(0,229,255,0.1)]"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0B0B0B] group-hover:bg-[#00E5FF]/10 transition-colors">
                       <Icon className="h-5 w-5 text-[#A1A1AA] group-hover:text-[#00E5FF] transition-colors" />
