@@ -1559,13 +1559,18 @@ export default function LandingPage() {
               <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-[#00E5FF] bg-clip-text text-transparent">KORE</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-8 text-xs sm:text-sm text-[#A1A1AA]">
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="#" className="hover:text-white transition-colors">Security</a>
-              <a href="#" className="hover:text-white transition-colors">Status</a>
+              <Link href="/privacy" className="hover:text-[#00E5FF] transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#00E5FF] transition-colors">Terms</Link>
+              <Link href="/status" className="hover:text-[#00E5FF] transition-colors flex items-center gap-1.5">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]"></span>
+                </span>
+                Status
+              </Link>
             </div>
             <p className="text-xs sm:text-sm text-[#A1A1AA]">
-              © 2024 KORE. All rights reserved.
+              © {new Date().getFullYear()} KORE. All rights reserved.
             </p>
           </div>
         </div>
