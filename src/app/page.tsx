@@ -8,6 +8,7 @@ export default async function Home() {
   if (user) {
     redirect("/core")
   } else {
-    redirect("/login")
+    // Redirect to landing page for unauthenticated users
+    redirect("/landing")
   }
 }
