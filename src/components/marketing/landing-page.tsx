@@ -107,6 +107,7 @@ export default function LandingPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
   const [activeSection, setActiveSection] = useState("hero")
+  const [isMobile, setIsMobile] = useState(false)
 
   const heroRef = useRef<HTMLDivElement>(null)
   const featuresRef = useRef<HTMLDivElement>(null)
@@ -117,6 +118,16 @@ export default function LandingPage() {
   const talkRef = useRef<HTMLDivElement>(null)
   const tasksRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024 || 'ontouchstart' in window)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -148,6 +159,9 @@ export default function LandingPage() {
   }
 
   useEffect(() => {
+    // Check if mobile for GSAP config
+    const isMobileDevice = window.innerWidth < 1024 || 'ontouchstart' in window
+
     const ctx = gsap.context(() => {
       // Hero animations with more dramatic entrance
       const heroTl = gsap.timeline()
@@ -261,15 +275,17 @@ export default function LandingPage() {
         }
       )
 
-      // The Core section - Pin and reveal
-      ScrollTrigger.create({
-        trigger: coreRef.current,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: true,
-        onEnter: () => setActiveSection("core"),
-      })
+      // The Core section - Pin and reveal (desktop only)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: coreRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("core"),
+        })
+      }
 
       gsap.fromTo(
         ".core-title",
@@ -323,15 +339,17 @@ export default function LandingPage() {
         }
       )
 
-      // Drive section
-      ScrollTrigger.create({
-        trigger: driveRef.current,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: true,
-        onEnter: () => setActiveSection("drive"),
-      })
+      // Drive section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: driveRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("drive"),
+        })
+      }
 
       gsap.fromTo(
         ".drive-content",
@@ -367,15 +385,17 @@ export default function LandingPage() {
         }
       )
 
-      // Calendar section
-      ScrollTrigger.create({
-        trigger: calendarRef.current,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: true,
-        onEnter: () => setActiveSection("calendar"),
-      })
+      // Calendar section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: calendarRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("calendar"),
+        })
+      }
 
       gsap.fromTo(
         ".calendar-content",
@@ -411,15 +431,17 @@ export default function LandingPage() {
         }
       )
 
-      // Contacts section
-      ScrollTrigger.create({
-        trigger: contactsRef.current,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: true,
-        onEnter: () => setActiveSection("contacts"),
-      })
+      // Contacts section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: contactsRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("contacts"),
+        })
+      }
 
       gsap.fromTo(
         ".contacts-content",
@@ -455,15 +477,17 @@ export default function LandingPage() {
         }
       )
 
-      // Talk section
-      ScrollTrigger.create({
-        trigger: talkRef.current,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: true,
-        onEnter: () => setActiveSection("talk"),
-      })
+      // Talk section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: talkRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("talk"),
+        })
+      }
 
       gsap.fromTo(
         ".talk-content",
@@ -499,15 +523,17 @@ export default function LandingPage() {
         }
       )
 
-      // Tasks section
-      ScrollTrigger.create({
-        trigger: tasksRef.current,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: true,
-        onEnter: () => setActiveSection("tasks"),
-      })
+      // Tasks section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: tasksRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("tasks"),
+        })
+      }
 
       gsap.fromTo(
         ".tasks-content",
@@ -641,7 +667,7 @@ export default function LandingPage() {
       >
         {/* Neural Network Background - More particles */}
         <div className="absolute inset-0 z-0">
-          <NeuralNetworkField particleCount={800} hubCount={20} />
+          <NeuralNetworkField particleCount={isMobile ? 200 : 800} hubCount={isMobile ? 8 : 20} />
         </div>
 
         {/* Animated gradient orbs */}
