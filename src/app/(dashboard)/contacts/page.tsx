@@ -14,6 +14,9 @@ import {
   Phone,
   Building2,
   MapPin,
+  Upload,
+  Download,
+  MoreVertical,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,6 +29,13 @@ import {
 } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { toast } from "sonner"
 import { useContacts } from "@/hooks/use-contacts"
 import { useAuthStore } from "@/stores/auth-store"
 import { ContactCard } from "@/components/contacts/contact-card"
@@ -88,6 +98,66 @@ export default function ContactsPage() {
     return createContact(contactData)
   }, [createContact, updateContact])
 
+  // Export contacts to vCard
+  const handleExport = useCallback(async () => {
+    try {
+      const response = await fetch("/api/contacts/export")
+      if (!response.ok) throw new Error("Export failed")
+
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = "contacts.vcf"
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      window.URL.revokeObjectURL(url)
+
+      toast.success("Contacts exported successfully")
+    } catch (error) {
+      console.error("Export error:", error)
+      toast.error("Failed to export contacts")
+    }
+  }, [])
+
+  // Import contacts from vCard file
+  const handleImport = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      const formData = new FormData()
+      formData.append("file", file)
+
+      const response = await fetch("/api/contacts/import", {
+        method: "POST",
+        body: formData,
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || "Import failed")
+      }
+
+      toast.success(`Imported ${result.imported} of ${result.total} contacts`)
+
+      if (result.errors?.length > 0) {
+        console.warn("Import errors:", result.errors)
+      }
+
+      // Refresh contacts
+      fetchContacts()
+    } catch (error) {
+      console.error("Import error:", error)
+      toast.error("Failed to import contacts")
+    }
+
+    // Reset the input
+    event.target.value = ""
+  }, [fetchContacts])
+
   if (!organization) {
     return (
       <div className="flex h-full items-center justify-center">
@@ -136,6 +206,25 @@ export default function ContactsPage() {
             <List className="h-4 w-4" />
           </Button>
           <Separator orientation="vertical" className="mx-2 h-6" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon">
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={handleExport}>
+                <Download className="mr-2 h-4 w-4" />
+                Export vCard
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => document.getElementById("vcard-import-input")?.click()}
+              >
+                <Upload className="mr-2 h-4 w-4" />
+                Import vCard
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button onClick={handleNewContact}>
             <Plus className="mr-2 h-4 w-4" />
             New Contact
@@ -405,6 +494,15 @@ export default function ContactsPage() {
           )}
         </SheetContent>
       </Sheet>
+
+      {/* Hidden file input for vCard import */}
+      <input
+        type="file"
+        id="vcard-import-input"
+        accept=".vcf,.vcard,text/vcard"
+        className="hidden"
+        onChange={handleImport}
+      />
     </div>
   )
 }
