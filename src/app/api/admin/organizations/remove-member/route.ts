@@ -1,45 +1,41 @@
+// ============================================
+// ADMIN REMOVE MEMBER API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
+
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getParentTenantContext } from "@/lib/tenant"
 
-// Helper to check if user is admin
-async function isAdmin(supabase: ReturnType<typeof createClient> extends Promise<infer T> ? T : never) {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return false
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: membership } = await (supabase as any)
-    .from("organization_members")
-    .select("role")
-    .eq("user_id", user.id)
-    .in("role", ["owner", "admin"])
-    .limit(1)
-    .single()
-
-  return !!membership
-}
-
-// DELETE - Remove member from organization by member ID
+// DELETE - Remove member from organization by member ID (Parent Tenant Only)
 export async function DELETE(request: NextRequest) {
   try {
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
+
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
+    }
+
+    const { createClient } = await import("@/lib/supabase/server")
     const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
+
     const { searchParams } = new URL(request.url)
     const memberId = searchParams.get("member_id")
-
-    if (!(await isAdmin(supabase))) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
-    }
 
     if (!memberId) {
       return NextResponse.json({ error: "Member ID required" }, { status: 400 })
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (supabase as any)
+    const { error: deleteError } = await sb
       .from("organization_members")
       .delete()
       .eq("id", memberId)
 
-    if (error) throw error
+    if (deleteError) throw deleteError
 
     return NextResponse.json({ success: true })
   } catch (error) {

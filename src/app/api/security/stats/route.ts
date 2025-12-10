@@ -1,5 +1,10 @@
+// ============================================
+// SECURITY STATS API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
+
 import { NextRequest, NextResponse } from "next/server"
-import { getTenantContext } from "@/lib/tenant"
+import { getParentTenantContext } from "@/lib/tenant"
 
 interface SecurityVisit {
   ip_address: string
@@ -9,6 +14,7 @@ interface SecurityVisit {
   threat_level: string
   country: string | null
   created_at: string
+  organization_id: string | null
 }
 
 interface SecurityAlert {
@@ -20,16 +26,14 @@ interface SecurityAlert {
 
 export async function GET(request: NextRequest) {
   try {
-    // Get tenant context with admin validation
-    const { isValid, context, error } = await getTenantContext()
+    // Only parent tenant admins can access security stats
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
 
-    if (!isValid || !context) {
-      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin/owner
-    if (!context.isAdmin) {
-      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
     const { createClient } = await import("@/lib/supabase/server")
@@ -39,32 +43,48 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     const hours = parseInt(searchParams.get("hours") || "24")
+    const organizationId = searchParams.get("organization_id") // Optional filter
     const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
-    // Get visits filtered by organization
-    const { data: visits, count: totalVisits } = await sb
+    // Get visits - global access (optionally filtered by org)
+    let visitsQuery = sb
       .from("security_visits")
       .select("*", { count: "exact" })
-      .eq("organization_id", context.organizationId)
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(1000)
 
-    // Get blocked IPs for this organization
-    const { count: blockedCount } = await sb
+    if (organizationId) {
+      visitsQuery = visitsQuery.eq("organization_id", organizationId)
+    }
+
+    const { data: visits, count: totalVisits } = await visitsQuery
+
+    // Get blocked IPs - global
+    let blockedQuery = sb
       .from("security_blocked_ips")
       .select("*", { count: "exact", head: true })
-      .eq("organization_id", context.organizationId)
       .or("expires_at.is.null,expires_at.gt.now()")
 
-    // Get recent alerts for this organization
-    const { data: alerts } = await sb
+    if (organizationId) {
+      blockedQuery = blockedQuery.eq("organization_id", organizationId)
+    }
+
+    const { count: blockedCount } = await blockedQuery
+
+    // Get recent alerts - global
+    let alertsQuery = sb
       .from("security_alerts")
       .select("*")
-      .eq("organization_id", context.organizationId)
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(20)
+
+    if (organizationId) {
+      alertsQuery = alertsQuery.eq("organization_id", organizationId)
+    }
+
+    const { data: alerts } = await alertsQuery
 
     // Process visits data
     const visitsList: SecurityVisit[] = visits || []

@@ -1,18 +1,21 @@
+// ============================================
+// SECURITY ALERTS API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
+
 import { NextRequest, NextResponse } from "next/server"
-import { getTenantContext } from "@/lib/tenant"
+import { getParentTenantContext } from "@/lib/tenant"
 
 export async function GET(request: NextRequest) {
   try {
-    // Get tenant context with admin validation
-    const { isValid, context, error } = await getTenantContext()
+    // Only parent tenant admins can access security alerts
+    const { isValid, isParentTenantAdmin, context, error } = await getParentTenantContext()
 
-    if (!isValid || !context) {
-      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin/owner
-    if (!context.isAdmin) {
-      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
     const { createClient } = await import("@/lib/supabase/server")
@@ -25,16 +28,21 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "50")
     const severity = searchParams.get("severity")
     const unresolved = searchParams.get("unresolved") === "true"
+    const organizationId = searchParams.get("organization_id") // Optional filter
 
     const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
+    // Global access - no org filter by default
     let query = sb
       .from("security_alerts")
-      .select("*")
-      .eq("organization_id", context.organizationId)
+      .select("*, organizations(name, slug)")
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(limit)
+
+    if (organizationId) {
+      query = query.eq("organization_id", organizationId)
+    }
 
     if (severity) {
       query = query.eq("severity", severity)
@@ -60,16 +68,14 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    // Get tenant context with admin validation
-    const { isValid, context, error } = await getTenantContext()
+    // Only parent tenant admins can manage security alerts
+    const { isValid, isParentTenantAdmin, context, error } = await getParentTenantContext()
 
-    if (!isValid || !context) {
-      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin/owner
-    if (!context.isAdmin) {
-      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin || !context) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
     const { createClient } = await import("@/lib/supabase/server")
@@ -87,7 +93,7 @@ export async function PATCH(request: NextRequest) {
       )
     }
 
-    // Update alert filtered by organization
+    // Global access - can update any alert
     const { error: updateError } = await sb
       .from("security_alerts")
       .update({
@@ -96,7 +102,6 @@ export async function PATCH(request: NextRequest) {
         resolved_by: is_resolved ? context.userId : null,
       })
       .eq("id", id)
-      .eq("organization_id", context.organizationId)
 
     if (updateError) throw updateError
 

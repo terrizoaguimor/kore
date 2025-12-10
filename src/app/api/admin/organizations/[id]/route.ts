@@ -1,38 +1,32 @@
+// ============================================
+// ADMIN ORGANIZATION DETAIL API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
+
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getParentTenantContext } from "@/lib/tenant"
 
-// Helper to check if user is admin
-async function isAdmin(supabase: ReturnType<typeof createClient> extends Promise<infer T> ? T : never) {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return false
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: membership } = await (supabase as any)
-    .from("organization_members")
-    .select("role")
-    .eq("user_id", user.id)
-    .in("role", ["owner", "admin"])
-    .limit(1)
-    .single()
-
-  return !!membership
-}
-
-// GET - Get single organization with stats
+// GET - Get single organization with stats (Parent Tenant Only)
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
-    const { id } = await params
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
 
-    if (!(await isAdmin(supabase))) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sb = supabase as any
+
+    const { id } = await params
 
     const [{ data: org, error: orgError }, { count: memberCount }, { count: fileCount }] = await Promise.all([
       sb.from("organizations").select("*").eq("id", id).single(),
@@ -55,26 +49,33 @@ export async function GET(
   }
 }
 
-// PUT - Update organization
+// PUT - Update organization (Parent Tenant Only)
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
-    const { id } = await params
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
 
-    if (!(await isAdmin(supabase))) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
+
+    const { id } = await params
     const body = await request.json()
-    const { name, slug, storage_quota, settings, logo_url } = body
+    const { name, slug, storage_quota, settings, logo_url, is_parent_tenant } = body
 
     // Check if slug is unique (if changing)
     if (slug) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const { data: existing } = await (supabase as any)
+      const { data: existing } = await sb
         .from("organizations")
         .select("id")
         .eq("slug", slug)
@@ -92,16 +93,16 @@ export async function PUT(
     if (storage_quota !== undefined) updateData.storage_quota = storage_quota
     if (settings !== undefined) updateData.settings = settings
     if (logo_url !== undefined) updateData.logo_url = logo_url
+    if (is_parent_tenant !== undefined) updateData.is_parent_tenant = is_parent_tenant
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase as any)
+    const { data, error: updateError } = await sb
       .from("organizations")
       .update(updateData)
       .eq("id", id)
       .select()
       .single()
 
-    if (error) throw error
+    if (updateError) throw updateError
 
     return NextResponse.json({ data })
   } catch (error) {
@@ -110,26 +111,50 @@ export async function PUT(
   }
 }
 
-// DELETE - Delete organization
+// DELETE - Delete organization (Parent Tenant Only)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = await createClient()
-    const { id } = await params
+    const { isValid, isParentTenantAdmin, context, error } = await getParentTenantContext()
 
-    if (!(await isAdmin(supabase))) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin || !context) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (supabase as any)
+    const sb = supabase as any
+
+    const { id } = await params
+
+    // Prevent deleting parent tenant organization
+    const { data: org } = await sb
+      .from("organizations")
+      .select("is_parent_tenant")
+      .eq("id", id)
+      .single()
+
+    if (org?.is_parent_tenant) {
+      return NextResponse.json({ error: "Cannot delete parent tenant organization" }, { status: 400 })
+    }
+
+    // Prevent deleting own organization
+    if (context.organizationId === id) {
+      return NextResponse.json({ error: "Cannot delete your own organization" }, { status: 400 })
+    }
+
+    const { error: deleteError } = await sb
       .from("organizations")
       .delete()
       .eq("id", id)
 
-    if (error) throw error
+    if (deleteError) throw deleteError
 
     return NextResponse.json({ success: true })
   } catch (error) {

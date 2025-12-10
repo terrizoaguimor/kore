@@ -1,18 +1,21 @@
+// ============================================
+// SECURITY BLOCKED IPS API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
+
 import { NextRequest, NextResponse } from "next/server"
-import { getTenantContext } from "@/lib/tenant"
+import { getParentTenantContext } from "@/lib/tenant"
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    // Get tenant context with admin validation
-    const { isValid, context, error } = await getTenantContext()
+    // Only parent tenant admins can access blocked IPs
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
 
-    if (!isValid || !context) {
-      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin/owner
-    if (!context.isAdmin) {
-      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
     const { createClient } = await import("@/lib/supabase/server")
@@ -20,13 +23,21 @@ export async function GET() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sb = supabase as any
 
-    // Get blocked IPs filtered by organization
-    const { data, error: queryError } = await sb
+    const { searchParams } = new URL(request.url)
+    const organizationId = searchParams.get("organization_id") // Optional filter
+
+    // Global access - get all blocked IPs
+    let query = sb
       .from("security_blocked_ips")
-      .select("*")
-      .eq("organization_id", context.organizationId)
+      .select("*, organizations(name, slug)")
       .or("expires_at.is.null,expires_at.gt.now()")
       .order("blocked_at", { ascending: false })
+
+    if (organizationId) {
+      query = query.eq("organization_id", organizationId)
+    }
+
+    const { data, error: queryError } = await query
 
     if (queryError) throw queryError
 
@@ -42,16 +53,14 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    // Get tenant context with admin validation
-    const { isValid, context, error } = await getTenantContext()
+    // Only parent tenant admins can block IPs
+    const { isValid, isParentTenantAdmin, context, error } = await getParentTenantContext()
 
-    if (!isValid || !context) {
-      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin/owner
-    if (!context.isAdmin) {
-      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin || !context) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
     const { createClient } = await import("@/lib/supabase/server")
@@ -60,7 +69,7 @@ export async function POST(request: NextRequest) {
     const sb = supabase as any
 
     const body = await request.json()
-    const { ip_address, reason, expires_in_hours } = body
+    const { ip_address, reason, expires_in_hours, organization_id } = body
 
     if (!ip_address || !reason) {
       return NextResponse.json(
@@ -69,13 +78,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Block IP with organization context
+    // Block IP - can specify organization or leave null for global block
     const { error: blockError } = await sb.rpc("block_ip", {
       p_ip_address: ip_address,
       p_reason: reason,
       p_expires_in_hours: expires_in_hours || null,
       p_blocked_by: context.userId,
-      p_organization_id: context.organizationId,
+      p_organization_id: organization_id || null, // null = global block
     })
 
     if (blockError) throw blockError
@@ -92,16 +101,14 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    // Get tenant context with admin validation
-    const { isValid, context, error } = await getTenantContext()
+    // Only parent tenant admins can unblock IPs
+    const { isValid, isParentTenantAdmin, context, error } = await getParentTenantContext()
 
-    if (!isValid || !context) {
-      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin/owner
-    if (!context.isAdmin) {
-      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin || !context) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
     const { createClient } = await import("@/lib/supabase/server")
@@ -119,11 +126,10 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // Unblock IP with organization context
+    // Unblock IP globally
     const { data, error: unblockError } = await sb.rpc("unblock_ip", {
       p_ip_address: ip_address,
       p_unblocked_by: context.userId,
-      p_organization_id: context.organizationId,
     })
 
     if (unblockError) throw unblockError

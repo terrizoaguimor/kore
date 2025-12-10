@@ -1,39 +1,39 @@
+// ============================================
+// ADMIN ORGANIZATIONS API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
+
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getParentTenantContext } from "@/lib/tenant"
 
-// Helper to check if user is admin
-async function isAdmin(supabase: ReturnType<typeof createClient> extends Promise<infer T> ? T : never) {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return false
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: membership } = await (supabase as any)
-    .from("organization_members")
-    .select("role")
-    .eq("user_id", user.id)
-    .in("role", ["owner", "admin"])
-    .limit(1)
-    .single()
-
-  return !!membership
-}
-
-// GET - List all organizations
+// GET - List all organizations (Parent Tenant Only)
 export async function GET() {
   try {
-    const supabase = await createClient()
+    // Only parent tenant admins can access admin panel
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
 
-    if (!(await isAdmin(supabase))) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase as any)
+    const sb = supabase as any
+
+    // Global access - list all organizations
+    const { data, error: queryError } = await sb
       .from("organizations")
-      .select("*")
+      .select(`
+        *,
+        members:organization_members(count)
+      `)
       .order("created_at", { ascending: false })
 
-    if (error) throw error
+    if (queryError) throw queryError
 
     return NextResponse.json({ data })
   } catch (error) {
@@ -42,30 +42,33 @@ export async function GET() {
   }
 }
 
-// POST - Create new organization
+// POST - Create new organization (Parent Tenant Only)
 export async function POST(request: NextRequest) {
   try {
+    // Only parent tenant admins can create organizations
+    const { isValid, isParentTenantAdmin, context, error } = await getParentTenantContext()
+
+    if (!isValid || !isParentTenantAdmin || !context) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
+    }
+
+    const { createClient } = await import("@/lib/supabase/server")
     const supabase = await createClient()
-
-    if (!(await isAdmin(supabase))) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
-    }
-
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const body = await request.json()
-    const { name, slug, storage_quota } = body
+    const { name, slug, storage_quota, is_parent_tenant } = body
 
     if (!name || !slug) {
       return NextResponse.json({ error: "Name and slug are required" }, { status: 400 })
     }
 
     // Check if slug is unique
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: existing } = await (supabase as any)
+    const { data: existing } = await sb
       .from("organizations")
       .select("id")
       .eq("slug", slug)
@@ -76,8 +79,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create organization
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: org, error: orgError } = await (supabase as any)
+    const { data: org, error: orgError } = await sb
       .from("organizations")
       .insert({
         name,
@@ -85,21 +87,12 @@ export async function POST(request: NextRequest) {
         storage_quota: storage_quota || 5368709120, // 5GB default
         storage_used: 0,
         settings: {},
+        is_parent_tenant: is_parent_tenant || false,
       })
       .select()
       .single()
 
     if (orgError) throw orgError
-
-    // Add creator as owner
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await (supabase as any)
-      .from("organization_members")
-      .insert({
-        organization_id: org.id,
-        user_id: user.id,
-        role: "owner",
-      })
 
     return NextResponse.json({ data: org })
   } catch (error) {

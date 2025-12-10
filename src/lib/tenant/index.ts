@@ -13,10 +13,18 @@ export interface TenantContext {
   role: "owner" | "admin" | "member" | "guest"
   isAdmin: boolean
   isOwner: boolean
+  isParentTenant: boolean
 }
 
 export interface TenantValidationResult {
   isValid: boolean
+  context?: TenantContext
+  error?: string
+}
+
+export interface ParentTenantResult {
+  isValid: boolean
+  isParentTenantAdmin: boolean
   context?: TenantContext
   error?: string
 }
@@ -46,7 +54,8 @@ export async function getTenantContext(): Promise<TenantValidationResult> {
         organizations (
           id,
           slug,
-          name
+          name,
+          is_parent_tenant
         )
       `)
       .eq("user_id", user.id)
@@ -57,6 +66,7 @@ export async function getTenantContext(): Promise<TenantValidationResult> {
     }
 
     const role = membership.role as TenantContext["role"]
+    const isParentTenant = membership.organizations?.is_parent_tenant === true
 
     return {
       isValid: true,
@@ -68,11 +78,84 @@ export async function getTenantContext(): Promise<TenantValidationResult> {
         role,
         isAdmin: role === "owner" || role === "admin",
         isOwner: role === "owner",
+        isParentTenant,
       },
     }
   } catch (error) {
     console.error("[Tenant] Error getting context:", error)
     return { isValid: false, error: "Internal error" }
+  }
+}
+
+/**
+ * Check if user is an admin of the parent tenant
+ * Only parent tenant admins can access Security and Admin panels
+ */
+export async function getParentTenantContext(): Promise<ParentTenantResult> {
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) {
+      return { isValid: false, isParentTenantAdmin: false, error: "Unauthorized" }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
+
+    // Get user's organization membership - specifically check for parent tenant
+    const { data: membership, error } = await sb
+      .from("organization_members")
+      .select(`
+        organization_id,
+        role,
+        organizations!inner (
+          id,
+          slug,
+          name,
+          is_parent_tenant
+        )
+      `)
+      .eq("user_id", user.id)
+      .eq("organizations.is_parent_tenant", true)
+      .single()
+
+    if (error || !membership) {
+      return {
+        isValid: false,
+        isParentTenantAdmin: false,
+        error: "Access denied - Parent tenant membership required"
+      }
+    }
+
+    const role = membership.role as TenantContext["role"]
+    const isAdmin = role === "owner" || role === "admin"
+
+    if (!isAdmin) {
+      return {
+        isValid: false,
+        isParentTenantAdmin: false,
+        error: "Access denied - Parent tenant admin role required"
+      }
+    }
+
+    return {
+      isValid: true,
+      isParentTenantAdmin: true,
+      context: {
+        userId: user.id,
+        organizationId: membership.organization_id,
+        organizationSlug: membership.organizations?.slug || "",
+        organizationName: membership.organizations?.name || "",
+        role,
+        isAdmin: true,
+        isOwner: role === "owner",
+        isParentTenant: true,
+      },
+    }
+  } catch (error) {
+    console.error("[Tenant] Error getting parent context:", error)
+    return { isValid: false, isParentTenantAdmin: false, error: "Internal error" }
   }
 }
 
@@ -170,6 +253,34 @@ export async function createTenantClient() {
 }
 
 /**
+ * Create a helper object for parent tenant operations (global access)
+ * Only for Security and Admin modules
+ */
+export async function createParentTenantClient() {
+  const { isValid, isParentTenantAdmin, context, error } = await getParentTenantContext()
+
+  if (!isValid || !isParentTenantAdmin || !context) {
+    return { error: error || "Access denied", context: null, db: null }
+  }
+
+  const supabase = await createClient()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const db = supabase as any
+
+  return {
+    error: null,
+    context,
+    db,
+    // Helper methods - NO org filter for global access
+    selectAll: (table: string, columns: string = "*") =>
+      db.from(table).select(columns),
+
+    selectByOrg: (table: string, orgId: string, columns: string = "*") =>
+      db.from(table).select(columns).eq("organization_id", orgId),
+  }
+}
+
+/**
  * Standard unauthorized response
  */
 export function unauthorizedResponse() {
@@ -181,4 +292,11 @@ export function unauthorizedResponse() {
  */
 export function notFoundResponse() {
   return { success: false, error: "Resource not found or access denied" }
+}
+
+/**
+ * Standard forbidden response for non-parent tenant
+ */
+export function parentTenantOnlyResponse() {
+  return { success: false, error: "Access denied - This feature is only available to system administrators" }
 }

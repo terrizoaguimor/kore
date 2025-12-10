@@ -1,46 +1,43 @@
-import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+// ============================================
+// ADMIN USERS API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
 
-// Helper to check if user is admin
-async function isAdmin(supabase: ReturnType<typeof createClient> extends Promise<infer T> ? T : never) {
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return false
+import { NextResponse } from "next/server"
+import { getParentTenantContext } from "@/lib/tenant"
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: membership } = await (supabase as any)
-    .from("organization_members")
-    .select("role")
-    .eq("user_id", user.id)
-    .in("role", ["owner", "admin"])
-    .limit(1)
-    .single()
-
-  return !!membership
-}
-
-// GET - List all users
+// GET - List all users (Parent Tenant Only)
 export async function GET() {
   try {
-    const supabase = await createClient()
+    // Only parent tenant admins can access admin panel
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
 
-    if (!(await isAdmin(supabase))) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase as any)
+    const sb = supabase as any
+
+    // Global access - list all users with their memberships
+    const { data, error: queryError } = await sb
       .from("users")
       .select(`
         *,
         memberships:organization_members(
           id,
           role,
-          organization:organizations(id, name, slug)
+          organization:organizations(id, name, slug, is_parent_tenant)
         )
       `)
       .order("created_at", { ascending: false })
 
-    if (error) throw error
+    if (queryError) throw queryError
 
     return NextResponse.json({ data })
   } catch (error) {

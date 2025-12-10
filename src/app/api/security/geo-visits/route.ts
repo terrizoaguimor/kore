@@ -1,5 +1,10 @@
+// ============================================
+// SECURITY GEO VISITS API ROUTE
+// Parent Tenant Only - Global Access
+// ============================================
+
 import { NextRequest, NextResponse } from "next/server"
-import { getTenantContext } from "@/lib/tenant"
+import { getParentTenantContext } from "@/lib/tenant"
 
 interface GeoVisit {
   ip: string
@@ -24,16 +29,14 @@ interface CountryStat {
 
 export async function GET(request: NextRequest) {
   try {
-    // Get tenant context with admin validation
-    const { isValid, context, error } = await getTenantContext()
+    // Only parent tenant admins can access geo visits
+    const { isValid, isParentTenantAdmin, error } = await getParentTenantContext()
 
-    if (!isValid || !context) {
-      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin/owner
-    if (!context.isAdmin) {
-      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
+    if (!isValid || !isParentTenantAdmin) {
+      return NextResponse.json(
+        { error: error || "Access denied - This feature is only available to system administrators" },
+        { status: 403 }
+      )
     }
 
     const { createClient } = await import("@/lib/supabase/server")
@@ -44,24 +47,29 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const hours = parseInt(searchParams.get("hours") || "24")
     const limit = parseInt(searchParams.get("limit") || "200")
+    const organizationId = searchParams.get("organization_id") // Optional filter
     const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
-    // Get visits with geo data filtered by organization
-    const { data: visits, count } = await sb
+    // Global access - get visits with geo data
+    let visitsQuery = sb
       .from("security_visits")
       .select("*", { count: "exact" })
-      .eq("organization_id", context.organizationId)
       .gte("created_at", since)
       .not("latitude", "is", null)
       .not("longitude", "is", null)
       .order("created_at", { ascending: false })
       .limit(limit)
 
-    // Get blocked IPs for this organization
+    if (organizationId) {
+      visitsQuery = visitsQuery.eq("organization_id", organizationId)
+    }
+
+    const { data: visits, count } = await visitsQuery
+
+    // Get all blocked IPs globally
     const { data: blockedIps } = await sb
       .from("security_blocked_ips")
       .select("ip_address")
-      .eq("organization_id", context.organizationId)
       .or("expires_at.is.null,expires_at.gt.now()")
 
     const blockedSet = new Set((blockedIps || []).map((b: { ip_address: string }) => b.ip_address))
