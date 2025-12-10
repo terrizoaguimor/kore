@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { getGeoLocation } from "@/lib/security/geo"
 
-// This endpoint is for internal use (middleware/edge functions)
-// It uses service role to bypass RLS
+// This endpoint is for internal use (middleware)
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
@@ -14,10 +14,6 @@ export async function POST(request: NextRequest) {
       path,
       method = "GET",
       status_code,
-      country,
-      city,
-      latitude,
-      longitude,
       is_bot = false,
       is_suspicious = false,
       threat_level = "none",
@@ -32,7 +28,25 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Use the Supabase function to log the visit
+    // Get geo-location data (async, with timeout)
+    let country: string | null = null
+    let city: string | null = null
+    let latitude: number | null = null
+    let longitude: number | null = null
+
+    try {
+      const geo = await getGeoLocation(ip_address)
+      if (geo) {
+        country = geo.country
+        city = geo.city
+        latitude = geo.latitude
+        longitude = geo.longitude
+      }
+    } catch {
+      // Continue without geo data
+    }
+
+    // Log the visit
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data, error } = await (supabase as any).rpc("log_security_visit", {
       p_ip_address: ip_address,
@@ -53,7 +67,6 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("Error logging visit:", error)
-      // Don't fail the request, just log the error
       return NextResponse.json({ success: false, error: error.message })
     }
 
