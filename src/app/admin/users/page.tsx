@@ -10,12 +10,14 @@ import {
   Trash2,
   Users,
   Mail,
-  Plus,
   ChevronLeft,
   ChevronRight,
   Crown,
   UserCheck,
   Clock,
+  Building2,
+  X,
+  AlertTriangle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -25,8 +27,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { createClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 import { motion } from "motion/react"
@@ -43,37 +52,23 @@ export default function AdminUsersPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
+  // Modal states
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [membershipsDialogOpen, setMembershipsDialogOpen] = useState(false)
+  const [selectedUser, setSelectedUser] = useState<UserWithMemberships | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
+
+  // Edit form state
+  const [editFullName, setEditFullName] = useState("")
+  const [editPhone, setEditPhone] = useState("")
+
   const fetchUsers = useCallback(async () => {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const supabase = createClient() as any
-
-      const { data: usersData, error: usersError } = await supabase
-        .from("users")
-        .select("*")
-        .order("created_at", { ascending: false })
-
-      if (usersError) throw usersError
-
-      // Fetch memberships for each user
-      const usersWithMemberships = await Promise.all(
-        (usersData || []).map(async (user: User) => {
-          const { data: memberships } = await supabase
-            .from("organization_members")
-            .select(`
-              *,
-              organization:organizations(*)
-            `)
-            .eq("user_id", user.id)
-
-          return {
-            ...user,
-            memberships: memberships || [],
-          }
-        })
-      )
-
-      setUsers(usersWithMemberships as UserWithMemberships[])
+      const response = await fetch("/api/admin/users")
+      if (!response.ok) throw new Error("Failed to fetch users")
+      const { data } = await response.json()
+      setUsers(data || [])
     } catch (error) {
       console.error("Error fetching users:", error)
       toast.error("Failed to load users")
@@ -123,6 +118,136 @@ export default function AdminUsersPage() {
     }
   }
 
+  const handleEditClick = (user: UserWithMemberships) => {
+    setSelectedUser(user)
+    setEditFullName(user.full_name || "")
+    setEditPhone(user.phone || "")
+    setEditDialogOpen(true)
+  }
+
+  const handleDeleteClick = (user: UserWithMemberships) => {
+    setSelectedUser(user)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleMembershipsClick = (user: UserWithMemberships) => {
+    setSelectedUser(user)
+    setMembershipsDialogOpen(true)
+  }
+
+  const handleUpdate = async () => {
+    if (!selectedUser) return
+
+    setIsSaving(true)
+    try {
+      const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: editFullName,
+          phone: editPhone,
+        }),
+      })
+
+      if (!response.ok) {
+        const { error } = await response.json()
+        throw new Error(error || "Failed to update user")
+      }
+
+      toast.success("User updated successfully")
+      setEditDialogOpen(false)
+      fetchUsers()
+    } catch (error) {
+      console.error("Error updating user:", error)
+      toast.error(error instanceof Error ? error.message : "Failed to update user")
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleDelete = async () => {
+    if (!selectedUser) return
+
+    setIsSaving(true)
+    try {
+      const response = await fetch(`/api/admin/users/${selectedUser.id}`, {
+        method: "DELETE",
+      })
+
+      if (!response.ok) {
+        const { error } = await response.json()
+        throw new Error(error || "Failed to delete user")
+      }
+
+      toast.success("User deleted successfully")
+      setDeleteDialogOpen(false)
+      fetchUsers()
+    } catch (error) {
+      console.error("Error deleting user:", error)
+      toast.error(error instanceof Error ? error.message : "Failed to delete user")
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleRemoveMembership = async (membershipId: string, orgName: string) => {
+    try {
+      const response = await fetch(`/api/admin/organizations/remove-member?member_id=${membershipId}`, {
+        method: "DELETE",
+      })
+
+      if (!response.ok) {
+        const { error } = await response.json()
+        throw new Error(error || "Failed to remove membership")
+      }
+
+      toast.success(`Removed from ${orgName}`)
+
+      // Update local state
+      if (selectedUser) {
+        setSelectedUser({
+          ...selectedUser,
+          memberships: selectedUser.memberships.filter(m => m.id !== membershipId)
+        })
+      }
+      fetchUsers()
+    } catch (error) {
+      console.error("Error removing membership:", error)
+      toast.error(error instanceof Error ? error.message : "Failed to remove membership")
+    }
+  }
+
+  const handleUpdateMembershipRole = async (membershipId: string, orgId: string, newRole: string) => {
+    try {
+      const response = await fetch(`/api/admin/organizations/${orgId}/members`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ member_id: membershipId, role: newRole }),
+      })
+
+      if (!response.ok) {
+        const { error } = await response.json()
+        throw new Error(error || "Failed to update role")
+      }
+
+      toast.success("Role updated successfully")
+
+      // Update local state
+      if (selectedUser) {
+        setSelectedUser({
+          ...selectedUser,
+          memberships: selectedUser.memberships.map(m =>
+            m.id === membershipId ? { ...m, role: newRole as "owner" | "admin" | "member" | "guest" } : m
+          )
+        })
+      }
+      fetchUsers()
+    } catch (error) {
+      console.error("Error updating role:", error)
+      toast.error(error instanceof Error ? error.message : "Failed to update role")
+    }
+  }
+
   return (
     <div className="p-6 lg:p-8 space-y-6">
       {/* Header */}
@@ -133,10 +258,6 @@ export default function AdminUsersPage() {
             Manage users and their organization memberships
           </p>
         </div>
-        <Button className="bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold hover:opacity-90 transition-opacity">
-          <Plus className="mr-2 h-4 w-4" />
-          Invite User
-        </Button>
       </div>
 
       {/* Search and Stats */}
@@ -170,7 +291,7 @@ export default function AdminUsersPage() {
           <Users className="h-12 w-12 text-[#A1A1AA] mx-auto mb-4" />
           <p className="text-lg font-medium text-white mb-1">No users found</p>
           <p className="text-sm text-[#A1A1AA]">
-            {searchQuery ? "Try adjusting your search" : "Invite your first user to get started"}
+            {searchQuery ? "Try adjusting your search" : "No users in the system yet"}
           </p>
         </div>
       ) : (
@@ -254,20 +375,25 @@ export default function AdminUsersPage() {
                     align="end"
                     className="w-48 bg-[#1A1A1A]/95 backdrop-blur-xl border-white/10"
                   >
-                    <DropdownMenuItem className="text-[#A1A1AA] hover:text-white hover:bg-white/5 cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={() => handleEditClick(user)}
+                      className="text-[#A1A1AA] hover:text-white hover:bg-white/5 cursor-pointer"
+                    >
                       <UserCog className="mr-2 h-4 w-4" />
                       Edit User
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="text-[#A1A1AA] hover:text-white hover:bg-white/5 cursor-pointer">
-                      <Shield className="mr-2 h-4 w-4" />
-                      Manage Roles
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="text-[#A1A1AA] hover:text-white hover:bg-white/5 cursor-pointer">
-                      <Mail className="mr-2 h-4 w-4" />
-                      Send Email
+                    <DropdownMenuItem
+                      onClick={() => handleMembershipsClick(user)}
+                      className="text-[#A1A1AA] hover:text-white hover:bg-white/5 cursor-pointer"
+                    >
+                      <Building2 className="mr-2 h-4 w-4" />
+                      Manage Memberships
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-white/10" />
-                    <DropdownMenuItem className="text-[#FF6B6B] hover:text-[#FF6B6B] hover:bg-[#FF6B6B]/10 cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={() => handleDeleteClick(user)}
+                      className="text-[#FF6B6B] hover:text-[#FF6B6B] hover:bg-[#FF6B6B]/10 cursor-pointer"
+                    >
                       <Trash2 className="mr-2 h-4 w-4" />
                       Delete User
                     </DropdownMenuItem>
@@ -317,6 +443,197 @@ export default function AdminUsersPage() {
           </div>
         </div>
       )}
+
+      {/* Edit User Dialog */}
+      <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">Edit User</DialogTitle>
+            <DialogDescription className="text-[#A1A1AA]">
+              Update user profile information
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="flex items-center gap-4 mb-6">
+              <Avatar className="h-16 w-16 ring-2 ring-white/10">
+                <AvatarImage src={selectedUser?.avatar_url || undefined} />
+                <AvatarFallback className="bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] text-xl font-semibold">
+                  {selectedUser?.full_name?.substring(0, 2).toUpperCase() || selectedUser?.email.substring(0, 2).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-semibold">{selectedUser?.email}</p>
+                <p className="text-sm text-[#A1A1AA]">User ID: {selectedUser?.id.slice(0, 8)}...</p>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#A1A1AA]">Full Name</label>
+              <input
+                type="text"
+                value={editFullName}
+                onChange={(e) => setEditFullName(e.target.value)}
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all"
+                placeholder="Enter full name"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-[#A1A1AA]">Phone</label>
+              <input
+                type="tel"
+                value={editPhone}
+                onChange={(e) => setEditPhone(e.target.value)}
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all"
+                placeholder="Enter phone number"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setEditDialogOpen(false)}
+              className="border-white/10 text-white hover:bg-white/5"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleUpdate}
+              disabled={isSaving}
+              className="bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold hover:opacity-90"
+            >
+              {isSaving ? "Saving..." : "Save Changes"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete User Dialog */}
+      <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-[#FF6B6B]" />
+              Delete User
+            </DialogTitle>
+            <DialogDescription className="text-[#A1A1AA]">
+              This action cannot be undone. The user will be removed from all organizations.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="py-4">
+            <div className="p-4 rounded-xl bg-[#FF6B6B]/10 border border-[#FF6B6B]/20">
+              <div className="flex items-center gap-3">
+                <Avatar className="h-12 w-12">
+                  <AvatarImage src={selectedUser?.avatar_url || undefined} />
+                  <AvatarFallback className="bg-[#FF6B6B]/20 text-[#FF6B6B] font-semibold">
+                    {selectedUser?.full_name?.substring(0, 2).toUpperCase() || selectedUser?.email.substring(0, 2).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="font-semibold text-white">{selectedUser?.full_name || "Unnamed User"}</p>
+                  <p className="text-sm text-[#A1A1AA]">{selectedUser?.email}</p>
+                </div>
+              </div>
+              {selectedUser && selectedUser.memberships.length > 0 && (
+                <p className="mt-3 text-sm text-[#FF6B6B]">
+                  This user is a member of {selectedUser.memberships.length} organization{selectedUser.memberships.length !== 1 ? "s" : ""}.
+                </p>
+              )}
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteDialogOpen(false)}
+              className="border-white/10 text-white hover:bg-white/5"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleDelete}
+              disabled={isSaving}
+              className="bg-[#FF6B6B] text-white hover:bg-[#FF6B6B]/90"
+            >
+              {isSaving ? "Deleting..." : "Delete User"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Manage Memberships Dialog */}
+      <Dialog open={membershipsDialogOpen} onOpenChange={setMembershipsDialogOpen}>
+        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">Manage Memberships</DialogTitle>
+            <DialogDescription className="text-[#A1A1AA]">
+              Manage organization memberships for {selectedUser?.full_name || selectedUser?.email}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="py-4">
+            {selectedUser?.memberships.length === 0 ? (
+              <div className="text-center py-8">
+                <Building2 className="h-12 w-12 text-[#A1A1AA] mx-auto mb-3" />
+                <p className="text-[#A1A1AA]">No organization memberships</p>
+              </div>
+            ) : (
+              <div className="space-y-3 max-h-[400px] overflow-y-auto">
+                {selectedUser?.memberships.map((membership) => (
+                  <div
+                    key={membership.id}
+                    className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-[#00E5FF]/20 to-[#0EA5E9]/20 flex items-center justify-center">
+                        <Building2 className="h-5 w-5 text-[#00E5FF]" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-white">{membership.organization?.name}</p>
+                        <p className="text-xs text-[#A1A1AA]">
+                          Joined {format(new Date(membership.joined_at), "MMM d, yyyy")}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <select
+                        value={membership.role}
+                        onChange={(e) => handleUpdateMembershipRole(membership.id, membership.organization_id, e.target.value)}
+                        className="rounded-lg bg-white/5 border border-white/10 px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50"
+                      >
+                        <option value="member">Member</option>
+                        <option value="admin">Admin</option>
+                        <option value="owner">Owner</option>
+                      </select>
+
+                      <button
+                        onClick={() => handleRemoveMembership(membership.id, membership.organization?.name || "organization")}
+                        className="p-2 rounded-lg hover:bg-[#FF6B6B]/10 text-[#A1A1AA] hover:text-[#FF6B6B] transition-colors"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setMembershipsDialogOpen(false)}
+              className="border-white/10 text-white hover:bg-white/5"
+            >
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
