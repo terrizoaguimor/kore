@@ -1,35 +1,41 @@
 // ============================================
 // PLANNING PLAN DETAIL API ROUTE
+// With Tenant Isolation
 // ============================================
 
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getTenantContext } from "@/lib/tenant"
 
 interface RouteParams {
   params: Promise<{ id: string }>
 }
 
 // ============================================
-// GET - Get Plan with Tasks
+// GET - Get Plan with Tasks (Tenant Isolated)
 // ============================================
 export async function GET(
   request: NextRequest,
   { params }: RouteParams
 ) {
   try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { isValid, context, error } = await getTenantContext()
 
-    if (!user) {
+    if (!isValid || !context) {
       return NextResponse.json(
-        { success: false, error: "Unauthorized" },
+        { success: false, error: error || "Unauthorized" },
         { status: 401 }
       )
     }
 
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
+
     const { id } = await params
 
-    const { data, error } = await (supabase as any)
+    // Fetch plan filtered by organization
+    const { data, error: fetchError } = await sb
       .from("action_plans")
       .select(`
         *,
@@ -40,12 +46,13 @@ export async function GET(
         )
       `)
       .eq("id", id)
+      .eq("organization_id", context.organizationId)
       .single()
 
-    if (error || !data) {
-      console.error("[Planning API] Error fetching plan:", error)
+    if (fetchError || !data) {
+      console.error("[Planning API] Error fetching plan:", fetchError)
       return NextResponse.json(
-        { success: false, error: "Plan not found" },
+        { success: false, error: "Plan not found or access denied" },
         { status: 404 }
       )
     }
@@ -105,22 +112,26 @@ export async function GET(
 }
 
 // ============================================
-// PATCH - Update Plan
+// PATCH - Update Plan (Tenant Isolated)
 // ============================================
 export async function PATCH(
   request: NextRequest,
   { params }: RouteParams
 ) {
   try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { isValid, context, error } = await getTenantContext()
 
-    if (!user) {
+    if (!isValid || !context) {
       return NextResponse.json(
-        { success: false, error: "Unauthorized" },
+        { success: false, error: error || "Unauthorized" },
         { status: 401 }
       )
     }
+
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const { id } = await params
     const body = await request.json()
@@ -133,18 +144,27 @@ export async function PATCH(
     if (body.startDate !== undefined) updateData.start_date = body.startDate
     if (body.endDate !== undefined) updateData.end_date = body.endDate
 
-    const { data: plan, error } = await (supabase as any)
+    // Update plan filtered by organization
+    const { data: plan, error: updateError } = await sb
       .from("action_plans")
       .update(updateData)
       .eq("id", id)
+      .eq("organization_id", context.organizationId)
       .select()
       .single()
 
-    if (error) {
-      console.error("[Planning API] Error updating plan:", error)
+    if (updateError) {
+      console.error("[Planning API] Error updating plan:", updateError)
       return NextResponse.json(
-        { success: false, error: error.message },
+        { success: false, error: updateError.message },
         { status: 500 }
+      )
+    }
+
+    if (!plan) {
+      return NextResponse.json(
+        { success: false, error: "Plan not found or access denied" },
+        { status: 404 }
       )
     }
 
@@ -162,41 +182,61 @@ export async function PATCH(
 }
 
 // ============================================
-// DELETE - Delete Plan
+// DELETE - Delete Plan (Tenant Isolated)
 // ============================================
 export async function DELETE(
   request: NextRequest,
   { params }: RouteParams
 ) {
   try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { isValid, context, error } = await getTenantContext()
 
-    if (!user) {
+    if (!isValid || !context) {
       return NextResponse.json(
-        { success: false, error: "Unauthorized" },
+        { success: false, error: error || "Unauthorized" },
         { status: 401 }
       )
     }
 
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
+
     const { id } = await params
 
-    // Delete all tasks first
-    await (supabase as any)
+    // Verify the plan belongs to this organization
+    const { data: existingPlan } = await sb
+      .from("action_plans")
+      .select("id")
+      .eq("id", id)
+      .eq("organization_id", context.organizationId)
+      .single()
+
+    if (!existingPlan) {
+      return NextResponse.json(
+        { success: false, error: "Plan not found or access denied" },
+        { status: 404 }
+      )
+    }
+
+    // Delete all tasks first (cascade would handle this, but being explicit)
+    await sb
       .from("planning_tasks")
       .delete()
       .eq("action_plan_id", id)
 
     // Delete the plan
-    const { error } = await (supabase as any)
+    const { error: deleteError } = await sb
       .from("action_plans")
       .delete()
       .eq("id", id)
+      .eq("organization_id", context.organizationId)
 
-    if (error) {
-      console.error("[Planning API] Error deleting plan:", error)
+    if (deleteError) {
+      console.error("[Planning API] Error deleting plan:", deleteError)
       return NextResponse.json(
-        { success: false, error: error.message },
+        { success: false, error: deleteError.message },
         { status: 500 }
       )
     }

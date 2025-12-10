@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getTenantContext } from "@/lib/tenant"
 
 interface GeoVisit {
   ip: string
@@ -24,48 +24,44 @@ interface CountryStat {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    // Get tenant context with admin validation
+    const { isValid, context, error } = await getTenantContext()
 
-    // Verify user is authenticated and is admin
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!isValid || !context) {
+      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
     }
 
     // Check if user is admin/owner
-    const { data: membership } = await supabase
-      .from("organization_members")
-      .select("role")
-      .eq("user_id", user.id)
-      .in("role", ["owner", "admin"])
-      .limit(1)
-      .single()
-
-    if (!membership) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!context.isAdmin) {
+      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
     }
+
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const { searchParams } = new URL(request.url)
     const hours = parseInt(searchParams.get("hours") || "24")
     const limit = parseInt(searchParams.get("limit") || "200")
     const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
-    // Get visits with geo data
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: visits, count } = await (supabase as any)
+    // Get visits with geo data filtered by organization
+    const { data: visits, count } = await sb
       .from("security_visits")
       .select("*", { count: "exact" })
+      .eq("organization_id", context.organizationId)
       .gte("created_at", since)
       .not("latitude", "is", null)
       .not("longitude", "is", null)
       .order("created_at", { ascending: false })
       .limit(limit)
 
-    // Get blocked IPs
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: blockedIps } = await (supabase as any)
+    // Get blocked IPs for this organization
+    const { data: blockedIps } = await sb
       .from("security_blocked_ips")
       .select("ip_address")
+      .eq("organization_id", context.organizationId)
       .or("expires_at.is.null,expires_at.gt.now()")
 
     const blockedSet = new Set((blockedIps || []).map((b: { ip_address: string }) => b.ip_address))

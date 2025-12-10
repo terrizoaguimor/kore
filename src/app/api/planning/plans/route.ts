@@ -1,51 +1,44 @@
 // ============================================
 // PLANNING PLANS API ROUTE
+// With Tenant Isolation
 // ============================================
 
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getTenantContext } from "@/lib/tenant"
 
 // ============================================
-// GET - List Plans
+// GET - List Plans (Tenant Isolated)
 // ============================================
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { isValid, context, error } = await getTenantContext()
 
-    if (!user) {
+    if (!isValid || !context) {
       return NextResponse.json(
-        { success: false, error: "Unauthorized" },
+        { success: false, error: error || "Unauthorized" },
         { status: 401 }
       )
     }
 
-    // Get user's organization
-    const { data: membershipData } = await supabase
-      .from("organization_members")
-      .select("organization_id")
-      .eq("user_id", user.id)
-      .single()
-
-    const membership = membershipData as { organization_id: string } | null
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const searchParams = request.nextUrl.searchParams
     const year = searchParams.get("year")
     const status = searchParams.get("status")
 
-    let query = (supabase as any)
+    let query = sb
       .from("action_plans")
       .select(`
         *,
         created_by:users!action_plans_created_by_fkey(id, full_name, email),
         tasks:planning_tasks(id, status)
       `)
+      .eq("organization_id", context.organizationId)
       .order("year", { ascending: false })
       .order("created_at", { ascending: false })
-
-    if (membership?.organization_id) {
-      query = query.eq("organization_id", membership.organization_id)
-    }
 
     if (year) {
       query = query.eq("year", parseInt(year))
@@ -55,12 +48,12 @@ export async function GET(request: NextRequest) {
       query = query.eq("status", status)
     }
 
-    const { data: plans, error } = await query as { data: any[] | null, error: any }
+    const { data: plans, error: queryError } = await query as { data: any[] | null, error: any }
 
-    if (error) {
-      console.error("[Planning API] Error fetching plans:", error)
+    if (queryError) {
+      console.error("[Planning API] Error fetching plans:", queryError)
       return NextResponse.json(
-        { success: false, error: error.message },
+        { success: false, error: queryError.message },
         { status: 500 }
       )
     }
@@ -108,31 +101,27 @@ export async function GET(request: NextRequest) {
 }
 
 // ============================================
-// POST - Create Plan
+// POST - Create Plan (Tenant Isolated)
 // ============================================
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { isValid, context, error } = await getTenantContext()
 
-    if (!user) {
+    if (!isValid || !context) {
       return NextResponse.json(
-        { success: false, error: "Unauthorized" },
+        { success: false, error: error || "Unauthorized" },
         { status: 401 }
       )
     }
 
-    // Get user's organization
-    const { data: membershipData } = await supabase
-      .from("organization_members")
-      .select("organization_id")
-      .eq("user_id", user.id)
-      .single()
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
-    const membership = membershipData as { organization_id: string } | null
     const body = await request.json()
 
-    const { data: plan, error } = await (supabase as any)
+    const { data: plan, error: insertError } = await sb
       .from("action_plans")
       .insert({
         name: body.name,
@@ -141,16 +130,16 @@ export async function POST(request: NextRequest) {
         status: body.status || 'DRAFT',
         start_date: body.startDate || null,
         end_date: body.endDate || null,
-        organization_id: membership?.organization_id,
-        created_by: user.id
+        organization_id: context.organizationId,
+        created_by: context.userId
       })
       .select()
       .single()
 
-    if (error) {
-      console.error("[Planning API] Error creating plan:", error)
+    if (insertError) {
+      console.error("[Planning API] Error creating plan:", insertError)
       return NextResponse.json(
-        { success: false, error: error.message },
+        { success: false, error: insertError.message },
         { status: 500 }
       )
     }

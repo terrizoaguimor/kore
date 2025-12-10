@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { getGeoLocation } from "@/lib/security/geo"
 
-// This endpoint is for internal use (middleware)
+// This endpoint is for internal use (middleware) - requires organization context
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const body = await request.json()
     const {
@@ -19,6 +21,7 @@ export async function POST(request: NextRequest) {
       threat_level = "none",
       response_time_ms,
       detection,
+      organization_id, // Accept organization_id from the caller
     } = body
 
     if (!ip_address || !path) {
@@ -26,6 +29,20 @@ export async function POST(request: NextRequest) {
         { error: "IP address and path are required" },
         { status: 400 }
       )
+    }
+
+    // If no organization_id provided, try to get from authenticated user
+    let orgId = organization_id
+    if (!orgId) {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        const { data: membership } = await sb
+          .from("organization_members")
+          .select("organization_id")
+          .eq("user_id", user.id)
+          .single()
+        orgId = membership?.organization_id
+      }
     }
 
     // Get geo-location data (async, with timeout)
@@ -46,9 +63,8 @@ export async function POST(request: NextRequest) {
       // Continue without geo data
     }
 
-    // Log the visit
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase as any).rpc("log_security_visit", {
+    // Log the visit with organization context
+    const { data, error } = await sb.rpc("log_security_visit", {
       p_ip_address: ip_address,
       p_user_agent: user_agent,
       p_path: path,
@@ -63,6 +79,7 @@ export async function POST(request: NextRequest) {
       p_threat_level: threat_level,
       p_response_time_ms: response_time_ms,
       p_detection: detection ? JSON.stringify(detection) : null,
+      p_organization_id: orgId,
     })
 
     if (error) {
@@ -80,13 +97,16 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Check if IP is blocked
+// Check if IP is blocked (for specific organization)
 export async function GET(request: NextRequest) {
   try {
     const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const { searchParams } = new URL(request.url)
     const ip = searchParams.get("ip")
+    const orgId = searchParams.get("organization_id")
 
     if (!ip) {
       return NextResponse.json(
@@ -95,9 +115,10 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase as any).rpc("is_ip_blocked", {
+    // Check if IP is blocked for this organization
+    const { data, error } = await sb.rpc("is_ip_blocked", {
       check_ip: ip,
+      check_organization_id: orgId || null,
     })
 
     if (error) throw error

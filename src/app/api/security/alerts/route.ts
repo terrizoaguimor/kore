@@ -1,28 +1,24 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getTenantContext } from "@/lib/tenant"
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    // Get tenant context with admin validation
+    const { isValid, context, error } = await getTenantContext()
 
-    // Verify user is authenticated and is admin
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!isValid || !context) {
+      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
     }
 
     // Check if user is admin/owner
-    const { data: membership } = await supabase
-      .from("organization_members")
-      .select("role")
-      .eq("user_id", user.id)
-      .in("role", ["owner", "admin"])
-      .limit(1)
-      .single()
-
-    if (!membership) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!context.isAdmin) {
+      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
     }
+
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const { searchParams } = new URL(request.url)
     const hours = parseInt(searchParams.get("hours") || "24")
@@ -32,9 +28,10 @@ export async function GET(request: NextRequest) {
 
     const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
-    let query = supabase
+    let query = sb
       .from("security_alerts")
       .select("*")
+      .eq("organization_id", context.organizationId)
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(limit)
@@ -47,9 +44,9 @@ export async function GET(request: NextRequest) {
       query = query.eq("is_resolved", false)
     }
 
-    const { data, error } = await query
+    const { data, error: queryError } = await query
 
-    if (error) throw error
+    if (queryError) throw queryError
 
     return NextResponse.json({ data: data || [] })
   } catch (error) {
@@ -63,26 +60,22 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    // Get tenant context with admin validation
+    const { isValid, context, error } = await getTenantContext()
 
-    // Verify user is authenticated and is admin
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!isValid || !context) {
+      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
     }
 
     // Check if user is admin/owner
-    const { data: membership } = await supabase
-      .from("organization_members")
-      .select("role")
-      .eq("user_id", user.id)
-      .in("role", ["owner", "admin"])
-      .limit(1)
-      .single()
-
-    if (!membership) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!context.isAdmin) {
+      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
     }
+
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const body = await request.json()
     const { id, is_resolved } = body
@@ -94,17 +87,18 @@ export async function PATCH(request: NextRequest) {
       )
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (supabase as any)
+    // Update alert filtered by organization
+    const { error: updateError } = await sb
       .from("security_alerts")
       .update({
         is_resolved,
         resolved_at: is_resolved ? new Date().toISOString() : null,
-        resolved_by: is_resolved ? user.id : null,
+        resolved_by: is_resolved ? context.userId : null,
       })
       .eq("id", id)
+      .eq("organization_id", context.organizationId)
 
-    if (error) throw error
+    if (updateError) throw updateError
 
     return NextResponse.json({ success: true })
   } catch (error) {

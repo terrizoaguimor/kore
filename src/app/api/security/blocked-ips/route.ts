@@ -1,37 +1,34 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getTenantContext } from "@/lib/tenant"
 
 export async function GET() {
   try {
-    const supabase = await createClient()
+    // Get tenant context with admin validation
+    const { isValid, context, error } = await getTenantContext()
 
-    // Verify user is authenticated and is admin
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!isValid || !context) {
+      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
     }
 
     // Check if user is admin/owner
-    const { data: membership } = await supabase
-      .from("organization_members")
-      .select("role")
-      .eq("user_id", user.id)
-      .in("role", ["owner", "admin"])
-      .limit(1)
-      .single()
-
-    if (!membership) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!context.isAdmin) {
+      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
     }
 
-    // Get blocked IPs
-    const { data, error } = await supabase
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
+
+    // Get blocked IPs filtered by organization
+    const { data, error: queryError } = await sb
       .from("security_blocked_ips")
       .select("*")
+      .eq("organization_id", context.organizationId)
       .or("expires_at.is.null,expires_at.gt.now()")
       .order("blocked_at", { ascending: false })
 
-    if (error) throw error
+    if (queryError) throw queryError
 
     return NextResponse.json({ data: data || [] })
   } catch (error) {
@@ -45,26 +42,22 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    // Get tenant context with admin validation
+    const { isValid, context, error } = await getTenantContext()
 
-    // Verify user is authenticated and is admin
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!isValid || !context) {
+      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
     }
 
     // Check if user is admin/owner
-    const { data: membership } = await supabase
-      .from("organization_members")
-      .select("role")
-      .eq("user_id", user.id)
-      .in("role", ["owner", "admin"])
-      .limit(1)
-      .single()
-
-    if (!membership) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!context.isAdmin) {
+      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
     }
+
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const body = await request.json()
     const { ip_address, reason, expires_in_hours } = body
@@ -76,16 +69,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Use Supabase function to block IP
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error } = await (supabase as any).rpc("block_ip", {
+    // Block IP with organization context
+    const { error: blockError } = await sb.rpc("block_ip", {
       p_ip_address: ip_address,
       p_reason: reason,
       p_expires_in_hours: expires_in_hours || null,
-      p_blocked_by: user.email || "admin",
+      p_blocked_by: context.userId,
+      p_organization_id: context.organizationId,
     })
 
-    if (error) throw error
+    if (blockError) throw blockError
 
     return NextResponse.json({ success: true })
   } catch (error) {
@@ -99,26 +92,22 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    // Get tenant context with admin validation
+    const { isValid, context, error } = await getTenantContext()
 
-    // Verify user is authenticated and is admin
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!isValid || !context) {
+      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
     }
 
     // Check if user is admin/owner
-    const { data: membership } = await supabase
-      .from("organization_members")
-      .select("role")
-      .eq("user_id", user.id)
-      .in("role", ["owner", "admin"])
-      .limit(1)
-      .single()
-
-    if (!membership) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!context.isAdmin) {
+      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
     }
+
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const { searchParams } = new URL(request.url)
     const ip_address = searchParams.get("ip")
@@ -130,14 +119,14 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // Use Supabase function to unblock IP
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data, error } = await (supabase as any).rpc("unblock_ip", {
+    // Unblock IP with organization context
+    const { data, error: unblockError } = await sb.rpc("unblock_ip", {
       p_ip_address: ip_address,
-      p_unblocked_by: user.email || "admin",
+      p_unblocked_by: context.userId,
+      p_organization_id: context.organizationId,
     })
 
-    if (error) throw error
+    if (unblockError) throw unblockError
 
     return NextResponse.json({ success: true, was_blocked: data })
   } catch (error) {

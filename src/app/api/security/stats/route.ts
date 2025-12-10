@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase/server"
+import { getTenantContext } from "@/lib/tenant"
 
 interface SecurityVisit {
   ip_address: string
@@ -20,61 +20,48 @@ interface SecurityAlert {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient()
+    // Get tenant context with admin validation
+    const { isValid, context, error } = await getTenantContext()
 
-    // Verify user is authenticated and is admin
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    if (!isValid || !context) {
+      return NextResponse.json({ error: error || "Unauthorized" }, { status: 401 })
     }
 
     // Check if user is admin/owner
-    const { data: membership } = await supabase
-      .from("organization_members")
-      .select("role")
-      .eq("user_id", user.id)
-      .in("role", ["owner", "admin"])
-      .limit(1)
-      .single()
-
-    if (!membership) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    if (!context.isAdmin) {
+      return NextResponse.json({ error: "Forbidden - Admin access required" }, { status: 403 })
     }
+
+    const { createClient } = await import("@/lib/supabase/server")
+    const supabase = await createClient()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const sb = supabase as any
 
     const { searchParams } = new URL(request.url)
     const hours = parseInt(searchParams.get("hours") || "24")
     const since = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
-    // Get stats using the Supabase function
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: statsData, error: statsError } = await (supabase as any)
-      .rpc("get_security_stats", { hours_back: hours })
-
-    if (statsError) {
-      console.error("Error calling get_security_stats:", statsError)
-    }
-
-    // Get visits for detailed stats
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: visits, count: totalVisits } = await (supabase as any)
+    // Get visits filtered by organization
+    const { data: visits, count: totalVisits } = await sb
       .from("security_visits")
       .select("*", { count: "exact" })
+      .eq("organization_id", context.organizationId)
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(1000)
 
-    // Get blocked IPs
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { count: blockedCount } = await (supabase as any)
+    // Get blocked IPs for this organization
+    const { count: blockedCount } = await sb
       .from("security_blocked_ips")
       .select("*", { count: "exact", head: true })
+      .eq("organization_id", context.organizationId)
       .or("expires_at.is.null,expires_at.gt.now()")
 
-    // Get recent alerts
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: alerts } = await (supabase as any)
+    // Get recent alerts for this organization
+    const { data: alerts } = await sb
       .from("security_alerts")
       .select("*")
+      .eq("organization_id", context.organizationId)
       .gte("created_at", since)
       .order("created_at", { ascending: false })
       .limit(20)
