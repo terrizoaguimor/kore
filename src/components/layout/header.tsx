@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import {
-  Bell,
   Search,
   LogOut,
   User,
@@ -30,6 +29,7 @@ import {
 import { QuickTooltip } from "@/components/ui/tooltip"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/stores/auth-store"
+import { NotificationDropdown } from "@/components/notifications/notification-dropdown"
 
 interface HeaderProps {
   onMobileMenuToggle?: () => void
@@ -147,24 +147,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           </QuickTooltip>
 
           {/* Notifications */}
-          <QuickTooltip
-            content="Notifications"
-            description="View your latest updates and alerts"
-            side="bottom"
-          >
-            <button
-              type="button"
-              className="relative p-2 text-[#A1A1AA] hover:text-white transition-all rounded-lg hover:bg-white/5 group"
-            >
-              <span className="sr-only">View notifications</span>
-              <Bell className="h-5 w-5 group-hover:scale-110 transition-transform" aria-hidden="true" />
-              {/* Animated notification badge */}
-              <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00E5FF] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00E5FF]" />
-              </span>
-            </button>
-          </QuickTooltip>
+          <NotificationDropdown />
 
           {/* Separator */}
           <div
