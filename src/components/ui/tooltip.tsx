@@ -1,209 +1,145 @@
 "use client"
 
 import * as React from "react"
-import { createPortal } from "react-dom"
-import { motion, AnimatePresence } from "motion/react"
+import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import { cn } from "@/lib/utils"
 
-// Context for tooltip state
-interface TooltipContextType {
-  open: boolean
-  setOpen: (open: boolean) => void
-  triggerRef: React.RefObject<HTMLElement | null>
-  delayDuration: number
-}
+const TooltipProvider = TooltipPrimitive.Provider
 
-const TooltipContext = React.createContext<TooltipContextType | null>(null)
+const Tooltip = TooltipPrimitive.Root
 
-function useTooltipContext() {
-  const context = React.useContext(TooltipContext)
-  if (!context) {
-    throw new Error("Tooltip components must be used within a Tooltip")
+const TooltipTrigger = TooltipPrimitive.Trigger
+
+const TooltipContent = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content> & {
+    gradient?: string
   }
-  return context
-}
-
-// Provider component
-interface TooltipProviderProps {
-  children: React.ReactNode
-  delayDuration?: number
-}
-
-function TooltipProvider({ children, delayDuration = 0 }: TooltipProviderProps) {
-  return <>{children}</>
-}
-
-// Root component
-interface TooltipProps {
-  children: React.ReactNode
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
-  defaultOpen?: boolean
-  delayDuration?: number
-}
-
-function Tooltip({ children, open: controlledOpen, onOpenChange, defaultOpen = false, delayDuration = 300 }: TooltipProps) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen)
-  const triggerRef = React.useRef<HTMLElement>(null)
-
-  const isControlled = controlledOpen !== undefined
-  const open = isControlled ? controlledOpen : uncontrolledOpen
-
-  const setOpen = React.useCallback((value: boolean) => {
-    if (!isControlled) {
-      setUncontrolledOpen(value)
-    }
-    onOpenChange?.(value)
-  }, [isControlled, onOpenChange])
-
-  return (
-    <TooltipContext.Provider value={{ open, setOpen, triggerRef, delayDuration }}>
-      {children}
-    </TooltipContext.Provider>
-  )
-}
-
-// Trigger component
-interface TooltipTriggerProps extends React.HTMLAttributes<HTMLElement> {
-  asChild?: boolean
-}
-
-function TooltipTrigger({ children, asChild, ...props }: TooltipTriggerProps) {
-  const { setOpen, triggerRef, delayDuration } = useTooltipContext()
-  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
-
-  const handleMouseEnter = () => {
-    timeoutRef.current = setTimeout(() => setOpen(true), delayDuration)
-  }
-
-  const handleMouseLeave = () => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-    }
-    setOpen(false)
-  }
-
-  React.useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
-      }
-    }
-  }, [])
-
-  if (asChild && React.isValidElement(children)) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const childElement = children as React.ReactElement<any>
-    return React.cloneElement(childElement, {
-      ref: triggerRef,
-      onMouseEnter: handleMouseEnter,
-      onMouseLeave: handleMouseLeave,
-      onFocus: () => setOpen(true),
-      onBlur: () => setOpen(false),
-    })
-  }
-
-  return (
-    <span
-      ref={triggerRef as React.Ref<HTMLSpanElement>}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onFocus={() => setOpen(true)}
-      onBlur={() => setOpen(false)}
+>(({ className, sideOffset = 6, gradient, children, ...props }, ref) => (
+  <TooltipPrimitive.Portal>
+    <TooltipPrimitive.Content
+      ref={ref}
+      sideOffset={sideOffset}
+      className={cn(
+        "z-50 overflow-hidden rounded-lg bg-[#1A1A1A] border border-white/10 px-3 py-2 text-sm text-white shadow-xl",
+        "animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+        "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        className
+      )}
       {...props}
     >
+      {gradient && (
+        <div
+          className={cn(
+            "absolute -inset-[1px] rounded-lg opacity-50 -z-10",
+            `bg-gradient-to-r ${gradient}`
+          )}
+        />
+      )}
       {children}
-    </span>
-  )
-}
+      <TooltipPrimitive.Arrow className="fill-[#1A1A1A]" />
+    </TooltipPrimitive.Content>
+  </TooltipPrimitive.Portal>
+))
+TooltipContent.displayName = TooltipPrimitive.Content.displayName
 
-// Portal component
-function TooltipPortal({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = React.useState(false)
-
-  React.useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) return null
-  return createPortal(children, document.body)
-}
-
-// Content component
-interface TooltipContentProps {
+// Helper component for quick tooltips with optional gradient
+interface QuickTooltipProps {
   children: React.ReactNode
-  className?: string
-  sideOffset?: number
-  side?: "top" | "bottom" | "left" | "right"
+  content: React.ReactNode
+  description?: string
+  gradient?: string
+  side?: "top" | "right" | "bottom" | "left"
+  align?: "start" | "center" | "end"
+  delayDuration?: number
+  shortcut?: string
 }
 
-function TooltipContent({ children, className, sideOffset = 4, side = "top" }: TooltipContentProps) {
-  const { open, triggerRef } = useTooltipContext()
-  const [position, setPosition] = React.useState({ top: 0, left: 0 })
-
-  React.useEffect(() => {
-    if (open && triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect()
-
-      let top = 0
-      let left = 0
-
-      switch (side) {
-        case "top":
-          top = rect.top - sideOffset
-          left = rect.left + rect.width / 2
-          break
-        case "bottom":
-          top = rect.bottom + sideOffset
-          left = rect.left + rect.width / 2
-          break
-        case "left":
-          top = rect.top + rect.height / 2
-          left = rect.left - sideOffset
-          break
-        case "right":
-          top = rect.top + rect.height / 2
-          left = rect.right + sideOffset
-          break
-      }
-
-      setPosition({ top, left })
-    }
-  }, [open, triggerRef, sideOffset, side])
-
-  const transformStyle = side === "top" || side === "bottom"
-    ? "translateX(-50%)"
-    : "translateY(-50%)"
-
-  const initialY = side === "top" ? 4 : side === "bottom" ? -4 : 0
-  const initialX = side === "left" ? 4 : side === "right" ? -4 : 0
-
+function QuickTooltip({
+  children,
+  content,
+  description,
+  gradient,
+  side = "top",
+  align = "center",
+  delayDuration = 200,
+  shortcut,
+}: QuickTooltipProps) {
   return (
-    <TooltipPortal>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: initialY, x: initialX }}
-            animate={{ opacity: 1, y: 0, x: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            style={{
-              position: "fixed",
-              top: side === "top" ? position.top : position.top,
-              left: position.left,
-              transform: transformStyle + (side === "top" ? " translateY(-100%)" : ""),
-            }}
-            className={cn(
-              "z-50 rounded-md bg-foreground px-3 py-1.5 text-xs text-background shadow-md",
-              className
-            )}
-          >
-            {children}
-          </motion.div>
+    <Tooltip delayDuration={delayDuration}>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipContent side={side} align={align} gradient={gradient} className={gradient ? "relative" : ""}>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-white">{content}</span>
+          {shortcut && (
+            <kbd className="hidden sm:inline-flex h-5 items-center gap-0.5 rounded border border-white/20 bg-white/10 px-1.5 text-[10px] font-medium text-[#A1A1AA]">
+              {shortcut}
+            </kbd>
+          )}
+        </div>
+        {description && (
+          <div className="text-xs text-[#A1A1AA] mt-0.5 max-w-[200px]">{description}</div>
         )}
-      </AnimatePresence>
-    </TooltipPortal>
+      </TooltipContent>
+    </Tooltip>
   )
 }
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+// Feature tooltip for onboarding/guides
+interface FeatureTooltipProps {
+  children: React.ReactNode
+  title: string
+  description: string
+  gradient?: string
+  side?: "top" | "right" | "bottom" | "left"
+  icon?: React.ReactNode
+}
+
+function FeatureTooltip({
+  children,
+  title,
+  description,
+  gradient = "from-[#00E5FF] to-[#0EA5E9]",
+  side = "right",
+  icon,
+}: FeatureTooltipProps) {
+  return (
+    <Tooltip delayDuration={300}>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipContent
+        side={side}
+        className="relative p-0 max-w-[280px] overflow-hidden"
+      >
+        {/* Gradient border */}
+        <div className={cn("absolute inset-0 rounded-lg opacity-30 bg-gradient-to-br", gradient)} />
+
+        {/* Content */}
+        <div className="relative p-3 bg-[#1A1A1A] m-[1px] rounded-[7px]">
+          <div className="flex items-start gap-3">
+            {icon && (
+              <div className={cn(
+                "flex-shrink-0 h-8 w-8 rounded-lg flex items-center justify-center bg-gradient-to-br",
+                gradient
+              )}>
+                {icon}
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-white">{title}</p>
+              <p className="text-xs text-[#A1A1AA] mt-1 leading-relaxed">{description}</p>
+            </div>
+          </div>
+        </div>
+      </TooltipContent>
+    </Tooltip>
+  )
+}
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+  QuickTooltip,
+  FeatureTooltip,
+}

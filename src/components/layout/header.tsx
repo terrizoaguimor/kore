@@ -27,6 +27,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { QuickTooltip } from "@/components/ui/tooltip"
 import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/stores/auth-store"
 
@@ -129,28 +130,41 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         {/* Right side actions */}
         <div className="relative flex items-center gap-x-3 lg:gap-x-4">
           {/* AI Quick Action Button */}
-          <button
-            type="button"
-            onClick={() => router.push("/core")}
-            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 text-sm text-white hover:border-[#00E5FF]/30 transition-all duration-200 group"
+          <QuickTooltip
+            content="Ask AI"
+            description="Get instant help from KORE's AI assistant"
+            gradient="from-[#00E5FF] to-[#8B5CF6]"
+            side="bottom"
           >
-            <Sparkles className="h-4 w-4 text-[#FFB830] group-hover:rotate-12 transition-transform" />
-            <span className="text-[#A1A1AA] group-hover:text-white transition-colors">Ask AI</span>
-          </button>
+            <button
+              type="button"
+              onClick={() => router.push("/core")}
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 text-sm text-white hover:border-[#00E5FF]/30 transition-all duration-200 group"
+            >
+              <Sparkles className="h-4 w-4 text-[#FFB830] group-hover:rotate-12 transition-transform" />
+              <span className="text-[#A1A1AA] group-hover:text-white transition-colors">Ask AI</span>
+            </button>
+          </QuickTooltip>
 
           {/* Notifications */}
-          <button
-            type="button"
-            className="relative p-2 text-[#A1A1AA] hover:text-white transition-all rounded-lg hover:bg-white/5 group"
+          <QuickTooltip
+            content="Notifications"
+            description="View your latest updates and alerts"
+            side="bottom"
           >
-            <span className="sr-only">View notifications</span>
-            <Bell className="h-5 w-5 group-hover:scale-110 transition-transform" aria-hidden="true" />
-            {/* Animated notification badge */}
-            <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00E5FF] opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00E5FF]" />
-            </span>
-          </button>
+            <button
+              type="button"
+              className="relative p-2 text-[#A1A1AA] hover:text-white transition-all rounded-lg hover:bg-white/5 group"
+            >
+              <span className="sr-only">View notifications</span>
+              <Bell className="h-5 w-5 group-hover:scale-110 transition-transform" aria-hidden="true" />
+              {/* Animated notification badge */}
+              <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00E5FF] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00E5FF]" />
+              </span>
+            </button>
+          </QuickTooltip>
 
           {/* Separator */}
           <div

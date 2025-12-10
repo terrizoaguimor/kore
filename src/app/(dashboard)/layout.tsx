@@ -10,6 +10,7 @@ import { createClient } from "@/lib/supabase/client"
 import { useAuthStore } from "@/stores/auth-store"
 import { Loader2 } from "lucide-react"
 import FloatingDialer from "@/components/voice/floating-dialer"
+import { TooltipProvider } from "@/components/ui/tooltip"
 
 export default function DashboardLayout({
   children,
@@ -110,7 +111,7 @@ export default function DashboardLayout({
   }
 
   return (
-    <>
+    <TooltipProvider delayDuration={200}>
       {/* Command Palette - Global */}
       <CommandPalette isOpen={isCommandPaletteOpen} onClose={closeCommandPalette} />
 
@@ -142,6 +143,6 @@ export default function DashboardLayout({
           </main>
         </div>
       </div>
-    </>
+    </TooltipProvider>
   )
 }

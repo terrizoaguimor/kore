@@ -55,6 +55,7 @@ import {
 import { cn } from "@/lib/utils"
 import { KoreLogo } from "@/components/brand/kore-logo"
 import { motion, AnimatePresence } from "motion/react"
+import { QuickTooltip, FeatureTooltip } from "@/components/ui/tooltip"
 
 interface SidebarProps {
   isCollapsed: boolean
@@ -214,9 +215,14 @@ function ModuleSection({
   const isActive = module.items.some((item) => pathname.startsWith(item.href))
 
   if (isCollapsed) {
-    // In collapsed mode, show only the module icon with gradient
+    // In collapsed mode, show only the module icon with gradient tooltip
     return (
-      <div className="relative group">
+      <QuickTooltip
+        content={module.label}
+        description={module.description}
+        gradient={module.gradient}
+        side="right"
+      >
         <Link
           href={module.items[0].href}
           className={cn(
@@ -229,17 +235,7 @@ function ModuleSection({
         >
           <Icon className={cn("h-5 w-5", isActive ? "text-white" : "text-[#A1A1AA] group-hover:text-white")} />
         </Link>
-        {/* Tooltip with gradient accent */}
-        <div className="absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden group-hover:block z-50">
-          <div className="relative">
-            <div className={cn("absolute -inset-[1px] bg-gradient-to-r rounded-lg opacity-50", module.gradient)} />
-            <div className="relative bg-[#1A1A1A] border border-white/10 rounded-lg px-3 py-2 whitespace-nowrap shadow-xl">
-              <p className="text-sm font-medium text-white">{module.label}</p>
-              <p className="text-xs text-[#A1A1AA]">{module.description}</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      </QuickTooltip>
     )
   }
 
@@ -355,33 +351,62 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
 
       {/* The Core (AI) - Premium gradient button */}
       <div className={cn("relative px-3 py-4 border-b border-white/5", isCollapsed && "px-2")}>
-        <Link
-          href="/core"
-          className={cn(
-            "relative flex items-center gap-3 rounded-xl p-3 transition-all duration-300 overflow-hidden group",
-            isCoreActive
-              ? "bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] shadow-lg shadow-[#00E5FF]/25"
-              : "bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 hover:border-[#00E5FF]/30",
-            isCollapsed && "justify-center p-2"
-          )}
-        >
-          {/* Animated gradient background on hover */}
-          {!isCoreActive && (
-            <div className="absolute inset-0 bg-gradient-to-r from-[#00E5FF]/20 to-[#8B5CF6]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          )}
+        {isCollapsed ? (
+          <FeatureTooltip
+            title="The Core"
+            description="Your AI-powered assistant. Ask anything about your business, get insights, and automate tasks."
+            gradient="from-[#00E5FF] to-[#8B5CF6]"
+            side="right"
+            icon={<Brain className="h-4 w-4 text-white" />}
+          >
+            <Link
+              href="/core"
+              className={cn(
+                "relative flex items-center justify-center rounded-xl p-2 transition-all duration-300 overflow-hidden group",
+                isCoreActive
+                  ? "bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] shadow-lg shadow-[#00E5FF]/25"
+                  : "bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 hover:border-[#00E5FF]/30"
+              )}
+            >
+              <div className={cn(
+                "relative flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300",
+                isCoreActive
+                  ? "bg-white/20"
+                  : "bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 group-hover:from-[#00E5FF]/30 group-hover:to-[#00E5FF]/10"
+              )}>
+                <Brain className={cn(
+                  "h-5 w-5 transition-transform group-hover:scale-110",
+                  isCoreActive ? "text-white" : "text-[#00E5FF]"
+                )} />
+              </div>
+            </Link>
+          </FeatureTooltip>
+        ) : (
+          <Link
+            href="/core"
+            className={cn(
+              "relative flex items-center gap-3 rounded-xl p-3 transition-all duration-300 overflow-hidden group",
+              isCoreActive
+                ? "bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] shadow-lg shadow-[#00E5FF]/25"
+                : "bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 hover:border-[#00E5FF]/30"
+            )}
+          >
+            {/* Animated gradient background on hover */}
+            {!isCoreActive && (
+              <div className="absolute inset-0 bg-gradient-to-r from-[#00E5FF]/20 to-[#8B5CF6]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            )}
 
-          <div className={cn(
-            "relative flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300",
-            isCoreActive
-              ? "bg-white/20"
-              : "bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 group-hover:from-[#00E5FF]/30 group-hover:to-[#00E5FF]/10"
-          )}>
-            <Brain className={cn(
-              "h-5 w-5 transition-transform group-hover:scale-110",
-              isCoreActive ? "text-white" : "text-[#00E5FF]"
-            )} />
-          </div>
-          {!isCollapsed && (
+            <div className={cn(
+              "relative flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300",
+              isCoreActive
+                ? "bg-white/20"
+                : "bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 group-hover:from-[#00E5FF]/30 group-hover:to-[#00E5FF]/10"
+            )}>
+              <Brain className={cn(
+                "h-5 w-5 transition-transform group-hover:scale-110",
+                isCoreActive ? "text-white" : "text-[#00E5FF]"
+              )} />
+            </div>
             <div className="relative flex-1">
               <p className={cn(
                 "text-sm font-semibold",
@@ -392,14 +417,12 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
                 isCoreActive ? "text-white/70" : "text-[#A1A1AA]"
               )}>Ask the AI anything</p>
             </div>
-          )}
-          {!isCollapsed && (
             <Sparkles className={cn(
               "h-4 w-4 transition-all group-hover:rotate-12",
               isCoreActive ? "text-white/70" : "text-[#FFB830]"
             )} />
-          )}
-        </Link>
+          </Link>
+        )}
       </div>
 
       {/* Navigation modules */}
@@ -418,41 +441,62 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
 
       {/* Settings with gradient */}
       <div className="relative border-t border-white/5 p-3">
-        <Link
-          href="/settings"
-          className={cn(
-            "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200 group",
-            pathname.startsWith("/settings")
-              ? "bg-gradient-to-r from-[#A1A1AA]/20 to-[#A1A1AA]/5 text-white border border-white/10"
-              : "text-[#A1A1AA] hover:bg-white/5 hover:text-white",
-            isCollapsed && "justify-center px-2"
-          )}
-        >
-          <Settings className={cn(
-            "h-5 w-5 transition-transform group-hover:rotate-90 duration-300",
-            pathname.startsWith("/settings") && "text-white"
-          )} />
-          {!isCollapsed && <span>Settings</span>}
-        </Link>
+        {isCollapsed ? (
+          <QuickTooltip content="Settings" description="Manage your account and preferences" side="right">
+            <Link
+              href="/settings"
+              className={cn(
+                "flex items-center justify-center rounded-xl px-2 py-2.5 text-sm transition-all duration-200 group",
+                pathname.startsWith("/settings")
+                  ? "bg-gradient-to-r from-[#A1A1AA]/20 to-[#A1A1AA]/5 text-white border border-white/10"
+                  : "text-[#A1A1AA] hover:bg-white/5 hover:text-white"
+              )}
+            >
+              <Settings className={cn(
+                "h-5 w-5 transition-transform group-hover:rotate-90 duration-300",
+                pathname.startsWith("/settings") && "text-white"
+              )} />
+            </Link>
+          </QuickTooltip>
+        ) : (
+          <Link
+            href="/settings"
+            className={cn(
+              "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200 group",
+              pathname.startsWith("/settings")
+                ? "bg-gradient-to-r from-[#A1A1AA]/20 to-[#A1A1AA]/5 text-white border border-white/10"
+                : "text-[#A1A1AA] hover:bg-white/5 hover:text-white"
+            )}
+          >
+            <Settings className={cn(
+              "h-5 w-5 transition-transform group-hover:rotate-90 duration-300",
+              pathname.startsWith("/settings") && "text-white"
+            )} />
+            <span>Settings</span>
+          </Link>
+        )}
       </div>
 
       {/* Collapse toggle (desktop) with animation */}
       <div className="relative hidden lg:block border-t border-white/5 p-3">
-        <button
-          onClick={onToggle}
-          className={cn(
-            "flex w-full items-center rounded-xl p-2.5 text-[#A1A1AA] hover:bg-white/5 hover:text-white transition-all duration-200 group",
-            isCollapsed ? "justify-center" : "justify-between"
-          )}
-        >
-          {!isCollapsed && <span className="text-sm">Collapse</span>}
-          <ChevronLeft
-            className={cn(
-              "h-5 w-5 transition-transform duration-300 group-hover:scale-110",
-              isCollapsed && "rotate-180"
-            )}
-          />
-        </button>
+        {isCollapsed ? (
+          <QuickTooltip content="Expand sidebar" side="right">
+            <button
+              onClick={onToggle}
+              className="flex w-full items-center justify-center rounded-xl p-2.5 text-[#A1A1AA] hover:bg-white/5 hover:text-white transition-all duration-200 group"
+            >
+              <ChevronRight className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+            </button>
+          </QuickTooltip>
+        ) : (
+          <button
+            onClick={onToggle}
+            className="flex w-full items-center justify-between rounded-xl p-2.5 text-[#A1A1AA] hover:bg-white/5 hover:text-white transition-all duration-200 group"
+          >
+            <span className="text-sm">Collapse</span>
+            <ChevronLeft className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+          </button>
+        )}
       </div>
     </div>
   )
