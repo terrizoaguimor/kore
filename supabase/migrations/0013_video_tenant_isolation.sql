@@ -2,8 +2,9 @@
 -- VIDEO TENANT ISOLATION - Additional Policies
 -- ============================================
 
--- Add INSERT policies for video_sessions
-CREATE POLICY IF NOT EXISTS "Users can create sessions in their rooms"
+-- Drop existing policies if they exist, then create new ones
+DROP POLICY IF EXISTS "Users can create sessions in their rooms" ON video_sessions;
+CREATE POLICY "Users can create sessions in their rooms"
 ON video_sessions FOR INSERT
 WITH CHECK (
   room_id IN (
@@ -15,8 +16,8 @@ WITH CHECK (
   )
 );
 
--- Add UPDATE policy for video_sessions
-CREATE POLICY IF NOT EXISTS "Users can update sessions in their rooms"
+DROP POLICY IF EXISTS "Users can update sessions in their rooms" ON video_sessions;
+CREATE POLICY "Users can update sessions in their rooms"
 ON video_sessions FOR UPDATE
 USING (
   room_id IN (
@@ -28,8 +29,8 @@ USING (
   )
 );
 
--- Add INSERT policies for video_participants
-CREATE POLICY IF NOT EXISTS "Users can add participants to their sessions"
+DROP POLICY IF EXISTS "Users can add participants to their sessions" ON video_participants;
+CREATE POLICY "Users can add participants to their sessions"
 ON video_participants FOR INSERT
 WITH CHECK (
   room_id IN (
@@ -41,8 +42,8 @@ WITH CHECK (
   )
 );
 
--- Add UPDATE policy for video_participants
-CREATE POLICY IF NOT EXISTS "Users can update participants in their sessions"
+DROP POLICY IF EXISTS "Users can update participants in their sessions" ON video_participants;
+CREATE POLICY "Users can update participants in their sessions"
 ON video_participants FOR UPDATE
 USING (
   room_id IN (
@@ -54,8 +55,8 @@ USING (
   )
 );
 
--- Add INSERT policy for video_recordings
-CREATE POLICY IF NOT EXISTS "Users can create recordings in their organization"
+DROP POLICY IF EXISTS "Users can create recordings in their organization" ON video_recordings;
+CREATE POLICY "Users can create recordings in their organization"
 ON video_recordings FOR INSERT
 WITH CHECK (
   organization_id IN (
@@ -64,8 +65,8 @@ WITH CHECK (
   )
 );
 
--- Add INSERT policy for video_compositions
-CREATE POLICY IF NOT EXISTS "Users can create compositions in their organization"
+DROP POLICY IF EXISTS "Users can create compositions in their organization" ON video_compositions;
+CREATE POLICY "Users can create compositions in their organization"
 ON video_compositions FOR INSERT
 WITH CHECK (
   organization_id IN (
@@ -97,6 +98,7 @@ CREATE TABLE IF NOT EXISTS meeting_presence (
 ALTER TABLE meeting_presence ENABLE ROW LEVEL SECURITY;
 
 -- Users can view presence in their organization's rooms
+DROP POLICY IF EXISTS "Users can view presence in their rooms" ON meeting_presence;
 CREATE POLICY "Users can view presence in their rooms"
 ON meeting_presence FOR SELECT
 USING (
@@ -110,6 +112,7 @@ USING (
 );
 
 -- Users can insert their own presence
+DROP POLICY IF EXISTS "Users can add their presence" ON meeting_presence;
 CREATE POLICY "Users can add their presence"
 ON meeting_presence FOR INSERT
 WITH CHECK (
@@ -124,16 +127,19 @@ WITH CHECK (
 );
 
 -- Users can update their own presence
+DROP POLICY IF EXISTS "Users can update their presence" ON meeting_presence;
 CREATE POLICY "Users can update their presence"
 ON meeting_presence FOR UPDATE
 USING (user_id = auth.uid());
 
 -- Users can delete their own presence
+DROP POLICY IF EXISTS "Users can delete their presence" ON meeting_presence;
 CREATE POLICY "Users can delete their presence"
 ON meeting_presence FOR DELETE
 USING (user_id = auth.uid());
 
 -- Service role can manage all presence
+DROP POLICY IF EXISTS "Service role can manage meeting_presence" ON meeting_presence;
 CREATE POLICY "Service role can manage meeting_presence"
 ON meeting_presence FOR ALL
 USING (auth.role() = 'service_role')
@@ -144,8 +150,13 @@ CREATE INDEX IF NOT EXISTS idx_meeting_presence_room ON meeting_presence(room_id
 CREATE INDEX IF NOT EXISTS idx_meeting_presence_status ON meeting_presence(status);
 CREATE INDEX IF NOT EXISTS idx_meeting_presence_last_seen ON meeting_presence(last_seen_at);
 
--- Enable real-time for meeting_presence
-ALTER PUBLICATION supabase_realtime ADD TABLE meeting_presence;
+-- Enable real-time for meeting_presence (ignore if already added)
+DO $$
+BEGIN
+  ALTER PUBLICATION supabase_realtime ADD TABLE meeting_presence;
+EXCEPTION WHEN duplicate_object THEN
+  NULL;
+END $$;
 
 -- ============================================
 -- WAITING ROOM TABLE
@@ -170,6 +181,7 @@ CREATE TABLE IF NOT EXISTS waiting_room (
 ALTER TABLE waiting_room ENABLE ROW LEVEL SECURITY;
 
 -- Users can view waiting room for their organization's rooms
+DROP POLICY IF EXISTS "Users can view waiting room in their rooms" ON waiting_room;
 CREATE POLICY "Users can view waiting room in their rooms"
 ON waiting_room FOR SELECT
 USING (
@@ -183,11 +195,13 @@ USING (
 );
 
 -- Users can add themselves to waiting room
+DROP POLICY IF EXISTS "Users can join waiting room" ON waiting_room;
 CREATE POLICY "Users can join waiting room"
 ON waiting_room FOR INSERT
 WITH CHECK (user_id = auth.uid());
 
 -- Admins can update waiting room entries
+DROP POLICY IF EXISTS "Admins can manage waiting room" ON waiting_room;
 CREATE POLICY "Admins can manage waiting room"
 ON waiting_room FOR UPDATE
 USING (
@@ -201,11 +215,13 @@ USING (
 );
 
 -- Users can delete their own waiting entry
+DROP POLICY IF EXISTS "Users can leave waiting room" ON waiting_room;
 CREATE POLICY "Users can leave waiting room"
 ON waiting_room FOR DELETE
 USING (user_id = auth.uid());
 
 -- Service role can manage waiting room
+DROP POLICY IF EXISTS "Service role can manage waiting_room" ON waiting_room;
 CREATE POLICY "Service role can manage waiting_room"
 ON waiting_room FOR ALL
 USING (auth.role() = 'service_role')
@@ -215,8 +231,13 @@ WITH CHECK (auth.role() = 'service_role');
 CREATE INDEX IF NOT EXISTS idx_waiting_room_room ON waiting_room(room_id);
 CREATE INDEX IF NOT EXISTS idx_waiting_room_status ON waiting_room(status);
 
--- Enable real-time for waiting_room
-ALTER PUBLICATION supabase_realtime ADD TABLE waiting_room;
+-- Enable real-time for waiting_room (ignore if already added)
+DO $$
+BEGIN
+  ALTER PUBLICATION supabase_realtime ADD TABLE waiting_room;
+EXCEPTION WHEN duplicate_object THEN
+  NULL;
+END $$;
 
 -- ============================================
 -- FUNCTION: Clean up stale presence records
