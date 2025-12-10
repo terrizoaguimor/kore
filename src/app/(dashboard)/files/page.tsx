@@ -53,6 +53,7 @@ import { FileUploaderCompact } from "@/components/files/file-uploader"
 import { NewFolderDialog } from "@/components/files/new-folder-dialog"
 import { RenameDialog } from "@/components/files/rename-dialog"
 import { FilePreview } from "@/components/files/file-preview"
+import { ShareDialog } from "@/components/files/share-dialog"
 import type { File as FileType } from "@/types/database"
 import { createClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
@@ -115,6 +116,8 @@ export default function FilesPage() {
   const [previewOpen, setPreviewOpen] = useState(false)
   const [renameOpen, setRenameOpen] = useState(false)
   const [renameFile, setRenameFile] = useState<FileType | null>(null)
+  const [shareOpen, setShareOpen] = useState(false)
+  const [shareFile, setShareFile] = useState<FileType | null>(null)
 
   const {
     files,
@@ -163,6 +166,11 @@ export default function FilesPage() {
   const openRenameDialog = useCallback((file: FileType) => {
     setRenameFile(file)
     setRenameOpen(true)
+  }, [])
+
+  const openShareDialog = useCallback((file: FileType) => {
+    setShareFile(file)
+    setShareOpen(true)
   }, [])
 
   if (!organization) {
@@ -302,7 +310,7 @@ export default function FilesPage() {
                             Download
                           </DropdownMenuItem>
                         )}
-                        <DropdownMenuItem className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => openShareDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
                           <Share2 className="mr-2 h-4 w-4" />
                           Share
                         </DropdownMenuItem>
@@ -387,7 +395,7 @@ export default function FilesPage() {
                             Download
                           </DropdownMenuItem>
                         )}
-                        <DropdownMenuItem className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => openShareDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
                           <Share2 className="mr-2 h-4 w-4" />
                           Share
                         </DropdownMenuItem>
@@ -441,6 +449,13 @@ export default function FilesPage() {
         open={renameOpen}
         onOpenChange={setRenameOpen}
         onRename={handleRename}
+      />
+
+      {/* Share Dialog */}
+      <ShareDialog
+        file={shareFile}
+        open={shareOpen}
+        onOpenChange={setShareOpen}
       />
     </div>
   )
