@@ -199,12 +199,12 @@ export default function PlansPage() {
             placeholder="Buscar planes..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-[#1F1F1F] border-[#2A2A2A]"
+            className="pl-10 bg-[#243178] border-[#2d3c8a]"
           />
         </div>
 
         <Select value={yearFilter} onValueChange={setYearFilter}>
-          <SelectTrigger className="w-[180px] bg-[#1F1F1F] border-[#2A2A2A]">
+          <SelectTrigger className="w-[180px] bg-[#243178] border-[#2d3c8a]">
             <SelectValue placeholder="Todos los años" />
           </SelectTrigger>
           <SelectContent>
@@ -217,7 +217,7 @@ export default function PlansPage() {
         </Select>
 
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px] bg-[#1F1F1F] border-[#2A2A2A]">
+          <SelectTrigger className="w-[180px] bg-[#243178] border-[#2d3c8a]">
             <SelectValue placeholder="Todos los estados" />
           </SelectTrigger>
           <SelectContent>
@@ -233,10 +233,10 @@ export default function PlansPage() {
       {/* Plans Grid */}
       {loading ? (
         <div className="flex items-center justify-center h-64">
-          <Loader2 className="w-8 h-8 animate-spin text-[#00E5FF]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#0046E2]" />
         </div>
       ) : filteredPlans.length === 0 ? (
-        <div className="bg-[#1F1F1F] rounded-xl p-12 text-center border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-xl p-12 text-center border border-[#2d3c8a]">
           <FolderKanban className="w-16 h-16 mx-auto mb-4 text-[#A1A1AA]/30" />
           <h3 className="text-lg font-medium mb-2 text-white">
             {searchQuery || yearFilter || statusFilter
@@ -278,9 +278,9 @@ export default function PlansPage() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative bg-[#0B0B0B] rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4 border border-[#2A2A2A]"
+              className="relative bg-[#0f1a4a] rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4 border border-[#2d3c8a]"
             >
-              <div className="flex items-center justify-between p-6 border-b border-[#2A2A2A]">
+              <div className="flex items-center justify-between p-6 border-b border-[#2d3c8a]">
                 <h2 className="text-xl font-bold text-white">Nuevo Plan de Accion</h2>
                 <Button
                   variant="ghost"
@@ -293,13 +293,13 @@ export default function PlansPage() {
               </div>
 
               {/* Mode Tabs */}
-              <div className="flex border-b border-[#2A2A2A]">
+              <div className="flex border-b border-[#2d3c8a]">
                 <button
                   onClick={() => setCreateMode('manual')}
                   className={`flex-1 px-4 py-3 font-medium text-sm flex items-center justify-center gap-2 transition-colors ${
                     createMode === 'manual'
-                      ? 'text-[#00E5FF] border-b-2 border-[#00E5FF] bg-[#00E5FF]/5'
-                      : 'text-[#A1A1AA] hover:bg-[#1F1F1F]'
+                      ? 'text-[#0046E2] border-b-2 border-[#0046E2] bg-[#0046E2]/5'
+                      : 'text-[#A1A1AA] hover:bg-[#243178]'
                   }`}
                 >
                   <FileText className="w-4 h-4" />
@@ -309,8 +309,8 @@ export default function PlansPage() {
                   onClick={() => setCreateMode('ai')}
                   className={`flex-1 px-4 py-3 font-medium text-sm flex items-center justify-center gap-2 transition-colors ${
                     createMode === 'ai'
-                      ? 'text-[#00E5FF] border-b-2 border-[#00E5FF] bg-[#00E5FF]/5'
-                      : 'text-[#A1A1AA] hover:bg-[#1F1F1F]'
+                      ? 'text-[#0046E2] border-b-2 border-[#0046E2] bg-[#0046E2]/5'
+                      : 'text-[#A1A1AA] hover:bg-[#243178]'
                   }`}
                 >
                   <Sparkles className="w-4 h-4" />
@@ -323,13 +323,13 @@ export default function PlansPage() {
                 <div className="p-6">
                   {creating ? (
                     <div className="flex flex-col items-center justify-center py-12">
-                      <Loader2 className="w-12 h-12 text-[#00E5FF] animate-spin mb-4" />
+                      <Loader2 className="w-12 h-12 text-[#0046E2] animate-spin mb-4" />
                       <p className="text-[#A1A1AA]">Creando plan y tareas...</p>
                       <p className="text-sm text-[#A1A1AA]/60">Esto puede tomar unos segundos</p>
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#00E5FF]" />
+                      <Sparkles className="w-12 h-12 mx-auto mb-4 text-[#0046E2]" />
                       <p className="text-[#A1A1AA] mb-4">
                         La generacion con IA estara disponible proximamente
                       </p>
@@ -350,7 +350,7 @@ export default function PlansPage() {
                       type="text"
                       value={newPlan.name}
                       onChange={(e) => setNewPlan({ ...newPlan, name: e.target.value })}
-                      className="bg-[#1F1F1F] border-[#2A2A2A]"
+                      className="bg-[#243178] border-[#2d3c8a]"
                       placeholder="Ej: Plan Marketing 2025"
                       required
                     />
@@ -361,7 +361,7 @@ export default function PlansPage() {
                     <textarea
                       value={newPlan.description}
                       onChange={(e) => setNewPlan({ ...newPlan, description: e.target.value })}
-                      className="w-full h-20 px-3 py-2 rounded-md bg-[#1F1F1F] border border-[#2A2A2A] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF] focus:border-transparent"
+                      className="w-full h-20 px-3 py-2 rounded-md bg-[#243178] border border-[#2d3c8a] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2] focus:border-transparent"
                       placeholder="Descripcion del plan..."
                     />
                   </div>
@@ -375,7 +375,7 @@ export default function PlansPage() {
                       type="number"
                       value={newPlan.year}
                       onChange={(e) => setNewPlan({ ...newPlan, year: parseInt(e.target.value) })}
-                      className="bg-[#1F1F1F] border-[#2A2A2A]"
+                      className="bg-[#243178] border-[#2d3c8a]"
                       min="2020"
                       max="2030"
                     />
@@ -388,7 +388,7 @@ export default function PlansPage() {
                         type="date"
                         value={newPlan.startDate}
                         onChange={(e) => setNewPlan({ ...newPlan, startDate: e.target.value })}
-                        className="bg-[#1F1F1F] border-[#2A2A2A]"
+                        className="bg-[#243178] border-[#2d3c8a]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -397,7 +397,7 @@ export default function PlansPage() {
                         type="date"
                         value={newPlan.endDate}
                         onChange={(e) => setNewPlan({ ...newPlan, endDate: e.target.value })}
-                        className="bg-[#1F1F1F] border-[#2A2A2A]"
+                        className="bg-[#243178] border-[#2d3c8a]"
                       />
                     </div>
                   </div>

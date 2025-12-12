@@ -13,10 +13,10 @@ interface PlanCardProps {
 }
 
 const statusConfig: Record<ActionPlanStatus, { label: string; className: string }> = {
-  DRAFT: { label: 'Borrador', className: 'bg-[#2A2A2A] text-[#A1A1AA]' },
+  DRAFT: { label: 'Borrador', className: 'bg-[#2d3c8a] text-[#A1A1AA]' },
   ACTIVE: { label: 'Activo', className: 'bg-[#00D68F]/20 text-[#00D68F]' },
-  COMPLETED: { label: 'Completado', className: 'bg-[#00E5FF]/20 text-[#00E5FF]' },
-  ARCHIVED: { label: 'Archivado', className: 'bg-[#FFB830]/20 text-[#FFB830]' }
+  COMPLETED: { label: 'Completado', className: 'bg-[#0046E2]/20 text-[#0046E2]' },
+  ARCHIVED: { label: 'Archivado', className: 'bg-[#0046E2]/20 text-[#0046E2]' }
 }
 
 export default function PlanCard({ plan, index = 0 }: PlanCardProps) {
@@ -32,7 +32,7 @@ export default function PlanCard({ plan, index = 0 }: PlanCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1 }}
-      className="bg-[#1F1F1F] rounded-xl p-6 hover:bg-[#2A2A2A]/50 transition-colors group"
+      className="bg-[#243178] rounded-xl p-6 hover:bg-[#2d3c8a]/50 transition-colors group"
     >
       <div className="flex items-start justify-between mb-4">
         <div>
@@ -46,7 +46,7 @@ export default function PlanCard({ plan, index = 0 }: PlanCardProps) {
             {plan.description || `Plan anual ${plan.year}`}
           </p>
         </div>
-        <span className="text-2xl font-bold text-[#00E5FF]">{plan.year}</span>
+        <span className="text-2xl font-bold text-[#0046E2]">{plan.year}</span>
       </div>
 
       {/* Progress */}
@@ -64,14 +64,14 @@ export default function PlanCard({ plan, index = 0 }: PlanCardProps) {
         </div>
         {plan.startDate && plan.endDate && (
           <div className="flex items-center gap-2 text-sm">
-            <Calendar className="w-4 h-4 text-[#00E5FF]" />
+            <Calendar className="w-4 h-4 text-[#0046E2]" />
             <span className="text-white/70">
               {formatDate(plan.startDate)} - {formatDate(plan.endDate)}
             </span>
           </div>
         )}
         <div className="flex items-center gap-2 text-sm">
-          <Users className="w-4 h-4 text-[#FFB830]" />
+          <Users className="w-4 h-4 text-[#0046E2]" />
           <span className="text-white/70 truncate">
             {plan.createdBy.name}
           </span>
@@ -81,7 +81,7 @@ export default function PlanCard({ plan, index = 0 }: PlanCardProps) {
       {/* Action */}
       <Button
         asChild
-        className="w-full group-hover:gap-3 transition-all bg-[#00E5FF] text-black hover:bg-[#00E5FF]/90"
+        className="w-full group-hover:gap-3 transition-all bg-[#0046E2] text-black hover:bg-[#0046E2]/90"
         size="sm"
       >
         <Link href={`/planning/plans/${plan.id}`}>

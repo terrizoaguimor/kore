@@ -93,7 +93,7 @@ function NotificationItem({
     <div
       className={cn(
         "group relative flex items-start gap-3 px-4 py-3 hover:bg-white/5 transition-colors cursor-pointer",
-        !notification.is_read && "bg-[#00E5FF]/5"
+        !notification.is_read && "bg-[#0046E2]/5"
       )}
       onClick={() => onClick(notification)}
       onMouseEnter={() => setShowActions(true)}
@@ -101,7 +101,7 @@ function NotificationItem({
     >
       {/* Unread indicator */}
       {!notification.is_read && (
-        <div className="absolute left-1.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#00E5FF]" />
+        <div className="absolute left-1.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#0046E2]" />
       )}
 
       <NotificationIcon type={notification.type} />
@@ -135,7 +135,7 @@ function NotificationItem({
                 e.stopPropagation()
                 onMarkAsRead(notification.id)
               }}
-              className="p-1.5 rounded-md hover:bg-white/10 text-[#A1A1AA] hover:text-[#00E5FF] transition-colors"
+              className="p-1.5 rounded-md hover:bg-white/10 text-[#A1A1AA] hover:text-[#0046E2] transition-colors"
               title="Marcar como leída"
             >
               <Check className="w-4 h-4" />
@@ -183,14 +183,14 @@ export function NotificationDropdown() {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="relative p-2 text-[#A1A1AA] hover:text-white transition-all rounded-lg hover:bg-white/5 group focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/30"
+          className="relative p-2 text-[#A1A1AA] hover:text-white transition-all rounded-lg hover:bg-white/5 group focus:outline-none focus:ring-2 focus:ring-[#0046E2]/30"
         >
           <span className="sr-only">Ver notificaciones</span>
           <Bell className="h-5 w-5 group-hover:scale-110 transition-transform" aria-hidden="true" />
 
           {/* Badge with unread count */}
           {unreadCount > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-[#00E5FF] text-[10px] font-bold text-black px-1">
+            <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-[#0046E2] text-[10px] font-bold text-black px-1">
               {unreadCount > 99 ? "99+" : unreadCount}
             </span>
           )}
@@ -204,7 +204,7 @@ export function NotificationDropdown() {
 
       <DropdownMenuContent
         align="end"
-        className="w-[380px] p-0 bg-[#1A1A1A]/95 backdrop-blur-xl border-white/10 text-white rounded-xl shadow-2xl shadow-black/50"
+        className="w-[380px] p-0 bg-[#1b2d7c]/95 backdrop-blur-xl border-white/10 text-white rounded-xl shadow-2xl shadow-black/50"
         sideOffset={8}
       >
         {/* Header */}
@@ -212,7 +212,7 @@ export function NotificationDropdown() {
           <div className="flex items-center gap-2">
             <h3 className="text-sm font-semibold text-white">Notificaciones</h3>
             {unreadCount > 0 && (
-              <span className="px-2 py-0.5 rounded-full bg-[#00E5FF]/20 text-[#00E5FF] text-xs font-medium">
+              <span className="px-2 py-0.5 rounded-full bg-[#0046E2]/20 text-[#0046E2] text-xs font-medium">
                 {unreadCount} nuevas
               </span>
             )}
@@ -233,7 +233,7 @@ export function NotificationDropdown() {
                 variant="ghost"
                 size="sm"
                 onClick={markAllAsRead}
-                className="h-7 px-2 text-xs text-[#A1A1AA] hover:text-[#00E5FF] hover:bg-white/5"
+                className="h-7 px-2 text-xs text-[#A1A1AA] hover:text-[#0046E2] hover:bg-white/5"
               >
                 <CheckCheck className="w-3.5 h-3.5 mr-1" />
                 Marcar todas
@@ -246,7 +246,7 @@ export function NotificationDropdown() {
         <ScrollArea className="max-h-[400px]">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className="w-6 h-6 animate-spin text-[#00E5FF]" />
+              <Loader2 className="w-6 h-6 animate-spin text-[#0046E2]" />
             </div>
           ) : notifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 px-4">
@@ -280,7 +280,7 @@ export function NotificationDropdown() {
           <div className="px-4 py-2 border-t border-white/5">
             <Button
               variant="ghost"
-              className="w-full h-8 text-xs text-[#A1A1AA] hover:text-[#00E5FF] hover:bg-white/5"
+              className="w-full h-8 text-xs text-[#A1A1AA] hover:text-[#0046E2] hover:bg-white/5"
               onClick={() => router.push("/settings/notifications")}
             >
               Ver todas las notificaciones

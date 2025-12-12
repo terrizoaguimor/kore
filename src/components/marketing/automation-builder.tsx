@@ -198,7 +198,7 @@ export function AutomationBuilder({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Ej: Bienvenida nuevos suscriptores"
-              className="mt-2 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+              className="mt-2 bg-[#0f1a4a] border-[#2A2A2A] text-white"
             />
           </div>
           <div>
@@ -207,7 +207,7 @@ export function AutomationBuilder({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe qué hace esta automatización..."
-              className="mt-2 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+              className="mt-2 bg-[#0f1a4a] border-[#2A2A2A] text-white"
               rows={2}
             />
           </div>
@@ -256,7 +256,7 @@ export function AutomationBuilder({
                   config: { ...trigger.config, tag_name: e.target.value }
                 })}
                 placeholder="Nombre de la etiqueta"
-                className="mt-2 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                className="mt-2 bg-[#0f1a4a] border-[#2A2A2A] text-white"
               />
             </div>
           )}
@@ -272,7 +272,7 @@ export function AutomationBuilder({
                     config: { ...trigger.config, date_type: v }
                   })}
                 >
-                  <SelectTrigger className="mt-2 bg-[#0B0B0B] border-[#2A2A2A] text-white">
+                  <SelectTrigger className="mt-2 bg-[#0f1a4a] border-[#2A2A2A] text-white">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
@@ -317,7 +317,7 @@ export function AutomationBuilder({
                     )}
 
                     <div className={`rounded-lg border transition-colors ${
-                      isExpanded ? 'border-[var(--accent)] bg-[var(--accent)]/5' : 'border-[#2A2A2A] bg-[#0B0B0B]'
+                      isExpanded ? 'border-[var(--accent)] bg-[var(--accent)]/5' : 'border-[#2A2A2A] bg-[#0f1a4a]'
                     }`} style={{ '--accent': accentColor } as React.CSSProperties}>
                       {/* Action Header */}
                       <div
@@ -392,7 +392,7 @@ export function AutomationBuilder({
                                     config: { ...action.config, template_id: v }
                                   })}
                                 >
-                                  <SelectTrigger className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white">
+                                  <SelectTrigger className="mt-1 bg-[#0f1a4a] border-[#2A2A2A] text-white">
                                     <SelectValue placeholder="Seleccionar plantilla" />
                                   </SelectTrigger>
                                   <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
@@ -410,7 +410,7 @@ export function AutomationBuilder({
                                     config: { ...action.config, subject: e.target.value }
                                   })}
                                   placeholder="Asunto del email"
-                                  className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                                  className="mt-1 bg-[#0f1a4a] border-[#2A2A2A] text-white"
                                 />
                               </div>
                             </>
@@ -427,7 +427,7 @@ export function AutomationBuilder({
                                   onChange={(e) => updateAction(index, {
                                     config: { ...action.config, duration: parseInt(e.target.value) }
                                   })}
-                                  className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                                  className="mt-1 bg-[#0f1a4a] border-[#2A2A2A] text-white"
                                 />
                               </div>
                               <div className="flex-1">
@@ -438,7 +438,7 @@ export function AutomationBuilder({
                                     config: { ...action.config, unit: v }
                                   })}
                                 >
-                                  <SelectTrigger className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white">
+                                  <SelectTrigger className="mt-1 bg-[#0f1a4a] border-[#2A2A2A] text-white">
                                     <SelectValue />
                                   </SelectTrigger>
                                   <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
@@ -461,7 +461,7 @@ export function AutomationBuilder({
                                   config: { ...action.config, tag_name: e.target.value }
                                 })}
                                 placeholder="Nombre de la etiqueta"
-                                className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                                className="mt-1 bg-[#0f1a4a] border-[#2A2A2A] text-white"
                               />
                             </div>
                           )}
@@ -475,7 +475,7 @@ export function AutomationBuilder({
                                   config: { ...action.config, url: e.target.value }
                                 })}
                                 placeholder="https://..."
-                                className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                                className="mt-1 bg-[#0f1a4a] border-[#2A2A2A] text-white"
                               />
                             </div>
                           )}

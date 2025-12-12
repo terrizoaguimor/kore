@@ -114,9 +114,9 @@ export function ConversationsList({
   }
 
   return (
-    <div className="flex flex-col h-full bg-[#1F1F1F] border-r border-[#2A2A2A]">
+    <div className="flex flex-col h-full bg-[#243178] border-r border-[#2d3c8a]">
       {/* Header */}
-      <div className="p-4 border-b border-[#2A2A2A]">
+      <div className="p-4 border-b border-[#2d3c8a]">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-white">Chats</h2>
           {onNewConversation && (
@@ -137,15 +137,15 @@ export function ConversationsList({
               placeholder="Buscar conversación..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-[#0B0B0B] border-none text-white"
+              className="pl-10 bg-[#0f1a4a] border-none text-white"
             />
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-[120px] bg-[#0B0B0B] border-none text-white">
+            <SelectTrigger className="w-[120px] bg-[#0f1a4a] border-none text-white">
               <Filter className="h-4 w-4 mr-2" />
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+            <SelectContent className="bg-[#243178] border-[#2d3c8a]">
               <SelectItem value="all">Todos</SelectItem>
               <SelectItem value="active">Activos</SelectItem>
               <SelectItem value="pending">Pendientes</SelectItem>
@@ -156,7 +156,7 @@ export function ConversationsList({
       </div>
 
       {/* Stats */}
-      <div className="px-4 py-3 border-b border-[#2A2A2A] flex gap-4 text-sm">
+      <div className="px-4 py-3 border-b border-[#2d3c8a] flex gap-4 text-sm">
         <div>
           <span className="text-[#A1A1AA]">Activos: </span>
           <span className="text-white font-medium">
@@ -175,7 +175,7 @@ export function ConversationsList({
       <div className="flex-1 overflow-y-auto">
         {filteredConversations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center p-4">
-            <MessageCircle className="h-12 w-12 text-[#3A3A3A] mb-4" />
+            <MessageCircle className="h-12 w-12 text-[#3d4d9a] mb-4" />
             <p className="text-[#A1A1AA]">
               {searchQuery ? 'No se encontraron conversaciones' : 'No hay conversaciones'}
             </p>
@@ -192,20 +192,20 @@ export function ConversationsList({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.02 }}
                 onClick={() => onSelect(conversation)}
-                className={`w-full p-3 flex items-start gap-3 hover:bg-[#2A2A2A]/50 transition-colors ${
-                  isSelected ? 'bg-[#2A2A2A]' : ''
+                className={`w-full p-3 flex items-start gap-3 hover:bg-[#2d3c8a]/50 transition-colors ${
+                  isSelected ? 'bg-[#2d3c8a]' : ''
                 }`}
               >
                 <div className="relative">
                   <Avatar className="h-12 w-12">
                     <AvatarImage src={conversation.contact_profile_pic || undefined} />
-                    <AvatarFallback className="bg-[#2A2A2A] text-white">
+                    <AvatarFallback className="bg-[#2d3c8a] text-white">
                       {getInitials(conversation.contact_name || conversation.contact_phone)}
                     </AvatarFallback>
                   </Avatar>
                   {conversation.status === 'active' && (
                     <span
-                      className="absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-[#1F1F1F]"
+                      className="absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-[#243178]"
                       style={{ backgroundColor: accentColor }}
                     />
                   )}

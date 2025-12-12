@@ -60,8 +60,8 @@ const roleIcons: Record<string, typeof Crown> = {
 }
 
 const roleColors: Record<string, string> = {
-  owner: "bg-[#FFB830]/10 text-[#FFB830]",
-  admin: "bg-[#00E5FF]/10 text-[#00E5FF]",
+  owner: "bg-[#0046E2]/10 text-[#0046E2]",
+  admin: "bg-[#0046E2]/10 text-[#0046E2]",
   member: "bg-[#00D68F]/10 text-[#00D68F]",
   guest: "bg-[#A1A1AA]/10 text-[#A1A1AA]",
 }

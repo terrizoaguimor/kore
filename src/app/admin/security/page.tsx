@@ -72,8 +72,8 @@ export default function AdminSecurityPage() {
     switch (level) {
       case "critical": return "text-[#FF6B6B] bg-[#FF6B6B]/10"
       case "high": return "text-[#F59E0B] bg-[#F59E0B]/10"
-      case "medium": return "text-[#FFB830] bg-[#FFB830]/10"
-      case "low": return "text-[#00E5FF] bg-[#00E5FF]/10"
+      case "medium": return "text-[#0046E2] bg-[#0046E2]/10"
+      case "low": return "text-[#0046E2] bg-[#0046E2]/10"
       default: return "text-[#10B981] bg-[#10B981]/10"
     }
   }
@@ -82,8 +82,8 @@ export default function AdminSecurityPage() {
     switch (severity) {
       case "critical": return "text-[#FF6B6B] bg-[#FF6B6B]/10 border-[#FF6B6B]/30"
       case "high": return "text-[#F59E0B] bg-[#F59E0B]/10 border-[#F59E0B]/30"
-      case "warning": return "text-[#FFB830] bg-[#FFB830]/10 border-[#FFB830]/30"
-      default: return "text-[#00E5FF] bg-[#00E5FF]/10 border-[#00E5FF]/30"
+      case "warning": return "text-[#0046E2] bg-[#0046E2]/10 border-[#0046E2]/30"
+      default: return "text-[#0046E2] bg-[#0046E2]/10 border-[#0046E2]/30"
     }
   }
 
@@ -100,22 +100,22 @@ export default function AdminSecurityPage() {
       title: "Total Visits",
       value: stats?.totalVisits || 0,
       icon: Eye,
-      color: "#00E5FF",
-      gradient: "from-[#00E5FF] to-[#0EA5E9]",
+      color: "#0046E2",
+      gradient: "from-[#0046E2] to-[#1A5AE8]",
     },
     {
       title: "Unique IPs",
       value: stats?.uniqueIps || 0,
       icon: Users,
-      color: "#8B5CF6",
-      gradient: "from-[#8B5CF6] to-[#7C3AED]",
+      color: "#1b2d7c",
+      gradient: "from-[#1b2d7c] to-[#7C3AED]",
     },
     {
       title: "Suspicious",
       value: stats?.suspiciousRequests || 0,
       icon: AlertTriangle,
-      color: "#FFB830",
-      gradient: "from-[#FFB830] to-[#F59E0B]",
+      color: "#0046E2",
+      gradient: "from-[#0046E2] to-[#F59E0B]",
     },
     {
       title: "Blocked IPs",
@@ -147,10 +147,10 @@ export default function AdminSecurityPage() {
             onChange={(e) => setTimeRange(parseInt(e.target.value))}
             className="rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#FF6B6B]/50"
           >
-            <option value="1" className="bg-[#1A1A1A]">Last hour</option>
-            <option value="6" className="bg-[#1A1A1A]">Last 6 hours</option>
-            <option value="24" className="bg-[#1A1A1A]">Last 24 hours</option>
-            <option value="168" className="bg-[#1A1A1A]">Last 7 days</option>
+            <option value="1" className="bg-[#1b2d7c]">Last hour</option>
+            <option value="6" className="bg-[#1b2d7c]">Last 6 hours</option>
+            <option value="24" className="bg-[#1b2d7c]">Last 24 hours</option>
+            <option value="168" className="bg-[#1b2d7c]">Last 7 days</option>
           </select>
           <Button
             onClick={() => { setIsLoading(true); fetchStats() }}
@@ -196,7 +196,7 @@ export default function AdminSecurityPage() {
           className="p-6 rounded-2xl bg-white/5 border border-white/10"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#FF6B6B]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1b2d7c] to-[#FF6B6B]">
               <Bot className="h-5 w-5 text-white" />
             </div>
             <div>
@@ -211,11 +211,11 @@ export default function AdminSecurityPage() {
               <p className="text-xs text-[#A1A1AA]">Total Bots</p>
             </div>
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-2xl font-bold text-[#8B5CF6]">{stats?.botStats.aiBots || 0}</p>
+              <p className="text-2xl font-bold text-[#1b2d7c]">{stats?.botStats.aiBots || 0}</p>
               <p className="text-xs text-[#A1A1AA]">AI Bots</p>
             </div>
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-2xl font-bold text-[#FFB830]">{stats?.botStats.scrapers || 0}</p>
+              <p className="text-2xl font-bold text-[#0046E2]">{stats?.botStats.scrapers || 0}</p>
               <p className="text-xs text-[#A1A1AA]">Scrapers</p>
             </div>
             <div className="p-4 rounded-xl bg-white/5 border border-white/10">
@@ -274,7 +274,7 @@ export default function AdminSecurityPage() {
       >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#FFB830] to-[#F59E0B]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#0046E2] to-[#F59E0B]">
               <AlertTriangle className="h-5 w-5 text-white" />
             </div>
             <div>
@@ -284,7 +284,7 @@ export default function AdminSecurityPage() {
           </div>
           <Link
             href="/admin/security/alerts"
-            className="text-sm text-[#00E5FF] hover:underline"
+            className="text-sm text-[#0046E2] hover:underline"
           >
             View all
           </Link>
@@ -328,15 +328,15 @@ export default function AdminSecurityPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
-        className="p-6 rounded-2xl bg-gradient-to-r from-[#FF6B6B]/10 to-[#8B5CF6]/10 border border-white/10"
+        className="p-6 rounded-2xl bg-gradient-to-r from-[#FF6B6B]/10 to-[#1b2d7c]/10 border border-white/10"
       >
         <h2 className="text-lg font-semibold text-white mb-4">Security Actions</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { title: "Blocked IPs", href: "/admin/security/blocked-ips", icon: Ban, color: "#FF6B6B" },
-            { title: "Security Alerts", href: "/admin/security/alerts", icon: AlertTriangle, color: "#FFB830" },
-            { title: "Traffic Monitor", href: "/admin/security/traffic", icon: Globe, color: "#00E5FF" },
-            { title: "Activity Logs", href: "/admin/logs", icon: Activity, color: "#8B5CF6" },
+            { title: "Security Alerts", href: "/admin/security/alerts", icon: AlertTriangle, color: "#0046E2" },
+            { title: "Traffic Monitor", href: "/admin/security/traffic", icon: Globe, color: "#0046E2" },
+            { title: "Activity Logs", href: "/admin/logs", icon: Activity, color: "#1b2d7c" },
           ].map((action) => (
             <Link
               key={action.title}
@@ -349,7 +349,7 @@ export default function AdminSecurityPage() {
               >
                 <action.icon className="h-5 w-5" style={{ color: action.color }} />
               </div>
-              <span className="text-sm font-medium text-white group-hover:text-[#00E5FF] transition-colors">
+              <span className="text-sm font-medium text-white group-hover:text-[#0046E2] transition-colors">
                 {action.title}
               </span>
             </Link>

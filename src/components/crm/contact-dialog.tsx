@@ -99,7 +99,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-3xl max-h-[90vh] bg-[#1F1F1F] border-[#2A2A2A] text-white">
+      <DialogContent className="max-w-3xl max-h-[90vh] bg-[#243178] border-[#2d3c8a] text-white">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-[#F39C12]">
             {contact ? "Edit Contact" : "New Contact"}
@@ -108,7 +108,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
 
         <ScrollArea className="max-h-[60vh]">
           <Tabs defaultValue="basic" className="w-full">
-            <TabsList className="mb-4 bg-[#2A2A2A]">
+            <TabsList className="mb-4 bg-[#2d3c8a]">
               <TabsTrigger value="basic" className="data-[state=active]:bg-[#F39C12]">Basic Info</TabsTrigger>
               <TabsTrigger value="contact" className="data-[state=active]:bg-[#F39C12]">Contact</TabsTrigger>
               <TabsTrigger value="address" className="data-[state=active]:bg-[#F39C12]">Address</TabsTrigger>
@@ -123,10 +123,10 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     value={formData.salutation || ""}
                     onValueChange={(value) => updateField("salutation", value || null)}
                   >
-                    <SelectTrigger className="bg-[#2A2A2A] border-[#3A3A3A]">
+                    <SelectTrigger className="bg-[#2d3c8a] border-[#3d4d9a]">
                       <SelectValue placeholder="Select..." />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A]">
+                    <SelectContent className="bg-[#2d3c8a] border-[#3d4d9a]">
                       {salutations.map((s) => (
                         <SelectItem key={s} value={s}>{s}</SelectItem>
                       ))}
@@ -138,7 +138,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   <Input
                     value={formData.first_name || ""}
                     onChange={(e) => updateField("first_name", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="John"
                   />
                 </div>
@@ -147,7 +147,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   <Input
                     value={formData.last_name || ""}
                     onChange={(e) => updateField("last_name", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="Smith"
                   />
                 </div>
@@ -159,7 +159,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   <Input
                     value={formData.title || ""}
                     onChange={(e) => updateField("title", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="CTO"
                   />
                 </div>
@@ -168,7 +168,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   <Input
                     value={formData.department || ""}
                     onChange={(e) => updateField("department", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="Engineering"
                   />
                 </div>
@@ -180,10 +180,10 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   value={formData.account_id || ""}
                   onValueChange={(value) => updateField("account_id", value || null)}
                 >
-                  <SelectTrigger className="bg-[#2A2A2A] border-[#3A3A3A]">
+                  <SelectTrigger className="bg-[#2d3c8a] border-[#3d4d9a]">
                     <SelectValue placeholder="Select account..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A]">
+                  <SelectContent className="bg-[#2d3c8a] border-[#3d4d9a]">
                     {accounts.map((acc) => (
                       <SelectItem key={acc.id} value={acc.id}>
                         {acc.account_name}
@@ -200,10 +200,10 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     value={formData.lead_source || ""}
                     onValueChange={(value) => updateField("lead_source", value as LeadSource)}
                   >
-                    <SelectTrigger className="bg-[#2A2A2A] border-[#3A3A3A]">
+                    <SelectTrigger className="bg-[#2d3c8a] border-[#3d4d9a]">
                       <SelectValue placeholder="Select source..." />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#2A2A2A] border-[#3A3A3A]">
+                    <SelectContent className="bg-[#2d3c8a] border-[#3d4d9a]">
                       {leadSources.map((source) => (
                         <SelectItem key={source} value={source}>{source}</SelectItem>
                       ))}
@@ -216,7 +216,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     type="date"
                     value={formData.birthday || ""}
                     onChange={(e) => updateField("birthday", e.target.value || null)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                   />
                 </div>
               </div>
@@ -230,7 +230,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     type="email"
                     value={formData.email || ""}
                     onChange={(e) => updateField("email", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="john@company.com"
                   />
                 </div>
@@ -240,7 +240,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     type="email"
                     value={formData.secondary_email || ""}
                     onChange={(e) => updateField("secondary_email", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="john.personal@email.com"
                   />
                 </div>
@@ -252,7 +252,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   <Input
                     value={formData.phone || ""}
                     onChange={(e) => updateField("phone", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="+1 555-0123"
                   />
                 </div>
@@ -261,7 +261,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   <Input
                     value={formData.mobile || ""}
                     onChange={(e) => updateField("mobile", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="+1 555-0124"
                   />
                 </div>
@@ -270,7 +270,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                   <Input
                     value={formData.fax || ""}
                     onChange={(e) => updateField("fax", e.target.value)}
-                    className="bg-[#2A2A2A] border-[#3A3A3A]"
+                    className="bg-[#2d3c8a] border-[#3d4d9a]"
                     placeholder="+1 555-0125"
                   />
                 </div>
@@ -282,7 +282,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     id="do_not_call"
                     checked={formData.do_not_call || false}
                     onCheckedChange={(checked) => updateField("do_not_call", checked)}
-                    className="border-[#3A3A3A] data-[state=checked]:bg-[#F39C12]"
+                    className="border-[#3d4d9a] data-[state=checked]:bg-[#F39C12]"
                   />
                   <Label htmlFor="do_not_call" className="text-[#A1A1AA]">Do Not Call</Label>
                 </div>
@@ -291,7 +291,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     id="email_opt_out"
                     checked={formData.email_opt_out || false}
                     onCheckedChange={(checked) => updateField("email_opt_out", checked)}
-                    className="border-[#3A3A3A] data-[state=checked]:bg-[#F39C12]"
+                    className="border-[#3d4d9a] data-[state=checked]:bg-[#F39C12]"
                   />
                   <Label htmlFor="email_opt_out" className="text-[#A1A1AA]">Email Opt Out</Label>
                 </div>
@@ -307,7 +307,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.mailing_street || ""}
                       onChange={(e) => updateField("mailing_street", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="123 Main St"
                     />
                   </div>
@@ -316,7 +316,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.mailing_city || ""}
                       onChange={(e) => updateField("mailing_city", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="San Francisco"
                     />
                   </div>
@@ -325,7 +325,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.mailing_state || ""}
                       onChange={(e) => updateField("mailing_state", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="CA"
                     />
                   </div>
@@ -334,7 +334,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.mailing_code || ""}
                       onChange={(e) => updateField("mailing_code", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="94102"
                     />
                   </div>
@@ -343,7 +343,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.mailing_country || ""}
                       onChange={(e) => updateField("mailing_country", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="USA"
                     />
                   </div>
@@ -358,7 +358,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.other_street || ""}
                       onChange={(e) => updateField("other_street", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="456 Oak Ave"
                     />
                   </div>
@@ -367,7 +367,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.other_city || ""}
                       onChange={(e) => updateField("other_city", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="Los Angeles"
                     />
                   </div>
@@ -376,7 +376,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.other_state || ""}
                       onChange={(e) => updateField("other_state", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="CA"
                     />
                   </div>
@@ -385,7 +385,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.other_code || ""}
                       onChange={(e) => updateField("other_code", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="90001"
                     />
                   </div>
@@ -394,7 +394,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                     <Input
                       value={formData.other_country || ""}
                       onChange={(e) => updateField("other_country", e.target.value)}
-                      className="bg-[#2A2A2A] border-[#3A3A3A]"
+                      className="bg-[#2d3c8a] border-[#3d4d9a]"
                       placeholder="USA"
                     />
                   </div>
@@ -408,7 +408,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
                 <Textarea
                   value={formData.description || ""}
                   onChange={(e) => updateField("description", e.target.value)}
-                  className="bg-[#2A2A2A] border-[#3A3A3A] min-h-[150px]"
+                  className="bg-[#2d3c8a] border-[#3d4d9a] min-h-[150px]"
                   placeholder="Additional notes about this contact..."
                 />
               </div>
@@ -420,7 +420,7 @@ export function ContactDialog({ open, onOpenChange, contact, accounts, onSave }:
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="border-[#3A3A3A] hover:bg-[#2A2A2A]"
+            className="border-[#3d4d9a] hover:bg-[#2d3c8a]"
           >
             Cancel
           </Button>

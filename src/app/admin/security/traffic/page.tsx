@@ -84,7 +84,7 @@ export default function TrafficMonitorPage() {
 
   const getPointColor = (visit: GeoVisit) => {
     if (visit.isBlocked) return "#FF6B6B"
-    if (visit.isSuspicious) return "#FFB830"
+    if (visit.isSuspicious) return "#0046E2"
     return "#10B981"
   }
 
@@ -93,7 +93,7 @@ export default function TrafficMonitorPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#0046E2] to-[#1A5AE8]">
             <Globe className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -107,12 +107,12 @@ export default function TrafficMonitorPage() {
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(parseInt(e.target.value))}
-            className="rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50"
+            className="rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50"
           >
-            <option value="1" className="bg-[#1A1A1A]">Last hour</option>
-            <option value="6" className="bg-[#1A1A1A]">Last 6 hours</option>
-            <option value="24" className="bg-[#1A1A1A]">Last 24 hours</option>
-            <option value="168" className="bg-[#1A1A1A]">Last 7 days</option>
+            <option value="1" className="bg-[#1b2d7c]">Last hour</option>
+            <option value="6" className="bg-[#1b2d7c]">Last 6 hours</option>
+            <option value="24" className="bg-[#1b2d7c]">Last 24 hours</option>
+            <option value="168" className="bg-[#1b2d7c]">Last 7 days</option>
           </select>
           <Button
             onClick={() => { setIsLoading(true); fetchGeoData() }}
@@ -131,8 +131,8 @@ export default function TrafficMonitorPage() {
           className="p-4 rounded-xl bg-white/5 border border-white/10"
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#00E5FF]/10">
-              <Eye className="h-5 w-5 text-[#00E5FF]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/10">
+              <Eye className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-white">{data?.totalVisits?.toLocaleString() || 0}</p>
@@ -148,8 +148,8 @@ export default function TrafficMonitorPage() {
           className="p-4 rounded-xl bg-white/5 border border-white/10"
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#8B5CF6]/10">
-              <MapPin className="h-5 w-5 text-[#8B5CF6]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1b2d7c]/10">
+              <MapPin className="h-5 w-5 text-[#1b2d7c]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-white">{data?.totalLocations || 0}</p>
@@ -165,8 +165,8 @@ export default function TrafficMonitorPage() {
           className="p-4 rounded-xl bg-white/5 border border-white/10"
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/10">
-              <AlertTriangle className="h-5 w-5 text-[#FFB830]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/10">
+              <AlertTriangle className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-white">
@@ -218,7 +218,7 @@ export default function TrafficMonitorPage() {
 
           {isLoading ? (
             <div className="flex items-center justify-center h-64">
-              <div className="animate-spin h-8 w-8 border-2 border-[#00E5FF] border-t-transparent rounded-full" />
+              <div className="animate-spin h-8 w-8 border-2 border-[#0046E2] border-t-transparent rounded-full" />
             </div>
           ) : (
             <div className="relative">
@@ -234,7 +234,7 @@ export default function TrafficMonitorPage() {
                     className={cn(
                       "p-3 rounded-xl cursor-pointer transition-all hover:scale-105",
                       visit.isBlocked ? "bg-[#FF6B6B]/10 border border-[#FF6B6B]/30" :
-                      visit.isSuspicious ? "bg-[#FFB830]/10 border border-[#FFB830]/30" :
+                      visit.isSuspicious ? "bg-[#0046E2]/10 border border-[#0046E2]/30" :
                       "bg-[#10B981]/10 border border-[#10B981]/30"
                     )}
                   >
@@ -254,7 +254,7 @@ export default function TrafficMonitorPage() {
                   <span className="text-xs text-[#A1A1AA]">Normal</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-[#FFB830]" />
+                  <div className="w-3 h-3 rounded-full bg-[#0046E2]" />
                   <span className="text-xs text-[#A1A1AA]">Suspicious</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -297,7 +297,7 @@ export default function TrafficMonitorPage() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 rounded-xl bg-white/5">
                     <p className="text-xs text-[#A1A1AA]">IP Address</p>
-                    <code className="text-sm text-[#00E5FF] font-mono">{selectedVisit.ip}</code>
+                    <code className="text-sm text-[#0046E2] font-mono">{selectedVisit.ip}</code>
                   </div>
                   <div className="p-3 rounded-xl bg-white/5">
                     <p className="text-xs text-[#A1A1AA]">Total Visits</p>
@@ -313,9 +313,9 @@ export default function TrafficMonitorPage() {
                 </div>
 
                 {selectedVisit.isSuspicious && (
-                  <div className="flex items-center gap-2 p-3 rounded-xl bg-[#FFB830]/10 border border-[#FFB830]/30">
-                    <AlertTriangle className="h-5 w-5 text-[#FFB830]" />
-                    <span className="text-sm text-[#FFB830]">Suspicious Activity</span>
+                  <div className="flex items-center gap-2 p-3 rounded-xl bg-[#0046E2]/10 border border-[#0046E2]/30">
+                    <AlertTriangle className="h-5 w-5 text-[#0046E2]" />
+                    <span className="text-sm text-[#0046E2]">Suspicious Activity</span>
                   </div>
                 )}
 
@@ -344,7 +344,7 @@ export default function TrafficMonitorPage() {
                     <div className="text-right">
                       <p className="text-sm font-semibold text-white">{stat.visits}</p>
                       {stat.suspicious > 0 && (
-                        <p className="text-xs text-[#FFB830]">{stat.suspicious} suspicious</p>
+                        <p className="text-xs text-[#0046E2]">{stat.suspicious} suspicious</p>
                       )}
                     </div>
                   </div>

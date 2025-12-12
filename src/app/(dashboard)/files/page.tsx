@@ -71,7 +71,7 @@ const getFileIcon = (item: FileType) => {
 }
 
 const getIconColor = (item: FileType) => {
-  if (item.type === "folder") return "text-[#00E5FF]"
+  if (item.type === "folder") return "text-[#0046E2]"
 
   const mime = item.mime_type || ""
   if (mime.startsWith("image/")) return "text-green-400"
@@ -175,9 +175,9 @@ export default function FilesPage() {
 
   if (!organization) {
     return (
-      <div className="flex h-full items-center justify-center bg-[#0B0B0B]">
+      <div className="flex h-full items-center justify-center bg-[#0f1a4a]">
         <div className="text-center">
-          <Loader2 className="mx-auto h-8 w-8 animate-spin text-[#00E5FF]" />
+          <Loader2 className="mx-auto h-8 w-8 animate-spin text-[#0046E2]" />
           <p className="mt-2 text-[#A1A1AA]">Loading...</p>
         </div>
       </div>
@@ -185,9 +185,9 @@ export default function FilesPage() {
   }
 
   return (
-    <div className="flex h-full flex-col bg-[#0B0B0B]">
+    <div className="flex h-full flex-col bg-[#0f1a4a]">
       {/* Toolbar */}
-      <div className="flex items-center justify-between border-b border-[#1F1F1F] bg-[#0B0B0B] px-6 py-4">
+      <div className="flex items-center justify-between border-b border-[#243178] bg-[#0f1a4a] px-6 py-4">
         <div className="flex items-center gap-4">
           <Breadcrumb>
             <BreadcrumbList>
@@ -196,7 +196,7 @@ export default function FilesPage() {
                   {index < breadcrumbs.length - 1 ? (
                     <>
                       <BreadcrumbLink
-                        className="cursor-pointer text-[#A1A1AA] hover:text-[#00E5FF] transition-colors"
+                        className="cursor-pointer text-[#A1A1AA] hover:text-[#0046E2] transition-colors"
                         onClick={() => handleBreadcrumbClick(index)}
                       >
                         {index === 0 ? (
@@ -226,13 +226,13 @@ export default function FilesPage() {
             disabled={uploadProgress.some((p) => p.status === "uploading")}
           />
           <NewFolderDialog onCreateFolder={createFolder} />
-          <Separator orientation="vertical" className="mx-2 h-6 bg-[#1F1F1F]" />
+          <Separator orientation="vertical" className="mx-2 h-6 bg-[#243178]" />
           <Button
             variant="ghost"
             size="icon"
             className={cn(
-              "text-[#A1A1AA] hover:text-white hover:bg-[#1F1F1F]",
-              viewMode === "grid" && "bg-[#1F1F1F] text-[#00E5FF]"
+              "text-[#A1A1AA] hover:text-white hover:bg-[#243178]",
+              viewMode === "grid" && "bg-[#243178] text-[#0046E2]"
             )}
             onClick={() => setViewMode("grid")}
           >
@@ -242,8 +242,8 @@ export default function FilesPage() {
             variant="ghost"
             size="icon"
             className={cn(
-              "text-[#A1A1AA] hover:text-white hover:bg-[#1F1F1F]",
-              viewMode === "list" && "bg-[#1F1F1F] text-[#00E5FF]"
+              "text-[#A1A1AA] hover:text-white hover:bg-[#243178]",
+              viewMode === "list" && "bg-[#243178] text-[#0046E2]"
             )}
             onClick={() => setViewMode("list")}
           >
@@ -257,10 +257,10 @@ export default function FilesPage() {
         {isLoading ? (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
             {[...Array(12)].map((_, i) => (
-              <div key={i} className="rounded-lg border border-[#1F1F1F] bg-[#1F1F1F] p-4">
-                <Skeleton className="aspect-square w-full rounded-lg bg-[#2A2A2A]" />
-                <Skeleton className="mt-3 h-4 w-3/4 bg-[#2A2A2A]" />
-                <Skeleton className="mt-1 h-3 w-1/2 bg-[#2A2A2A]" />
+              <div key={i} className="rounded-lg border border-[#243178] bg-[#243178] p-4">
+                <Skeleton className="aspect-square w-full rounded-lg bg-[#2d3c8a]" />
+                <Skeleton className="mt-3 h-4 w-3/4 bg-[#2d3c8a]" />
+                <Skeleton className="mt-1 h-3 w-1/2 bg-[#2d3c8a]" />
               </div>
             ))}
           </div>
@@ -285,10 +285,10 @@ export default function FilesPage() {
               return (
                 <div
                   key={item.id}
-                  className="group cursor-pointer rounded-lg border border-[#1F1F1F] bg-[#1F1F1F] p-4 transition-all hover:border-[#00E5FF]/50 hover:shadow-[0_0_20px_rgba(0,229,255,0.1)]"
+                  className="group cursor-pointer rounded-lg border border-[#243178] bg-[#243178] p-4 transition-all hover:border-[#0046E2]/50 hover:shadow-[0_0_20px_rgba(0,229,255,0.1)]"
                   onClick={() => handleFileClick(item)}
                 >
-                  <div className="relative mb-3 flex aspect-square items-center justify-center rounded-lg bg-[#0B0B0B]">
+                  <div className="relative mb-3 flex aspect-square items-center justify-center rounded-lg bg-[#0f1a4a]">
                     <Icon className={`h-12 w-12 ${iconColor}`} />
                     {item.is_starred && (
                       <Star className="absolute left-2 top-2 h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -298,38 +298,38 @@ export default function FilesPage() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className="absolute right-1 top-1 h-8 w-8 opacity-0 group-hover:opacity-100 text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A]"
+                          className="absolute right-1 top-1 h-8 w-8 opacity-0 group-hover:opacity-100 text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a]"
                         >
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-[#1F1F1F] border-[#2A2A2A]" onClick={(e) => e.stopPropagation()}>
+                      <DropdownMenuContent align="end" className="bg-[#243178] border-[#2d3c8a]" onClick={(e) => e.stopPropagation()}>
                         {item.type === "file" && (
-                          <DropdownMenuItem onClick={() => downloadFile(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                          <DropdownMenuItem onClick={() => downloadFile(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                             <Download className="mr-2 h-4 w-4" />
                             Download
                           </DropdownMenuItem>
                         )}
-                        <DropdownMenuItem onClick={() => openShareDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => openShareDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Share2 className="mr-2 h-4 w-4" />
                           Share
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => openRenameDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => openRenameDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Pencil className="mr-2 h-4 w-4" />
                           Rename
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => toggleStar(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => toggleStar(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Star className={`mr-2 h-4 w-4 ${item.is_starred ? "fill-yellow-400 text-yellow-400" : ""}`} />
                           {item.is_starred ? "Remove star" : "Add star"}
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => {
                           setSelectedFile(item)
                           setPreviewOpen(true)
-                        }} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        }} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Info className="mr-2 h-4 w-4" />
                           Details
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-[#2A2A2A]" />
+                        <DropdownMenuSeparator className="bg-[#2d3c8a]" />
                         <DropdownMenuItem
                           className="text-red-400 hover:text-red-300 hover:bg-red-500/10 focus:bg-red-500/10"
                           onClick={() => deleteFile(item)}
@@ -351,8 +351,8 @@ export default function FilesPage() {
             })}
           </div>
         ) : (
-          <div className="rounded-lg border border-[#1F1F1F] bg-[#1F1F1F]">
-            <div className="grid grid-cols-12 gap-4 border-b border-[#2A2A2A] px-4 py-3 text-sm font-medium text-[#A1A1AA]">
+          <div className="rounded-lg border border-[#243178] bg-[#243178]">
+            <div className="grid grid-cols-12 gap-4 border-b border-[#2d3c8a] px-4 py-3 text-sm font-medium text-[#A1A1AA]">
               <div className="col-span-6">Name</div>
               <div className="col-span-2">Size</div>
               <div className="col-span-3">Modified</div>
@@ -365,7 +365,7 @@ export default function FilesPage() {
               return (
                 <div
                   key={item.id}
-                  className="grid grid-cols-12 gap-4 border-b border-[#2A2A2A] px-4 py-3 last:border-0 hover:bg-[#2A2A2A]/50 cursor-pointer items-center transition-colors"
+                  className="grid grid-cols-12 gap-4 border-b border-[#2d3c8a] px-4 py-3 last:border-0 hover:bg-[#2d3c8a]/50 cursor-pointer items-center transition-colors"
                   onClick={() => handleFileClick(item)}
                 >
                   <div className="col-span-6 flex items-center gap-3">
@@ -384,37 +384,37 @@ export default function FilesPage() {
                   <div className="col-span-1 flex justify-end">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A]">
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a]">
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-[#1F1F1F] border-[#2A2A2A]" onClick={(e) => e.stopPropagation()}>
+                      <DropdownMenuContent align="end" className="bg-[#243178] border-[#2d3c8a]" onClick={(e) => e.stopPropagation()}>
                         {item.type === "file" && (
-                          <DropdownMenuItem onClick={() => downloadFile(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                          <DropdownMenuItem onClick={() => downloadFile(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                             <Download className="mr-2 h-4 w-4" />
                             Download
                           </DropdownMenuItem>
                         )}
-                        <DropdownMenuItem onClick={() => openShareDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => openShareDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Share2 className="mr-2 h-4 w-4" />
                           Share
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => openRenameDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => openRenameDialog(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Pencil className="mr-2 h-4 w-4" />
                           Rename
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => toggleStar(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        <DropdownMenuItem onClick={() => toggleStar(item)} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Star className={`mr-2 h-4 w-4 ${item.is_starred ? "fill-yellow-400 text-yellow-400" : ""}`} />
                           {item.is_starred ? "Remove star" : "Add star"}
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => {
                           setSelectedFile(item)
                           setPreviewOpen(true)
-                        }} className="text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A] focus:bg-[#2A2A2A]">
+                        }} className="text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a] focus:bg-[#2d3c8a]">
                           <Info className="mr-2 h-4 w-4" />
                           Details
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-[#2A2A2A]" />
+                        <DropdownMenuSeparator className="bg-[#2d3c8a]" />
                         <DropdownMenuItem
                           className="text-red-400 hover:text-red-300 hover:bg-red-500/10 focus:bg-red-500/10"
                           onClick={() => deleteFile(item)}

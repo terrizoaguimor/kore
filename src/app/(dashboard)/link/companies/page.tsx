@@ -45,7 +45,7 @@ const columns: CRMColumn<CRMAccount>[] = [
     label: "Account #",
     sortable: true,
     render: (account) => (
-      <span className="font-mono text-[#FFB830]">{account.account_no}</span>
+      <span className="font-mono text-[#0046E2]">{account.account_no}</span>
     ),
   },
   {
@@ -54,8 +54,8 @@ const columns: CRMColumn<CRMAccount>[] = [
     sortable: true,
     render: (account) => (
       <div className="flex items-center gap-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FFB830]/20">
-          <Building2 className="h-4 w-4 text-[#FFB830]" />
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0046E2]/20">
+          <Building2 className="h-4 w-4 text-[#0046E2]" />
         </div>
         <div>
           <p className="font-medium">{account.account_name}</p>
@@ -64,7 +64,7 @@ const columns: CRMColumn<CRMAccount>[] = [
               href={account.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[#A1A1AA] hover:text-[#FFB830] flex items-center gap-1"
+              className="text-xs text-[#A1A1AA] hover:text-[#0046E2] flex items-center gap-1"
               onClick={(e) => e.stopPropagation()}
             >
               <Globe className="h-3 w-3" />
@@ -209,7 +209,7 @@ export default function CompaniesPage() {
   const prospectCount = accounts.filter((a) => a.account_type === "Prospect").length
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <Link
         href="/link"
@@ -227,8 +227,8 @@ export default function CompaniesPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
-              <Building2 className="h-5 w-5 text-[#FFB830]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/20">
+              <Building2 className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Companies</h1>
@@ -242,13 +242,13 @@ export default function CompaniesPage() {
             size="icon"
             onClick={() => fetchAccounts()}
             disabled={loading}
-            className="border-[#2A2A2A]"
+            className="border-[#2d3c8a]"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
           <Button
             onClick={handleNewAccount}
-            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
+            className="bg-[#0046E2] hover:bg-[#0046E2]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Company
@@ -270,26 +270,26 @@ export default function CompaniesPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="mb-6 grid grid-cols-4 gap-4"
       >
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <Building2 className="h-4 w-4" />
             <p className="text-sm">Total Companies</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#FFB830]">{loading ? "-" : accounts.length}</p>
+          <p className="mt-1 text-2xl font-bold text-[#0046E2]">{loading ? "-" : accounts.length}</p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <DollarSign className="h-4 w-4" />
             <p className="text-sm">Total Revenue</p>
           </div>
           <p className="mt-1 text-2xl font-bold text-green-400">{loading ? "-" : formatCurrency(totalRevenue)}</p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <p className="text-sm text-[#A1A1AA]">Customers</p>
           <p className="mt-1 text-2xl font-bold text-white">{loading ? "-" : customerCount}</p>
           <p className="text-xs text-[#A1A1AA]">{prospectCount} prospects</p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <Users className="h-4 w-4" />
             <p className="text-sm">Total Employees</p>
@@ -315,7 +315,7 @@ export default function CompaniesPage() {
           selectedItems={selectedAccounts}
           onSelectionChange={setSelectedAccounts}
           emptyMessage="No companies found. Click 'New Company' to create one."
-          accentColor="#FFB830"
+          accentColor="#0046E2"
         />
       </motion.div>
 
@@ -330,7 +330,7 @@ export default function CompaniesPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+        <AlertDialogContent className="bg-[#243178] border-[#2d3c8a]">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Delete Company</AlertDialogTitle>
             <AlertDialogDescription className="text-[#A1A1AA]">
@@ -338,7 +338,7 @@ export default function CompaniesPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+            <AlertDialogCancel className="bg-[#2d3c8a] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction

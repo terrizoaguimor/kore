@@ -220,7 +220,7 @@ export function AIContentGenerator({ accentColor = "#FF6B6B", onContentGenerated
                 value={topic}
                 onChange={(e) => setTopic(e.target.value)}
                 placeholder="Ej: Lanzamiento de nuevo producto, Promoción de verano..."
-                className="mt-2 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                className="mt-2 bg-[#0f1a4a] border-[#2A2A2A] text-white"
                 rows={3}
               />
             </div>
@@ -231,7 +231,7 @@ export function AIContentGenerator({ accentColor = "#FF6B6B", onContentGenerated
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
                 placeholder="marketing, ventas, crecimiento (separadas por coma)"
-                className="mt-2 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                className="mt-2 bg-[#0f1a4a] border-[#2A2A2A] text-white"
               />
             </div>
           </CardContent>
@@ -334,7 +334,7 @@ export function AIContentGenerator({ accentColor = "#FF6B6B", onContentGenerated
             )}
           </CardContent>
           {generatedContent && (
-            <div className="p-4 border-t border-[#2A2A2A] bg-[#0B0B0B]/50">
+            <div className="p-4 border-t border-[#2A2A2A] bg-[#0f1a4a]/50">
               <div className="flex items-center justify-between text-sm">
                 <div className="flex items-center gap-4">
                   <span className="text-[#A1A1AA]">

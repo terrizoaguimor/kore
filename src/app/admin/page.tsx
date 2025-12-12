@@ -115,7 +115,7 @@ export default function AdminDashboardPage() {
   if (isLoading || !stats) {
     return (
       <div className="flex h-full items-center justify-center">
-        <div className="animate-spin h-8 w-8 border-2 border-[#8B5CF6] border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-2 border-[#1b2d7c] border-t-transparent rounded-full" />
       </div>
     )
   }
@@ -125,8 +125,8 @@ export default function AdminDashboardPage() {
       title: "Total Users",
       value: stats.users,
       icon: Users,
-      color: "#00E5FF",
-      gradient: "from-[#00E5FF] to-[#0EA5E9]",
+      color: "#0046E2",
+      gradient: "from-[#0046E2] to-[#1A5AE8]",
       change: "+12%",
       trend: "up",
     },
@@ -134,8 +134,8 @@ export default function AdminDashboardPage() {
       title: "Organizations",
       value: stats.organizations,
       icon: Building2,
-      color: "#8B5CF6",
-      gradient: "from-[#8B5CF6] to-[#7C3AED]",
+      color: "#1b2d7c",
+      gradient: "from-[#1b2d7c] to-[#7C3AED]",
       change: "+8%",
       trend: "up",
     },
@@ -152,8 +152,8 @@ export default function AdminDashboardPage() {
       title: "Messages",
       value: stats.messages,
       icon: MessageSquare,
-      color: "#FFB830",
-      gradient: "from-[#FFB830] to-[#F59E0B]",
+      color: "#0046E2",
+      gradient: "from-[#0046E2] to-[#F59E0B]",
       change: "+45%",
       trend: "up",
     },
@@ -223,7 +223,7 @@ export default function AdminDashboardPage() {
         >
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#8B5CF6]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#0046E2] to-[#1b2d7c]">
                 <HardDrive className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -244,7 +244,7 @@ export default function AdminDashboardPage() {
                 initial={{ width: 0 }}
                 animate={{ width: `${storagePercentage}%` }}
                 transition={{ duration: 1, ease: "easeOut" }}
-                className="h-full rounded-full bg-gradient-to-r from-[#00E5FF] to-[#8B5CF6]"
+                className="h-full rounded-full bg-gradient-to-r from-[#0046E2] to-[#1b2d7c]"
               />
             </div>
             <div className="flex justify-between text-xs text-[#A1A1AA]">
@@ -273,7 +273,7 @@ export default function AdminDashboardPage() {
           className="p-6 rounded-2xl bg-white/5 border border-white/10"
         >
           <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#FFB830] to-[#F59E0B]">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#0046E2] to-[#F59E0B]">
               <Activity className="h-5 w-5 text-white" />
             </div>
             <div>
@@ -317,14 +317,14 @@ export default function AdminDashboardPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="p-6 rounded-2xl bg-gradient-to-r from-[#8B5CF6]/10 to-[#FF6B6B]/10 border border-white/10"
+        className="p-6 rounded-2xl bg-gradient-to-r from-[#1b2d7c]/10 to-[#FF6B6B]/10 border border-white/10"
       >
         <h2 className="text-lg font-semibold text-white mb-4">Quick Actions</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { title: "Create Organization", href: "/admin/organizations/new", icon: Building2, color: "#8B5CF6" },
-            { title: "Invite User", href: "/admin/users/invite", icon: Users, color: "#00E5FF" },
-            { title: "View Logs", href: "/admin/logs", icon: Activity, color: "#FFB830" },
+            { title: "Create Organization", href: "/admin/organizations/new", icon: Building2, color: "#1b2d7c" },
+            { title: "Invite User", href: "/admin/users/invite", icon: Users, color: "#0046E2" },
+            { title: "View Logs", href: "/admin/logs", icon: Activity, color: "#0046E2" },
             { title: "Storage Settings", href: "/admin/storage", icon: HardDrive, color: "#10B981" },
           ].map((action) => (
             <a
@@ -338,7 +338,7 @@ export default function AdminDashboardPage() {
               >
                 <action.icon className="h-5 w-5" style={{ color: action.color }} />
               </div>
-              <span className="text-sm font-medium text-white group-hover:text-[#00E5FF] transition-colors">
+              <span className="text-sm font-medium text-white group-hover:text-[#0046E2] transition-colors">
                 {action.title}
               </span>
               <ArrowUpRight className="h-4 w-4 text-[#A1A1AA] ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />

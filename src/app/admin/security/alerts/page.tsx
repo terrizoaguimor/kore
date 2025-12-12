@@ -116,8 +116,8 @@ export default function SecurityAlertsPage() {
     switch (severity) {
       case "critical": return "text-[#FF6B6B] bg-[#FF6B6B]/10 border-[#FF6B6B]/30"
       case "high": return "text-[#F59E0B] bg-[#F59E0B]/10 border-[#F59E0B]/30"
-      case "warning": return "text-[#FFB830] bg-[#FFB830]/10 border-[#FFB830]/30"
-      default: return "text-[#00E5FF] bg-[#00E5FF]/10 border-[#00E5FF]/30"
+      case "warning": return "text-[#0046E2] bg-[#0046E2]/10 border-[#0046E2]/30"
+      default: return "text-[#0046E2] bg-[#0046E2]/10 border-[#0046E2]/30"
     }
   }
 
@@ -133,7 +133,7 @@ export default function SecurityAlertsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#FFB830] to-[#F59E0B]">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#0046E2] to-[#F59E0B]">
             <AlertTriangle className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -164,7 +164,7 @@ export default function SecurityAlertsPage() {
               setSearchQuery(e.target.value)
               setCurrentPage(1)
             }}
-            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#FFB830]/50"
+            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50"
           />
         </div>
 
@@ -176,13 +176,13 @@ export default function SecurityAlertsPage() {
                 setSeverityFilter(e.target.value)
                 setCurrentPage(1)
               }}
-              className="appearance-none rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 pr-10 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#FFB830]/50 cursor-pointer"
+              className="appearance-none rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 pr-10 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 cursor-pointer"
             >
-              <option value="all" className="bg-[#1A1A1A]">All Severities</option>
-              <option value="critical" className="bg-[#1A1A1A]">Critical</option>
-              <option value="high" className="bg-[#1A1A1A]">High</option>
-              <option value="warning" className="bg-[#1A1A1A]">Warning</option>
-              <option value="info" className="bg-[#1A1A1A]">Info</option>
+              <option value="all" className="bg-[#1b2d7c]">All Severities</option>
+              <option value="critical" className="bg-[#1b2d7c]">Critical</option>
+              <option value="high" className="bg-[#1b2d7c]">High</option>
+              <option value="warning" className="bg-[#1b2d7c]">Warning</option>
+              <option value="info" className="bg-[#1b2d7c]">Info</option>
             </select>
             <Filter className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#A1A1AA] pointer-events-none" />
           </div>
@@ -195,7 +195,7 @@ export default function SecurityAlertsPage() {
             className={cn(
               "px-4 py-2.5 rounded-xl text-sm font-medium transition-colors",
               showUnresolved
-                ? "bg-[#FFB830]/20 text-[#FFB830] border border-[#FFB830]/30"
+                ? "bg-[#0046E2]/20 text-[#0046E2] border border-[#0046E2]/30"
                 : "bg-white/5 text-[#A1A1AA] border border-white/10 hover:bg-white/10"
             )}
           >
@@ -212,7 +212,7 @@ export default function SecurityAlertsPage() {
       {/* Alerts List */}
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin h-8 w-8 border-2 border-[#FFB830] border-t-transparent rounded-full" />
+          <div className="animate-spin h-8 w-8 border-2 border-[#0046E2] border-t-transparent rounded-full" />
         </div>
       ) : paginatedAlerts.length === 0 ? (
         <div className="text-center py-20">
@@ -341,7 +341,7 @@ export default function SecurityAlertsPage() {
                   className={cn(
                     "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                     currentPage === page
-                      ? "bg-gradient-to-r from-[#FFB830] to-[#F59E0B] text-[#0B0B0B]"
+                      ? "bg-gradient-to-r from-[#0046E2] to-[#F59E0B] text-[#0f1a4a]"
                       : "bg-white/5 text-[#A1A1AA] hover:bg-white/10 hover:text-white"
                   )}
                 >

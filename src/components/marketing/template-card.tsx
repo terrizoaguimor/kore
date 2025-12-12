@@ -84,7 +84,7 @@ export function TemplateCard({
       >
         {/* Preview Area */}
         <div
-          className="relative h-40 bg-[#0B0B0B] p-4 cursor-pointer"
+          className="relative h-40 bg-[#0f1a4a] p-4 cursor-pointer"
           onClick={() => setShowPreview(true)}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#1F1F1F]/80" />
@@ -231,7 +231,7 @@ export function TemplateCard({
             )}
             <div>
               <p className="text-xs text-[#A1A1AA] mb-1">Contenido</p>
-              <div className="bg-[#0B0B0B] rounded-lg p-4 max-h-96 overflow-y-auto">
+              <div className="bg-[#0f1a4a] rounded-lg p-4 max-h-96 overflow-y-auto">
                 <pre className="whitespace-pre-wrap text-sm text-[#E1E1E1] font-sans">
                   {template.content || 'Sin contenido'}
                 </pre>

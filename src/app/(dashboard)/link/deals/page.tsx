@@ -36,7 +36,7 @@ const columns: CRMColumn<CRMDeal>[] = [
     label: "Deal #",
     sortable: true,
     render: (deal) => (
-      <span className="font-mono text-[#FFB830]">{deal.deal_no}</span>
+      <span className="font-mono text-[#0046E2]">{deal.deal_no}</span>
     ),
   },
   {
@@ -70,9 +70,9 @@ const columns: CRMColumn<CRMDeal>[] = [
     sortable: true,
     render: (deal) => (
       <div className="flex items-center gap-2">
-        <div className="h-2 w-16 rounded-full bg-[#2A2A2A]">
+        <div className="h-2 w-16 rounded-full bg-[#2d3c8a]">
           <div
-            className="h-full rounded-full bg-[#FFB830]"
+            className="h-full rounded-full bg-[#0046E2]"
             style={{ width: `${deal.probability}%` }}
           />
         </div>
@@ -185,7 +185,7 @@ export default function DealsPage() {
   const avgDealSize = deals.length > 0 ? deals.reduce((sum, d) => sum + d.amount, 0) / deals.length : 0
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <Link
         href="/link"
@@ -203,8 +203,8 @@ export default function DealsPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
-              <Briefcase className="h-5 w-5 text-[#FFB830]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/20">
+              <Briefcase className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Deals</h1>
@@ -218,13 +218,13 @@ export default function DealsPage() {
             size="icon"
             onClick={() => fetchDeals()}
             disabled={loading}
-            className="border-[#2A2A2A]"
+            className="border-[#2d3c8a]"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
           <Button
             onClick={handleNewDeal}
-            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
+            className="bg-[#0046E2] hover:bg-[#0046E2]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Deal
@@ -246,16 +246,16 @@ export default function DealsPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="mb-6 grid grid-cols-4 gap-4"
       >
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <TrendingUp className="h-4 w-4" />
             <p className="text-sm">Pipeline Value</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#FFB830]">
+          <p className="mt-1 text-2xl font-bold text-[#0046E2]">
             {loading ? "-" : formatCurrency(pipelineStats.total_value - pipelineStats.won_value - pipelineStats.lost_value)}
           </p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <DollarSign className="h-4 w-4" />
             <p className="text-sm">Won Revenue</p>
@@ -264,13 +264,13 @@ export default function DealsPage() {
             {loading ? "-" : formatCurrency(pipelineStats.won_value)}
           </p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <p className="text-sm text-[#A1A1AA]">Open Deals</p>
           <p className="mt-1 text-2xl font-bold text-white">
             {loading ? "-" : openDeals.length}
           </p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <p className="text-sm text-[#A1A1AA]">Avg. Deal Size</p>
           <p className="mt-1 text-2xl font-bold text-white">
             {loading ? "-" : formatCurrency(avgDealSize)}
@@ -283,15 +283,15 @@ export default function DealsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.15 }}
-        className="mb-6 rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4"
+        className="mb-6 rounded-xl border border-[#243178] bg-[#243178] p-4"
       >
         <h3 className="mb-4 text-sm font-medium text-[#A1A1AA]">Pipeline Stages</h3>
         <div className="flex gap-2">
           {pipelineStats.by_stage.map((stageData) => {
-            const stageColor = stageData.stage === "Closed Won" ? "#00D68F" : stageData.stage === "Closed Lost" ? "#FF4757" : "#FFB830"
+            const stageColor = stageData.stage === "Closed Won" ? "#00D68F" : stageData.stage === "Closed Lost" ? "#FF4757" : "#0046E2"
 
             return (
-              <div key={stageData.stage} className="flex-1 rounded-lg bg-[#2A2A2A] p-3">
+              <div key={stageData.stage} className="flex-1 rounded-lg bg-[#2d3c8a] p-3">
                 <p className="text-xs text-[#A1A1AA]">{stageData.stage}</p>
                 <p className="text-lg font-bold" style={{ color: stageColor }}>
                   {stageData.count}
@@ -320,7 +320,7 @@ export default function DealsPage() {
           selectedItems={selectedDeals}
           onSelectionChange={setSelectedDeals}
           emptyMessage="No deals found. Click 'New Deal' to create one."
-          accentColor="#FFB830"
+          accentColor="#0046E2"
         />
       </motion.div>
 
@@ -336,7 +336,7 @@ export default function DealsPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+        <AlertDialogContent className="bg-[#243178] border-[#2d3c8a]">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Delete Deal</AlertDialogTitle>
             <AlertDialogDescription className="text-[#A1A1AA]">
@@ -344,7 +344,7 @@ export default function DealsPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+            <AlertDialogCancel className="bg-[#2d3c8a] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction

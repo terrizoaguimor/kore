@@ -82,8 +82,8 @@ function LoginForm() {
     })
   }
 
-  // Theme-aware colors
-  const particleColor = isDark ? "#00E5FF" : "#00B8CC"
+  // Theme-aware colors - KORE By Socios Brand
+  const particleColor = isDark ? "#0046E2" : "#0046E2"
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -211,7 +211,7 @@ function LoginForm() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-12 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-[0_0_30px_rgba(0,229,255,0.3)] hover:shadow-[0_0_40px_rgba(0,229,255,0.5)] transition-all"
+                className="w-full h-12 bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-[0_0_30px_rgba(0,70,226,0.3)] hover:shadow-[0_0_40px_rgba(0,70,226,0.5)] transition-all"
               >
                 {isLoading ? (
                   <>
@@ -303,8 +303,8 @@ function LoginForm() {
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: `
-              linear-gradient(${isDark ? 'rgba(0, 229, 255, 0.03)' : 'rgba(0, 184, 204, 0.05)'} 1px, transparent 1px),
-              linear-gradient(90deg, ${isDark ? 'rgba(0, 229, 255, 0.03)' : 'rgba(0, 184, 204, 0.05)'} 1px, transparent 1px)
+              linear-gradient(${isDark ? 'rgba(0, 70, 226, 0.03)' : 'rgba(0, 70, 226, 0.05)'} 1px, transparent 1px),
+              linear-gradient(90deg, ${isDark ? 'rgba(0, 70, 226, 0.03)' : 'rgba(0, 70, 226, 0.05)'} 1px, transparent 1px)
             `,
             backgroundSize: '60px 60px'
           }}
@@ -314,7 +314,7 @@ function LoginForm() {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div
             className="w-[400px] h-[400px] rounded-full blur-[120px]"
-            style={{ backgroundColor: isDark ? 'rgba(0, 229, 255, 0.05)' : 'rgba(0, 184, 204, 0.08)' }}
+            style={{ backgroundColor: isDark ? 'rgba(0, 70, 226, 0.05)' : 'rgba(0, 70, 226, 0.08)' }}
           />
         </div>
 
@@ -329,7 +329,7 @@ function LoginForm() {
             {/* Outer glow ring */}
             <div
               className="absolute inset-0 rounded-full blur-xl scale-150"
-              style={{ backgroundColor: isDark ? 'rgba(0, 229, 255, 0.2)' : 'rgba(0, 184, 204, 0.25)' }}
+              style={{ backgroundColor: isDark ? 'rgba(0, 70, 226, 0.2)' : 'rgba(0, 70, 226, 0.25)' }}
             />
 
             {/* Logo isotipo large */}

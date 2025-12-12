@@ -352,7 +352,7 @@ export default function TemplatesPage() {
   }
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -409,14 +409,14 @@ export default function TemplatesPage() {
             placeholder="Buscar plantillas..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-[#1F1F1F] border-[#2A2A2A] text-white"
+            className="pl-10 bg-[#243178] border-[#2d3c8a] text-white"
           />
         </div>
         <Select value={typeFilter} onValueChange={setTypeFilter}>
-          <SelectTrigger className="w-full sm:w-[180px] bg-[#1F1F1F] border-[#2A2A2A] text-white">
+          <SelectTrigger className="w-full sm:w-[180px] bg-[#243178] border-[#2d3c8a] text-white">
             <SelectValue placeholder="Tipo" />
           </SelectTrigger>
-          <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+          <SelectContent className="bg-[#243178] border-[#2d3c8a]">
             <SelectItem value="all">Todos los tipos</SelectItem>
             <SelectItem value="email">Email</SelectItem>
             <SelectItem value="sms">SMS</SelectItem>
@@ -426,10 +426,10 @@ export default function TemplatesPage() {
           </SelectContent>
         </Select>
         <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-          <SelectTrigger className="w-full sm:w-[180px] bg-[#1F1F1F] border-[#2A2A2A] text-white">
+          <SelectTrigger className="w-full sm:w-[180px] bg-[#243178] border-[#2d3c8a] text-white">
             <SelectValue placeholder="Categoría" />
           </SelectTrigger>
-          <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+          <SelectContent className="bg-[#243178] border-[#2d3c8a]">
             <SelectItem value="all">Todas las categorías</SelectItem>
             <SelectItem value="welcome">Bienvenida</SelectItem>
             <SelectItem value="promotional">Promocional</SelectItem>
@@ -465,7 +465,7 @@ export default function TemplatesPage() {
       </div>
 
       {filteredTemplates.length === 0 && (
-        <div className="text-center py-12 bg-[#1F1F1F] rounded-lg border border-[#2A2A2A]">
+        <div className="text-center py-12 bg-[#243178] rounded-lg border border-[#2d3c8a]">
           <FileText className="h-12 w-12 mx-auto mb-4 text-[#3A3A3A]" />
           <p className="text-[#A1A1AA]">No se encontraron plantillas</p>
           <Button
@@ -481,7 +481,7 @@ export default function TemplatesPage() {
 
       {/* Create/Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-2xl bg-[#1F1F1F] border-[#2A2A2A]">
+        <DialogContent className="max-w-2xl bg-[#243178] border-[#2d3c8a]">
           <DialogHeader>
             <DialogTitle className="text-white">
               {editingTemplate ? 'Editar Plantilla' : 'Nueva Plantilla'}
@@ -495,7 +495,7 @@ export default function TemplatesPage() {
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="Nombre de la plantilla"
-                  className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                  className="mt-1 bg-[#0f1a4a] border-[#2d3c8a] text-white"
                 />
               </div>
               <div>
@@ -504,10 +504,10 @@ export default function TemplatesPage() {
                   value={formData.type}
                   onValueChange={(v) => setFormData(prev => ({ ...prev, type: v as MarketingTemplateType }))}
                 >
-                  <SelectTrigger className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white">
+                  <SelectTrigger className="mt-1 bg-[#0f1a4a] border-[#2d3c8a] text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+                  <SelectContent className="bg-[#243178] border-[#2d3c8a]">
                     <SelectItem value="email">Email</SelectItem>
                     <SelectItem value="sms">SMS</SelectItem>
                     <SelectItem value="whatsapp">WhatsApp</SelectItem>
@@ -525,10 +525,10 @@ export default function TemplatesPage() {
                   value={formData.category}
                   onValueChange={(v) => setFormData(prev => ({ ...prev, category: v }))}
                 >
-                  <SelectTrigger className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white">
+                  <SelectTrigger className="mt-1 bg-[#0f1a4a] border-[#2d3c8a] text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+                  <SelectContent className="bg-[#243178] border-[#2d3c8a]">
                     <SelectItem value="welcome">Bienvenida</SelectItem>
                     <SelectItem value="promotional">Promocional</SelectItem>
                     <SelectItem value="newsletter">Newsletter</SelectItem>
@@ -546,7 +546,7 @@ export default function TemplatesPage() {
                   value={formData.description}
                   onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Descripción breve"
-                  className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                  className="mt-1 bg-[#0f1a4a] border-[#2d3c8a] text-white"
                 />
               </div>
             </div>
@@ -558,7 +558,7 @@ export default function TemplatesPage() {
                   value={formData.subject}
                   onChange={(e) => setFormData(prev => ({ ...prev, subject: e.target.value }))}
                   placeholder="Asunto del email"
-                  className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white"
+                  className="mt-1 bg-[#0f1a4a] border-[#2d3c8a] text-white"
                 />
               </div>
             )}
@@ -569,7 +569,7 @@ export default function TemplatesPage() {
                 value={formData.body}
                 onChange={(e) => setFormData(prev => ({ ...prev, body: e.target.value }))}
                 placeholder="Contenido de la plantilla. Usa {{variable}} para variables dinámicas."
-                className="mt-1 bg-[#0B0B0B] border-[#2A2A2A] text-white min-h-[200px]"
+                className="mt-1 bg-[#0f1a4a] border-[#2d3c8a] text-white min-h-[200px]"
               />
               <p className="text-xs text-[#A1A1AA] mt-1">
                 Variables detectadas: {extractVariables(formData.body + formData.subject).join(', ') || 'ninguna'}

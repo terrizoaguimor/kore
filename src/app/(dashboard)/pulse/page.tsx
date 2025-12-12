@@ -123,7 +123,7 @@ const recentCampaigns = [
 
 export default function PulsePage() {
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <motion.div
@@ -162,7 +162,7 @@ export default function PulsePage() {
           return (
             <div
               key={stat.name}
-              className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4"
+              className="rounded-xl border border-[#243178] bg-[#243178] p-4"
             >
               <div className="flex items-center justify-between">
                 <Icon className="h-5 w-5 text-[#A1A1AA]" />
@@ -200,12 +200,12 @@ export default function PulsePage() {
             const Icon = module.icon
             return (
               <Link key={module.name} href={module.href}>
-                <div className="group rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-5 transition-all hover:border-[#FF4757]/30 hover:shadow-[0_0_20px_rgba(255,71,87,0.1)]">
+                <div className="group rounded-xl border border-[#243178] bg-[#243178] p-5 transition-all hover:border-[#FF4757]/30 hover:shadow-[0_0_20px_rgba(255,71,87,0.1)]">
                   <div className="flex items-start justify-between">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF4757]/10">
                       <Icon className="h-5 w-5 text-[#FF4757]" />
                     </div>
-                    <span className="rounded-full bg-[#0B0B0B] px-2 py-1 text-xs text-[#A1A1AA]">
+                    <span className="rounded-full bg-[#0f1a4a] px-2 py-1 text-xs text-[#A1A1AA]">
                       {module.count}
                     </span>
                   </div>
@@ -230,11 +230,11 @@ export default function PulsePage() {
             Ver todas
           </Link>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] divide-y divide-[#2A2A2A]">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] divide-y divide-[#2d3c8a]">
           {recentCampaigns.map((campaign, index) => (
             <div key={index} className="flex items-center justify-between p-4">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0B0B0B]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0f1a4a]">
                   <Megaphone className="h-5 w-5 text-[#FF4757]" />
                 </div>
                 <div>
@@ -245,7 +245,7 @@ export default function PulsePage() {
                       campaign.status === "active"
                         ? "text-[#00D68F]"
                         : campaign.status === "scheduled"
-                        ? "text-[#FFB830]"
+                        ? "text-[#0046E2]"
                         : "text-[#A1A1AA]"
                     )}
                   >

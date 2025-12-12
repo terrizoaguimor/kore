@@ -17,8 +17,8 @@ export default function ProgressBar({
 
   const getProgressColor = () => {
     if (clampedProgress === 100) return 'bg-[#00D68F]'
-    if (clampedProgress >= 70) return 'bg-[#00E5FF]'
-    if (clampedProgress >= 40) return 'bg-[#FFB830]'
+    if (clampedProgress >= 70) return 'bg-[#0046E2]'
+    if (clampedProgress >= 40) return 'bg-[#0046E2]'
     return 'bg-[#FF4757]'
   }
 
@@ -32,7 +32,7 @@ export default function ProgressBar({
 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <div className={`flex-1 bg-[#2A2A2A] rounded-full overflow-hidden ${getHeight()}`}>
+      <div className={`flex-1 bg-[#2d3c8a] rounded-full overflow-hidden ${getHeight()}`}>
         <div
           className={`h-full ${getProgressColor()} transition-all duration-300`}
           style={{ width: `${clampedProgress}%` }}

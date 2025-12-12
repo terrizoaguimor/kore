@@ -48,7 +48,7 @@ export default function InvoicesPage() {
       label: "Invoice #",
       sortable: true,
       render: (invoice) => (
-        <span className="font-mono text-[#FFB830]">{invoice.invoice_no}</span>
+        <span className="font-mono text-[#0046E2]">{invoice.invoice_no}</span>
       ),
     },
     {
@@ -185,7 +185,7 @@ export default function InvoicesPage() {
   const draftCount = invoices.filter((i) => i.status === "Draft").length
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <Link
         href="/link"
@@ -203,8 +203,8 @@ export default function InvoicesPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
-              <Receipt className="h-5 w-5 text-[#FFB830]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/20">
+              <Receipt className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Invoices</h1>
@@ -218,13 +218,13 @@ export default function InvoicesPage() {
             size="icon"
             onClick={() => fetchInvoices()}
             disabled={loading}
-            className="border-[#2A2A2A]"
+            className="border-[#2d3c8a]"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
           <Button
             onClick={handleNewInvoice}
-            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
+            className="bg-[#0046E2] hover:bg-[#0046E2]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Invoice
@@ -246,16 +246,16 @@ export default function InvoicesPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="mb-6 grid grid-cols-4 gap-4"
       >
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <Clock className="h-4 w-4" />
             <p className="text-sm">Outstanding</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#FFB830]">
+          <p className="mt-1 text-2xl font-bold text-[#0046E2]">
             {loading ? "-" : formatCurrency(stats.pending)}
           </p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <AlertTriangle className="h-4 w-4" />
             <p className="text-sm">Overdue</p>
@@ -264,7 +264,7 @@ export default function InvoicesPage() {
             {loading ? "-" : formatCurrency(stats.overdue)}
           </p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <CheckCircle className="h-4 w-4" />
             <p className="text-sm">Paid</p>
@@ -273,7 +273,7 @@ export default function InvoicesPage() {
             {loading ? "-" : formatCurrency(stats.paid)}
           </p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <Receipt className="h-4 w-4" />
             <p className="text-sm">Draft Invoices</p>
@@ -289,7 +289,7 @@ export default function InvoicesPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.15 }}
-        className="mb-6 rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4"
+        className="mb-6 rounded-xl border border-[#243178] bg-[#243178] p-4"
       >
         <h3 className="mb-4 text-sm font-medium text-[#A1A1AA]">Invoice Status</h3>
         <div className="flex gap-2">
@@ -304,7 +304,7 @@ export default function InvoicesPage() {
               "#6B7280"
 
             return (
-              <div key={status} className="flex-1 rounded-lg bg-[#2A2A2A] p-3">
+              <div key={status} className="flex-1 rounded-lg bg-[#2d3c8a] p-3">
                 <p className="text-xs text-[#A1A1AA]">{status}</p>
                 <p className="text-lg font-bold" style={{ color: statusColor }}>
                   {statusInvoices.length}
@@ -333,7 +333,7 @@ export default function InvoicesPage() {
           selectedItems={selectedInvoices}
           onSelectionChange={setSelectedInvoices}
           emptyMessage="No invoices found. Click 'New Invoice' to create one."
-          accentColor="#FFB830"
+          accentColor="#0046E2"
         />
       </motion.div>
 
@@ -349,7 +349,7 @@ export default function InvoicesPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+        <AlertDialogContent className="bg-[#243178] border-[#2d3c8a]">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Delete Invoice</AlertDialogTitle>
             <AlertDialogDescription className="text-[#A1A1AA]">
@@ -357,7 +357,7 @@ export default function InvoicesPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+            <AlertDialogCancel className="bg-[#2d3c8a] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction

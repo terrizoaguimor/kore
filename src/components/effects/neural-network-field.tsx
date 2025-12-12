@@ -10,7 +10,7 @@ interface Particle {
   vx: number
   vy: number
   radius: number
-  isHub: boolean // Yellow hub particles
+  isHub: boolean // Cream hub particles
   alpha: number
   pulsePhase: number // For heartbeat effect on hubs
 }
@@ -33,9 +33,9 @@ export function NeuralNetworkField({
   const isHoveringRef = useRef(false)
   const timeRef = useRef(0)
 
-  // Colors
-  const blueColor = { r: 0, g: 229, b: 255 } // #00E5FF
-  const yellowColor = { r: 255, g: 184, b: 48 } // #FFB830
+  // Colors - KORE By Socios Brand
+  const blueColor = { r: 0, g: 70, b: 226 } // #0046E2
+  const creamColor = { r: 253, g: 251, b: 231 } // #FDFBE7
 
   const createParticles = useCallback((width: number, height: number) => {
     const particles: Particle[] = []
@@ -173,9 +173,9 @@ export function NeuralNetworkField({
         // Draw hub glow (outer)
         const glowRadius = hub.radius * (3 + pulse * 2)
         const gradient = ctx.createRadialGradient(hub.x, hub.y, 0, hub.x, hub.y, glowRadius)
-        gradient.addColorStop(0, `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, ${glowIntensity * 0.3})`)
-        gradient.addColorStop(0.5, `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, ${glowIntensity * 0.1})`)
-        gradient.addColorStop(1, `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, 0)`)
+        gradient.addColorStop(0, `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, ${glowIntensity * 0.3})`)
+        gradient.addColorStop(0.5, `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, ${glowIntensity * 0.1})`)
+        gradient.addColorStop(1, `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, 0)`)
         ctx.beginPath()
         ctx.arc(hub.x, hub.y, glowRadius, 0, Math.PI * 2)
         ctx.fillStyle = gradient
@@ -185,7 +185,7 @@ export function NeuralNetworkField({
         const coreRadius = hub.radius * (1 + pulse * 0.3)
         ctx.beginPath()
         ctx.arc(hub.x, hub.y, coreRadius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, ${0.8 + pulse * 0.2})`
+        ctx.fillStyle = `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, ${0.8 + pulse * 0.2})`
         ctx.fill()
 
         // Inner bright core
@@ -210,9 +210,9 @@ export function NeuralNetworkField({
 
             // Create gradient line between hubs
             const gradient = ctx.createLinearGradient(h1.x, h1.y, h2.x, h2.y)
-            gradient.addColorStop(0, `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, ${opacity})`)
+            gradient.addColorStop(0, `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, ${opacity})`)
             gradient.addColorStop(0.5, `rgba(${blueColor.r}, ${blueColor.g}, ${blueColor.b}, ${opacity * 0.5})`)
-            gradient.addColorStop(1, `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, ${opacity})`)
+            gradient.addColorStop(1, `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, ${opacity})`)
 
             ctx.beginPath()
             ctx.moveTo(h1.x, h1.y)
@@ -291,7 +291,7 @@ export function NeuralNetworkField({
           // Gradient from blue to yellow
           const gradient = ctx.createLinearGradient(p.x, p.y, nearestHub.x, nearestHub.y)
           gradient.addColorStop(0, `rgba(${blueColor.r}, ${blueColor.g}, ${blueColor.b}, ${opacity})`)
-          gradient.addColorStop(1, `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, ${opacity * 0.5})`)
+          gradient.addColorStop(1, `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, ${opacity * 0.5})`)
 
           ctx.beginPath()
           ctx.moveTo(p.x, p.y)
@@ -327,7 +327,7 @@ export function NeuralNetworkField({
           mouse.x, mouse.y, 120
         )
         gradient.addColorStop(0, `rgba(${blueColor.r}, ${blueColor.g}, ${blueColor.b}, 0.08)`)
-        gradient.addColorStop(0.5, `rgba(${yellowColor.r}, ${yellowColor.g}, ${yellowColor.b}, 0.03)`)
+        gradient.addColorStop(0.5, `rgba(${creamColor.r}, ${creamColor.g}, ${creamColor.b}, 0.03)`)
         gradient.addColorStop(1, `rgba(${blueColor.r}, ${blueColor.g}, ${blueColor.b}, 0)`)
         ctx.beginPath()
         ctx.arc(mouse.x, mouse.y, 120, 0, Math.PI * 2)

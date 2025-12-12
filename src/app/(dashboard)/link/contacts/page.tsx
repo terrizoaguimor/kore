@@ -38,7 +38,7 @@ export default function CRMContactsPage() {
       label: "Contact #",
       sortable: true,
       render: (contact) => (
-        <span className="font-mono text-[#FFB830]">{contact.contact_no}</span>
+        <span className="font-mono text-[#0046E2]">{contact.contact_no}</span>
       ),
     },
     {
@@ -47,8 +47,8 @@ export default function CRMContactsPage() {
       sortable: true,
       render: (contact) => (
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FFB830]/20">
-            <UserCircle className="h-4 w-4 text-[#FFB830]" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0046E2]/20">
+            <UserCircle className="h-4 w-4 text-[#0046E2]" />
           </div>
           <div>
             <p className="font-medium">
@@ -183,7 +183,7 @@ export default function CRMContactsPage() {
   const sources = [...new Set(contacts.map((c) => c.lead_source).filter(Boolean))].length
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <Link
         href="/link"
@@ -201,8 +201,8 @@ export default function CRMContactsPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
-              <UserCircle className="h-5 w-5 text-[#FFB830]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/20">
+              <UserCircle className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Contacts</h1>
@@ -216,13 +216,13 @@ export default function CRMContactsPage() {
             size="icon"
             onClick={() => fetchContacts()}
             disabled={loading}
-            className="border-[#2A2A2A]"
+            className="border-[#2d3c8a]"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
           <Button
             onClick={handleNewContact}
-            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
+            className="bg-[#0046E2] hover:bg-[#0046E2]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Contact
@@ -244,28 +244,28 @@ export default function CRMContactsPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="mb-6 grid grid-cols-4 gap-4"
       >
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <UserCircle className="h-4 w-4" />
             <p className="text-sm">Total Contacts</p>
           </div>
-          <p className="mt-1 text-2xl font-bold text-[#FFB830]">{loading ? "-" : totalContacts}</p>
+          <p className="mt-1 text-2xl font-bold text-[#0046E2]">{loading ? "-" : totalContacts}</p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <Building2 className="h-4 w-4" />
             <p className="text-sm">With Accounts</p>
           </div>
           <p className="mt-1 text-2xl font-bold text-white">{loading ? "-" : withAccounts}</p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center gap-2 text-[#A1A1AA]">
             <Mail className="h-4 w-4" />
             <p className="text-sm">With Email</p>
           </div>
           <p className="mt-1 text-2xl font-bold text-white">{loading ? "-" : withEmail}</p>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <p className="text-sm text-[#A1A1AA]">Lead Sources</p>
           <p className="mt-1 text-2xl font-bold text-white">{loading ? "-" : sources}</p>
         </div>
@@ -288,7 +288,7 @@ export default function CRMContactsPage() {
           selectedItems={selectedContacts}
           onSelectionChange={setSelectedContacts}
           emptyMessage="No contacts found. Click 'New Contact' to create one."
-          accentColor="#FFB830"
+          accentColor="#0046E2"
         />
       </motion.div>
 
@@ -303,7 +303,7 @@ export default function CRMContactsPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+        <AlertDialogContent className="bg-[#243178] border-[#2d3c8a]">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Delete Contact</AlertDialogTitle>
             <AlertDialogDescription className="text-[#A1A1AA]">
@@ -311,7 +311,7 @@ export default function CRMContactsPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+            <AlertDialogCancel className="bg-[#2d3c8a] border-[#3d4d9a] text-white hover:bg-[#3d4d9a]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction

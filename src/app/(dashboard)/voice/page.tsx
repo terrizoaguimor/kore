@@ -58,7 +58,7 @@ const modules = [
     icon: PhoneCall,
     href: "/voice/calls",
     count: "3 Activas",
-    color: "#00E5FF",
+    color: "#0046E2",
   },
   {
     name: "Llamadas Entrantes",
@@ -66,7 +66,7 @@ const modules = [
     icon: PhoneIncoming,
     href: "/voice/incoming",
     count: "24 Hoy",
-    color: "#00E5FF",
+    color: "#0046E2",
   },
   {
     name: "Llamadas Salientes",
@@ -74,7 +74,7 @@ const modules = [
     icon: PhoneOutgoing,
     href: "/voice/outgoing",
     count: "21 Hoy",
-    color: "#00E5FF",
+    color: "#0046E2",
   },
   {
     name: "Buzón de Voz",
@@ -82,7 +82,7 @@ const modules = [
     icon: Voicemail,
     href: "/voice/voicemail",
     count: "5 Nuevos",
-    color: "#00E5FF",
+    color: "#0046E2",
   },
 ]
 
@@ -100,10 +100,10 @@ const recentWhatsApp = [
 ]
 
 export default function VoicePage() {
-  const accentColor = "#00E5FF"
+  const accentColor = "#0046E2"
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <motion.div
@@ -112,8 +112,8 @@ export default function VoicePage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#00E5FF]/20">
-              <Phone className="h-5 w-5 text-[#00E5FF]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/20">
+              <Phone className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">KORE Voice</h1>
@@ -142,11 +142,11 @@ export default function VoicePage() {
           return (
             <div
               key={stat.name}
-              className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4"
+              className="rounded-xl border border-[#243178] bg-[#243178] p-4"
             >
               <div className="flex items-center justify-between">
                 <Icon className="h-5 w-5 text-[#A1A1AA]" />
-                <span className="text-xs font-medium text-[#00E5FF]">
+                <span className="text-xs font-medium text-[#0046E2]">
                   {stat.change}
                 </span>
               </div>
@@ -170,12 +170,12 @@ export default function VoicePage() {
             const Icon = module.icon
             return (
               <Link key={module.name} href={module.href}>
-                <div className="group rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-5 transition-all hover:border-[var(--color)]/30 hover:shadow-[0_0_20px_rgba(155,89,182,0.1)]" style={{ '--color': module.color } as React.CSSProperties}>
+                <div className="group rounded-xl border border-[#243178] bg-[#243178] p-5 transition-all hover:border-[var(--color)]/30 hover:shadow-[0_0_20px_rgba(155,89,182,0.1)]" style={{ '--color': module.color } as React.CSSProperties}>
                   <div className="flex items-start justify-between">
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: `${module.color}15` }}>
                       <Icon className="h-5 w-5" style={{ color: module.color }} />
                     </div>
-                    <span className="rounded-full bg-[#0B0B0B] px-2 py-1 text-xs text-[#A1A1AA]">
+                    <span className="rounded-full bg-[#0f1a4a] px-2 py-1 text-xs text-[#A1A1AA]">
                       {module.count}
                     </span>
                   </div>
@@ -198,11 +198,11 @@ export default function VoicePage() {
         >
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Llamadas Recientes</h2>
-            <Link href="/voice/calls" className="text-sm text-[#00E5FF] hover:underline">
+            <Link href="/voice/calls" className="text-sm text-[#0046E2] hover:underline">
               Ver todas
             </Link>
           </div>
-          <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] divide-y divide-[#2A2A2A]">
+          <div className="rounded-xl border border-[#243178] bg-[#243178] divide-y divide-[#2d3c8a]">
             {recentCalls.map((call, index) => (
               <div key={index} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
@@ -250,7 +250,7 @@ export default function VoicePage() {
               Ver todos
             </Link>
           </div>
-          <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] divide-y divide-[#2A2A2A]">
+          <div className="rounded-xl border border-[#243178] bg-[#243178] divide-y divide-[#2d3c8a]">
             {recentWhatsApp.map((chat, index) => (
               <div key={index} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">

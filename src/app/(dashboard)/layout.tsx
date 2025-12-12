@@ -91,20 +91,20 @@ export default function DashboardLayout({
 
   if (isLoading && !isInitialized) {
     return (
-      <div className="flex h-screen items-center justify-center bg-[#0B0B0B] relative overflow-hidden">
+      <div className="flex h-screen items-center justify-center bg-[#0f1a4a] relative overflow-hidden">
         {/* Background gradients */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00E5FF]/10 rounded-full blur-[150px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#8B5CF6]/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#0046E2]/10 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#1b2d7c]/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
 
         <div className="relative flex flex-col items-center gap-4">
           {/* Animated loader with gradient */}
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#00E5FF] to-[#8B5CF6] rounded-full blur-md opacity-50 animate-pulse" />
-            <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0046E2] to-[#1b2d7c] rounded-full blur-md opacity-50 animate-pulse" />
+            <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] flex items-center justify-center">
               <Loader2 className="h-6 w-6 animate-spin text-white" />
             </div>
           </div>
-          <p className="text-sm text-[#A1A1AA]">Loading KORE...</p>
+          <p className="text-sm text-[#A1A1AA]">Loading KORE By Socios...</p>
         </div>
       </div>
     )
@@ -118,11 +118,11 @@ export default function DashboardLayout({
       {/* Floating Dialer - Global */}
       <FloatingDialer />
 
-      <div className="flex h-screen bg-[#0B0B0B] relative">
+      <div className="flex h-screen bg-[#0f1a4a] relative">
         {/* Subtle ambient gradients */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="absolute -top-[400px] -left-[400px] w-[800px] h-[800px] bg-[#00E5FF]/[0.03] rounded-full blur-[150px]" />
-          <div className="absolute -bottom-[300px] -right-[300px] w-[600px] h-[600px] bg-[#8B5CF6]/[0.03] rounded-full blur-[150px]" />
+          <div className="absolute -top-[400px] -left-[400px] w-[800px] h-[800px] bg-[#0046E2]/[0.03] rounded-full blur-[150px]" />
+          <div className="absolute -bottom-[300px] -right-[300px] w-[600px] h-[600px] bg-[#1b2d7c]/[0.05] rounded-full blur-[150px]" />
         </div>
 
         {/* Sidebar */}

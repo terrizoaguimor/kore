@@ -31,14 +31,14 @@ export function KoreLogo({
     <div
       className={cn(
         "rounded-xl flex items-center justify-center",
-        "bg-gradient-to-br from-[#00E5FF] to-[#00E5FF]/50",
-        "shadow-lg shadow-[#00E5FF]/20",
-        "group-hover:shadow-[#00E5FF]/40 transition-all duration-300"
+        "bg-gradient-to-br from-[#0046E2] to-[#0046E2]/50",
+        "shadow-lg shadow-[#0046E2]/20",
+        "group-hover:shadow-[#0046E2]/40 transition-all duration-300"
       )}
       style={{ width: iconSize, height: iconSize }}
     >
       <Brain
-        className="text-[#0B0B0B]"
+        className="text-[#0f1a4a]"
         style={{ width: iconInnerSize, height: iconInnerSize }}
       />
     </div>
@@ -48,12 +48,12 @@ export function KoreLogo({
   const SolidIcon = () => {
     const colors = {
       light: "fill-white",
-      dark: "fill-[#0B0B0B]",
-      primary: "fill-[#00E5FF]",
-      gradient: "fill-[#00E5FF]",
+      dark: "fill-[#0f1a4a]",
+      primary: "fill-[#0046E2]",
+      gradient: "fill-[#0046E2]",
     }
     const strokeColor =
-      color === "light" ? "#0B0B0B" : color === "dark" ? "#FFFFFF" : "#0B0B0B"
+      color === "light" ? "#0f1a4a" : color === "dark" ? "#FFFFFF" : "#0f1a4a"
 
     return (
       <svg
@@ -75,9 +75,9 @@ export function KoreLogo({
 
   const textColors = {
     light: "text-white",
-    dark: "text-[#0B0B0B]",
-    primary: "text-[#00E5FF]",
-    gradient: "bg-gradient-to-r from-white to-[#00E5FF] bg-clip-text text-transparent",
+    dark: "text-[#0f1a4a]",
+    primary: "text-[#0046E2]",
+    gradient: "bg-gradient-to-r from-white to-[#0046E2] bg-clip-text text-transparent",
   }
 
   if (variant === "icon") {
@@ -115,8 +115,8 @@ export function KoreIsotipo({
   size?: number
   color?: "light" | "dark" | "primary"
 }) {
-  const fillColor = color === "light" ? "#FFFFFF" : color === "dark" ? "#0B0B0B" : "#00E5FF"
-  const cutColor = color === "light" ? "#0B0B0B" : color === "dark" ? "#FFFFFF" : "#0B0B0B"
+  const fillColor = color === "light" ? "#FFFFFF" : color === "dark" ? "#0f1a4a" : "#0046E2"
+  const cutColor = color === "light" ? "#0f1a4a" : color === "dark" ? "#FFFFFF" : "#0f1a4a"
 
   return (
     <svg

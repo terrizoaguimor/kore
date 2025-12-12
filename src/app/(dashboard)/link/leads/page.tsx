@@ -27,7 +27,7 @@ const columns: CRMColumn<CRMLead>[] = [
     label: "Lead #",
     sortable: true,
     render: (lead) => (
-      <span className="font-mono text-[#FFB830]">{lead.lead_no}</span>
+      <span className="font-mono text-[#0046E2]">{lead.lead_no}</span>
     ),
   },
   {
@@ -211,7 +211,7 @@ export default function LeadsPage() {
   }
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <Link
         href="/link"
@@ -229,8 +229,8 @@ export default function LeadsPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
-              <HandshakeIcon className="h-5 w-5 text-[#FFB830]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/20">
+              <HandshakeIcon className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">Leads</h1>
@@ -244,13 +244,13 @@ export default function LeadsPage() {
             size="icon"
             onClick={() => fetchLeads()}
             disabled={loading}
-            className="border-[#2A2A2A]"
+            className="border-[#2d3c8a]"
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
           <Button
             onClick={handleNewLead}
-            className="bg-[#FFB830] hover:bg-[#FFB830]/90 text-white"
+            className="bg-[#0046E2] hover:bg-[#0046E2]/90 text-white"
           >
             <Plus className="mr-2 h-4 w-4" />
             New Lead
@@ -273,14 +273,14 @@ export default function LeadsPage() {
         className="mb-6 grid grid-cols-4 gap-4"
       >
         {[
-          { label: "Total Leads", value: leads.length, color: "#FFB830" },
-          { label: "New", value: leads.filter((l) => l.lead_status === "New").length, color: "#00E5FF" },
+          { label: "Total Leads", value: leads.length, color: "#0046E2" },
+          { label: "New", value: leads.filter((l) => l.lead_status === "New").length, color: "#0046E2" },
           { label: "Qualified", value: leads.filter((l) => l.lead_status === "Qualified").length, color: "#00D68F" },
           { label: "Hot Leads", value: leads.filter((l) => l.rating === "Hot").length, color: "#FF4757" },
         ].map((stat) => (
           <div
             key={stat.label}
-            className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4"
+            className="rounded-xl border border-[#243178] bg-[#243178] p-4"
           >
             <p className="text-sm text-[#A1A1AA]">{stat.label}</p>
             <p className="mt-1 text-2xl font-bold" style={{ color: stat.color }}>
@@ -307,7 +307,7 @@ export default function LeadsPage() {
           selectedItems={selectedLeads}
           onSelectionChange={setSelectedLeads}
           emptyMessage="No leads found. Click 'New Lead' to create one."
-          accentColor="#FFB830"
+          accentColor="#0046E2"
           customActions={customActions}
         />
       </motion.div>
@@ -322,7 +322,7 @@ export default function LeadsPage() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+        <AlertDialogContent className="bg-[#243178] border-[#2d3c8a]">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Delete Lead</AlertDialogTitle>
             <AlertDialogDescription className="text-[#A1A1AA]">
@@ -330,7 +330,7 @@ export default function LeadsPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+            <AlertDialogCancel className="bg-[#2d3c8a] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
@@ -345,7 +345,7 @@ export default function LeadsPage() {
 
       {/* Convert Confirmation Dialog */}
       <AlertDialog open={convertDialogOpen} onOpenChange={setConvertDialogOpen}>
-        <AlertDialogContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+        <AlertDialogContent className="bg-[#243178] border-[#2d3c8a]">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-white">Convert Lead</AlertDialogTitle>
             <AlertDialogDescription className="text-[#A1A1AA]">
@@ -358,7 +358,7 @@ export default function LeadsPage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel className="bg-[#2A2A2A] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
+            <AlertDialogCancel className="bg-[#2d3c8a] border-[#3A3A3A] text-white hover:bg-[#3A3A3A]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction

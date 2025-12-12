@@ -93,8 +93,8 @@ const modules: NavModule[] = [
     label: "KORE Link",
     icon: Link2,
     description: "Relationships & CRM",
-    color: "#FFB830",
-    gradient: "from-[#FFB830] to-[#F59E0B]",
+    color: "#FDFBE7",
+    gradient: "from-[#FDFBE7] to-[#0046E2]",
     items: [
       { name: "Overview", href: "/link", icon: Link2 },
       { name: "Contacts", href: "/link/contacts", icon: UserCircle },
@@ -109,8 +109,8 @@ const modules: NavModule[] = [
     label: "KORE Voice",
     icon: Phone,
     description: "Telephony & WhatsApp",
-    color: "#8B5CF6",
-    gradient: "from-[#8B5CF6] to-[#7C3AED]",
+    color: "#1b2d7c",
+    gradient: "from-[#1b2d7c] to-[#0f1a4a]",
     items: [
       { name: "Overview", href: "/voice", icon: Phone },
       { name: "Call Center", href: "/voice/calls", icon: PhoneCall },
@@ -165,8 +165,8 @@ const modules: NavModule[] = [
     label: "KORE Drive",
     icon: HardDrive,
     description: "Company Memory",
-    color: "#00E5FF",
-    gradient: "from-[#00E5FF] to-[#0EA5E9]",
+    color: "#0046E2",
+    gradient: "from-[#0046E2] to-[#1A5AE8]",
     items: [
       { name: "Files", href: "/files", icon: Files },
       { name: "Calendar", href: "/calendar", icon: Calendar },
@@ -196,7 +196,7 @@ const coreModule = {
   href: "/core",
   icon: Brain,
   description: "Ask the AI",
-  color: "#00E5FF",
+  color: "#0046E2",
 }
 
 function ModuleSection({
@@ -229,7 +229,7 @@ function ModuleSection({
             "flex h-10 w-10 items-center justify-center rounded-xl transition-all mx-auto",
             isActive
               ? `bg-gradient-to-br ${module.gradient} shadow-lg`
-              : "bg-[#1A1A1A] hover:bg-[#252525] border border-white/5 hover:border-white/10"
+              : "bg-[#1b2d7c] hover:bg-[#243178] border border-white/5 hover:border-white/10"
           )}
           style={isActive ? { boxShadow: `0 4px 20px ${module.color}30` } : {}}
         >
@@ -257,7 +257,7 @@ function ModuleSection({
               "flex h-8 w-8 items-center justify-center rounded-lg transition-all",
               isActive
                 ? `bg-gradient-to-br ${module.gradient} shadow-lg`
-                : "bg-[#1A1A1A] group-hover:bg-[#252525]"
+                : "bg-[#1b2d7c] group-hover:bg-[#243178]"
             )}
             style={isActive ? { boxShadow: `0 4px 15px ${module.color}25` } : {}}
           >
@@ -323,9 +323,9 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
   const isCoreActive = pathname === "/core" || pathname.startsWith("/core/")
 
   const SidebarContent = () => (
-    <div className="flex h-full flex-col bg-[#0B0B0B] relative">
+    <div className="flex h-full flex-col bg-[#0f1a4a] relative">
       {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#00E5FF]/[0.02] via-transparent to-[#8B5CF6]/[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0046E2]/[0.02] via-transparent to-[#1b2d7c]/[0.02] pointer-events-none" />
 
       {/* Logo */}
       <div className={cn(
@@ -355,7 +355,7 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
           <FeatureTooltip
             title="The Core"
             description="Your AI-powered assistant. Ask anything about your business, get insights, and automate tasks."
-            gradient="from-[#00E5FF] to-[#8B5CF6]"
+            gradient="from-[#0046E2] to-[#1b2d7c]"
             side="right"
             icon={<Brain className="h-4 w-4 text-white" />}
           >
@@ -364,19 +364,19 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
               className={cn(
                 "relative flex items-center justify-center rounded-xl p-2 transition-all duration-300 overflow-hidden group",
                 isCoreActive
-                  ? "bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] shadow-lg shadow-[#00E5FF]/25"
-                  : "bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 hover:border-[#00E5FF]/30"
+                  ? "bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] shadow-lg shadow-[#0046E2]/25"
+                  : "bg-gradient-to-r from-[#0046E2]/10 to-[#1b2d7c]/10 border border-white/10 hover:border-[#0046E2]/30"
               )}
             >
               <div className={cn(
                 "relative flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300",
                 isCoreActive
                   ? "bg-white/20"
-                  : "bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 group-hover:from-[#00E5FF]/30 group-hover:to-[#00E5FF]/10"
+                  : "bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 group-hover:from-[#0046E2]/30 group-hover:to-[#0046E2]/10"
               )}>
                 <Brain className={cn(
                   "h-5 w-5 transition-transform group-hover:scale-110",
-                  isCoreActive ? "text-white" : "text-[#00E5FF]"
+                  isCoreActive ? "text-white" : "text-[#0046E2]"
                 )} />
               </div>
             </Link>
@@ -387,24 +387,24 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
             className={cn(
               "relative flex items-center gap-3 rounded-xl p-3 transition-all duration-300 overflow-hidden group",
               isCoreActive
-                ? "bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] shadow-lg shadow-[#00E5FF]/25"
-                : "bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 hover:border-[#00E5FF]/30"
+                ? "bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] shadow-lg shadow-[#0046E2]/25"
+                : "bg-gradient-to-r from-[#0046E2]/10 to-[#1b2d7c]/10 border border-white/10 hover:border-[#0046E2]/30"
             )}
           >
             {/* Animated gradient background on hover */}
             {!isCoreActive && (
-              <div className="absolute inset-0 bg-gradient-to-r from-[#00E5FF]/20 to-[#8B5CF6]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0046E2]/20 to-[#1b2d7c]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             )}
 
             <div className={cn(
               "relative flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300",
               isCoreActive
                 ? "bg-white/20"
-                : "bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 group-hover:from-[#00E5FF]/30 group-hover:to-[#00E5FF]/10"
+                : "bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 group-hover:from-[#0046E2]/30 group-hover:to-[#0046E2]/10"
             )}>
               <Brain className={cn(
                 "h-5 w-5 transition-transform group-hover:scale-110",
-                isCoreActive ? "text-white" : "text-[#00E5FF]"
+                isCoreActive ? "text-white" : "text-[#0046E2]"
               )} />
             </div>
             <div className="relative flex-1">
@@ -419,7 +419,7 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
             </div>
             <Sparkles className={cn(
               "h-4 w-4 transition-all group-hover:rotate-12",
-              isCoreActive ? "text-white/70" : "text-[#FFB830]"
+              isCoreActive ? "text-white/70" : "text-[#FDFBE7]"
             )} />
           </Link>
         )}
@@ -519,7 +519,7 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
               transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              className="fixed inset-y-0 left-0 z-50 w-[300px] lg:hidden shadow-2xl shadow-[#00E5FF]/10"
+              className="fixed inset-y-0 left-0 z-50 w-[300px] lg:hidden shadow-2xl shadow-[#0046E2]/10"
             >
               <SidebarContent />
             </motion.div>
@@ -535,7 +535,7 @@ export function Sidebar({ isCollapsed, onToggle, isMobileOpen, onMobileClose }: 
         )}
       >
         {/* Right border gradient */}
-        <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#00E5FF]/20 via-white/5 to-[#8B5CF6]/20" />
+        <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#0046E2]/20 via-white/5 to-[#1b2d7c]/20" />
         <SidebarContent />
       </aside>
     </>

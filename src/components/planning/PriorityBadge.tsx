@@ -8,9 +8,9 @@ interface PriorityBadgeProps {
 }
 
 const priorityConfig: Record<TaskPriority, { label: string; className: string }> = {
-  LOW: { label: 'Baja', className: 'bg-[#2A2A2A] text-[#A1A1AA]' },
-  MEDIUM: { label: 'Media', className: 'bg-[#00E5FF]/20 text-[#00E5FF]' },
-  HIGH: { label: 'Alta', className: 'bg-[#FFB830]/20 text-[#FFB830]' },
+  LOW: { label: 'Baja', className: 'bg-[#2d3c8a] text-[#A1A1AA]' },
+  MEDIUM: { label: 'Media', className: 'bg-[#0046E2]/20 text-[#0046E2]' },
+  HIGH: { label: 'Alta', className: 'bg-[#0046E2]/20 text-[#0046E2]' },
   URGENT: { label: 'Urgente', className: 'bg-[#FF4757]/20 text-[#FF4757]' }
 }
 

@@ -202,10 +202,10 @@ export default function TaskModal({
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative bg-[#0B0B0B] rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
+          className="relative bg-[#0f1a4a] rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto m-4"
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-[#2A2A2A]">
+          <div className="flex items-center justify-between p-6 border-b border-[#2d3c8a]">
             <h2 className="text-xl font-bold text-white">
               {task ? 'Editar Tarea' : 'Nueva Tarea'}
             </h2>
@@ -229,7 +229,7 @@ export default function TaskModal({
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white"
+                className="w-full bg-[#243178] border-[#2d3c8a] text-white"
                 placeholder="Nombre de la tarea"
                 required
               />
@@ -248,7 +248,7 @@ export default function TaskModal({
                   size="sm"
                   onClick={handleImproveWithAI}
                   disabled={aiLoading || !formData.title.trim()}
-                  className="gap-1 text-[#00E5FF] hover:bg-[#00E5FF]/10 h-7 text-xs"
+                  className="gap-1 text-[#0046E2] hover:bg-[#0046E2]/10 h-7 text-xs"
                 >
                   {aiLoading ? (
                     <>
@@ -267,7 +267,7 @@ export default function TaskModal({
                 id="description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full h-24 px-3 py-2 rounded-md bg-[#1F1F1F] border border-[#2A2A2A] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF] focus:border-transparent resize-none"
+                className="w-full h-24 px-3 py-2 rounded-md bg-[#243178] border border-[#2d3c8a] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2] focus:border-transparent resize-none"
                 placeholder="Descripcion de la tarea..."
               />
             </div>
@@ -277,11 +277,11 @@ export default function TaskModal({
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-[#00E5FF]/5 border border-[#00E5FF]/20 rounded-xl p-4"
+                className="bg-[#0046E2]/5 border border-[#0046E2]/20 rounded-xl p-4"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="w-4 h-4 text-[#00E5FF]" />
-                  <span className="font-medium text-sm text-[#00E5FF]">Sugerencias de IA</span>
+                  <Sparkles className="w-4 h-4 text-[#0046E2]" />
+                  <span className="font-medium text-sm text-[#0046E2]">Sugerencias de IA</span>
                   <Button
                     type="button"
                     variant="ghost"
@@ -295,7 +295,7 @@ export default function TaskModal({
                 <ul className="space-y-2">
                   {aiSuggestions.map((suggestion, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm text-white/80">
-                      <span className="text-[#00E5FF] mt-0.5">•</span>
+                      <span className="text-[#0046E2] mt-0.5">•</span>
                       {suggestion}
                     </li>
                   ))}
@@ -311,10 +311,10 @@ export default function TaskModal({
                   Prioridad
                 </Label>
                 <Select value={formData.priority} onValueChange={(value) => setFormData({ ...formData, priority: value as TaskPriority })}>
-                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                  <SelectTrigger className="w-full bg-[#243178] border-[#2d3c8a] text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                  <SelectContent className="bg-[#0f1a4a] border-[#2d3c8a]">
                     {priorities.map(p => (
                       <SelectItem key={p.value} value={p.value} className="text-white">{p.label}</SelectItem>
                     ))}
@@ -325,10 +325,10 @@ export default function TaskModal({
               <div className="space-y-2">
                 <Label className="text-white font-medium">Estado</Label>
                 <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value as TaskStatus })}>
-                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                  <SelectTrigger className="w-full bg-[#243178] border-[#2d3c8a] text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                  <SelectContent className="bg-[#0f1a4a] border-[#2d3c8a]">
                     {statuses.map(s => (
                       <SelectItem key={s.value} value={s.value} className="text-white">{s.label}</SelectItem>
                     ))}
@@ -342,10 +342,10 @@ export default function TaskModal({
                   Categoria
                 </Label>
                 <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value as TaskCategory })}>
-                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                  <SelectTrigger className="w-full bg-[#243178] border-[#2d3c8a] text-white">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                  <SelectContent className="bg-[#0f1a4a] border-[#2d3c8a]">
                     {categories.map(c => (
                       <SelectItem key={c.value} value={c.value} className="text-white">{c.label}</SelectItem>
                     ))}
@@ -366,7 +366,7 @@ export default function TaskModal({
                   type="date"
                   value={formData.startDate}
                   onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                  className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white"
+                  className="w-full bg-[#243178] border-[#2d3c8a] text-white"
                 />
               </div>
 
@@ -380,7 +380,7 @@ export default function TaskModal({
                   type="date"
                   value={formData.dueDate}
                   onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
-                  className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white"
+                  className="w-full bg-[#243178] border-[#2d3c8a] text-white"
                 />
               </div>
             </div>
@@ -393,10 +393,10 @@ export default function TaskModal({
                   Asignar a
                 </Label>
                 <Select value={formData.assignedToId} onValueChange={(value) => setFormData({ ...formData, assignedToId: value })}>
-                  <SelectTrigger className="w-full bg-[#1F1F1F] border-[#2A2A2A] text-white">
+                  <SelectTrigger className="w-full bg-[#243178] border-[#2d3c8a] text-white">
                     <SelectValue placeholder="Sin asignar" />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#0B0B0B] border-[#2A2A2A]">
+                  <SelectContent className="bg-[#0f1a4a] border-[#2d3c8a]">
                     <SelectItem value="" className="text-white">Sin asignar</SelectItem>
                     {users.map(u => (
                       <SelectItem key={u.id} value={u.id} className="text-white">{u.name}</SelectItem>
@@ -415,7 +415,7 @@ export default function TaskModal({
                 max="100"
                 value={formData.progress}
                 onChange={(e) => setFormData({ ...formData, progress: parseInt(e.target.value) })}
-                className="w-full h-2 bg-[#2A2A2A] rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00E5FF] [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#00E5FF] [&::-moz-range-thumb]:border-0"
+                className="w-full h-2 bg-[#2d3c8a] rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#0046E2] [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:bg-[#0046E2] [&::-moz-range-thumb]:border-0"
                 step="10"
               />
               <div className="w-full flex justify-between text-xs px-2 text-[#A1A1AA]">
@@ -434,13 +434,13 @@ export default function TaskModal({
                 id="notes"
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                className="w-full h-20 px-3 py-2 rounded-md bg-[#1F1F1F] border border-[#2A2A2A] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF] focus:border-transparent resize-none"
+                className="w-full h-20 px-3 py-2 rounded-md bg-[#243178] border border-[#2d3c8a] text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2] focus:border-transparent resize-none"
                 placeholder="Notas adicionales..."
               />
             </div>
 
             {/* Actions */}
-            <div className="flex justify-end gap-3 pt-4 border-t border-[#2A2A2A]">
+            <div className="flex justify-end gap-3 pt-4 border-t border-[#2d3c8a]">
               <Button
                 type="button"
                 variant="ghost"
@@ -451,7 +451,7 @@ export default function TaskModal({
               </Button>
               <Button
                 type="submit"
-                className="bg-[#00E5FF] text-black hover:bg-[#00E5FF]/90"
+                className="bg-[#0046E2] text-black hover:bg-[#0046E2]/90"
                 disabled={loading}
               >
                 {loading ? (

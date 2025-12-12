@@ -58,7 +58,7 @@ const statusConfig: Record<string, { label: string; color: string }> = {
 export function CallLogs({
   calls,
   isLoading = false,
-  accentColor = "#00E5FF",
+  accentColor = "#0046E2",
   onCallBack,
   onViewDetails,
 }: CallLogsProps) {
@@ -124,28 +124,28 @@ export function CallLogs({
     <div className="space-y-6">
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <div className="flex items-center gap-2 text-[#A1A1AA] mb-1">
             <Phone className="h-4 w-4" />
             <span className="text-sm">Total Llamadas</span>
           </div>
           <p className="text-2xl font-bold text-white">{totalCalls}</p>
         </div>
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <div className="flex items-center gap-2 text-green-400 mb-1">
             <PhoneIncoming className="h-4 w-4" />
             <span className="text-sm">Completadas</span>
           </div>
           <p className="text-2xl font-bold text-white">{completedCalls}</p>
         </div>
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <div className="flex items-center gap-2 text-red-400 mb-1">
             <PhoneMissed className="h-4 w-4" />
             <span className="text-sm">Perdidas</span>
           </div>
           <p className="text-2xl font-bold text-white">{missedCalls}</p>
         </div>
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <div className="flex items-center gap-2 text-[#A1A1AA] mb-1">
             <Clock className="h-4 w-4" />
             <span className="text-sm">Duración Promedio</span>
@@ -162,24 +162,24 @@ export function CallLogs({
             placeholder="Buscar por nombre o número..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-[#1F1F1F] border-[#2A2A2A] text-white"
+            className="pl-10 bg-[#243178] border-[#2d3c8a] text-white"
           />
         </div>
         <Select value={directionFilter} onValueChange={setDirectionFilter}>
-          <SelectTrigger className="w-full sm:w-[150px] bg-[#1F1F1F] border-[#2A2A2A] text-white">
+          <SelectTrigger className="w-full sm:w-[150px] bg-[#243178] border-[#2d3c8a] text-white">
             <SelectValue placeholder="Dirección" />
           </SelectTrigger>
-          <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+          <SelectContent className="bg-[#243178] border-[#2d3c8a]">
             <SelectItem value="all">Todas</SelectItem>
             <SelectItem value="inbound">Entrantes</SelectItem>
             <SelectItem value="outbound">Salientes</SelectItem>
           </SelectContent>
         </Select>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-[150px] bg-[#1F1F1F] border-[#2A2A2A] text-white">
+          <SelectTrigger className="w-full sm:w-[150px] bg-[#243178] border-[#2d3c8a] text-white">
             <SelectValue placeholder="Estado" />
           </SelectTrigger>
-          <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
+          <SelectContent className="bg-[#243178] border-[#2d3c8a]">
             <SelectItem value="all">Todos</SelectItem>
             <SelectItem value="completed">Completadas</SelectItem>
             <SelectItem value="missed">Perdidas</SelectItem>
@@ -196,8 +196,8 @@ export function CallLogs({
             <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{ borderColor: accentColor }} />
           </div>
         ) : filteredCalls.length === 0 ? (
-          <div className="text-center py-12 bg-[#1F1F1F] rounded-lg border border-[#2A2A2A]">
-            <Phone className="h-12 w-12 mx-auto mb-4 text-[#3A3A3A]" />
+          <div className="text-center py-12 bg-[#243178] rounded-lg border border-[#2d3c8a]">
+            <Phone className="h-12 w-12 mx-auto mb-4 text-[#3d4d9a]" />
             <p className="text-[#A1A1AA]">No se encontraron llamadas</p>
           </div>
         ) : (
@@ -212,7 +212,7 @@ export function CallLogs({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.02 }}
-                className="bg-[#1F1F1F] rounded-lg border border-[#2A2A2A] p-4 hover:border-[#3A3A3A] transition-colors cursor-pointer"
+                className="bg-[#243178] rounded-lg border border-[#2d3c8a] p-4 hover:border-[#3d4d9a] transition-colors cursor-pointer"
                 onClick={() => setSelectedCall(call)}
               >
                 <div className="flex items-center gap-4">
@@ -220,11 +220,11 @@ export function CallLogs({
                   <div className="relative">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={(call as any).contact_avatar_url || undefined} />
-                      <AvatarFallback className="bg-[#2A2A2A] text-white">
+                      <AvatarFallback className="bg-[#2d3c8a] text-white">
                         {(call as any).contact_name ? getInitials((call as any).contact_name) : <User className="h-5 w-5" />}
                       </AvatarFallback>
                     </Avatar>
-                    <div className={`absolute -bottom-1 -right-1 p-1 rounded-full bg-[#1F1F1F] ${direction.color}`}>
+                    <div className={`absolute -bottom-1 -right-1 p-1 rounded-full bg-[#243178] ${direction.color}`}>
                       <DirectionIcon className="h-3 w-3" />
                     </div>
                   </div>
@@ -285,19 +285,19 @@ export function CallLogs({
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-[#1F1F1F] border-[#2A2A2A]">
-                          <DropdownMenuItem className="text-white hover:bg-[#2A2A2A]">
+                        <DropdownMenuContent align="end" className="bg-[#243178] border-[#2d3c8a]">
+                          <DropdownMenuItem className="text-white hover:bg-[#2d3c8a]">
                             <User className="mr-2 h-4 w-4" />
                             Ver contacto
                           </DropdownMenuItem>
                           {call.recording_url && (
-                            <DropdownMenuItem className="text-white hover:bg-[#2A2A2A]">
+                            <DropdownMenuItem className="text-white hover:bg-[#2d3c8a]">
                               <Download className="mr-2 h-4 w-4" />
                               Descargar grabación
                             </DropdownMenuItem>
                           )}
                           {call.transcription && (
-                            <DropdownMenuItem className="text-white hover:bg-[#2A2A2A]">
+                            <DropdownMenuItem className="text-white hover:bg-[#2d3c8a]">
                               <FileText className="mr-2 h-4 w-4" />
                               Ver transcripción
                             </DropdownMenuItem>
@@ -315,7 +315,7 @@ export function CallLogs({
 
       {/* Call Details Dialog */}
       <Dialog open={!!selectedCall} onOpenChange={() => setSelectedCall(null)}>
-        <DialogContent className="max-w-lg bg-[#1F1F1F] border-[#2A2A2A]">
+        <DialogContent className="max-w-lg bg-[#243178] border-[#2d3c8a]">
           {selectedCall && (
             <>
               <DialogHeader>
@@ -326,9 +326,9 @@ export function CallLogs({
               </DialogHeader>
               <div className="space-y-4">
                 {/* Contact Info */}
-                <div className="flex items-center gap-4 p-4 bg-[#0B0B0B] rounded-lg">
+                <div className="flex items-center gap-4 p-4 bg-[#0f1a4a] rounded-lg">
                   <Avatar className="h-16 w-16">
-                    <AvatarFallback className="bg-[#2A2A2A] text-white text-xl">
+                    <AvatarFallback className="bg-[#2d3c8a] text-white text-xl">
                       {(selectedCall as any).contact_name ? getInitials((selectedCall as any).contact_name) : <User className="h-8 w-8" />}
                     </AvatarFallback>
                   </Avatar>
@@ -366,7 +366,7 @@ export function CallLogs({
 
                 {/* Recording */}
                 {selectedCall.recording_url && (
-                  <div className="p-4 bg-[#0B0B0B] rounded-lg">
+                  <div className="p-4 bg-[#0f1a4a] rounded-lg">
                     <p className="text-xs text-[#A1A1AA] mb-2">Grabación</p>
                     <div className="flex items-center gap-3">
                       <Button
@@ -376,7 +376,7 @@ export function CallLogs({
                       >
                         {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                       </Button>
-                      <div className="flex-1 h-2 bg-[#2A2A2A] rounded-full">
+                      <div className="flex-1 h-2 bg-[#2d3c8a] rounded-full">
                         <div className="h-full w-1/3 rounded-full" style={{ backgroundColor: accentColor }} />
                       </div>
                       <span className="text-xs text-[#A1A1AA]">{formatDuration(selectedCall.duration_seconds || 0)}</span>
@@ -388,14 +388,14 @@ export function CallLogs({
                 {selectedCall.transcription && (
                   <div>
                     <p className="text-xs text-[#A1A1AA] mb-2">Transcripción</p>
-                    <div className="p-4 bg-[#0B0B0B] rounded-lg max-h-40 overflow-y-auto">
+                    <div className="p-4 bg-[#0f1a4a] rounded-lg max-h-40 overflow-y-auto">
                       <p className="text-sm text-[#E1E1E1] whitespace-pre-wrap">{selectedCall.transcription}</p>
                     </div>
                   </div>
                 )}
 
                 {/* Actions */}
-                <div className="flex justify-end gap-2 pt-4 border-t border-[#2A2A2A]">
+                <div className="flex justify-end gap-2 pt-4 border-t border-[#2d3c8a]">
                   <Button variant="outline" onClick={() => setSelectedCall(null)}>
                     Cerrar
                   </Button>

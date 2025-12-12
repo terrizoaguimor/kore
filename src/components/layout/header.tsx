@@ -71,9 +71,9 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-white/5 bg-[#0B0B0B]/95 backdrop-blur-xl px-4 sm:gap-x-6 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-white/5 bg-[#0f1a4a]/95 backdrop-blur-xl px-4 sm:gap-x-6 sm:px-6 lg:px-8">
       {/* Subtle gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#00E5FF]/[0.02] via-transparent to-[#8B5CF6]/[0.02] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#0046E2]/[0.02] via-transparent to-[#1b2d7c]/[0.02] pointer-events-none" />
 
       {/* Mobile menu button */}
       <button
@@ -94,7 +94,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           <div className={cn(
             "relative flex flex-1 max-w-lg rounded-xl transition-all duration-300",
             isSearchFocused
-              ? "bg-white/5 ring-1 ring-[#00E5FF]/30 shadow-lg shadow-[#00E5FF]/5"
+              ? "bg-white/5 ring-1 ring-[#0046E2]/30 shadow-lg shadow-[#0046E2]/5"
               : "bg-transparent"
           )}>
             <label htmlFor="search-field" className="sr-only">
@@ -103,7 +103,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             <Search
               className={cn(
                 "pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors",
-                isSearchFocused ? "text-[#00E5FF]" : "text-[#A1A1AA]"
+                isSearchFocused ? "text-[#0046E2]" : "text-[#A1A1AA]"
               )}
               aria-hidden="true"
             />
@@ -133,15 +133,15 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
           <QuickTooltip
             content="Ask AI"
             description="Get instant help from KORE's AI assistant"
-            gradient="from-[#00E5FF] to-[#8B5CF6]"
+            gradient="from-[#0046E2] to-[#8B5CF6]"
             side="bottom"
           >
             <button
               type="button"
               onClick={() => router.push("/core")}
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10 text-sm text-white hover:border-[#00E5FF]/30 transition-all duration-200 group"
+              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#0046E2]/10 to-[#1b2d7c]/10 border border-white/10 text-sm text-white hover:border-[#0046E2]/30 transition-all duration-200 group"
             >
-              <Sparkles className="h-4 w-4 text-[#FFB830] group-hover:rotate-12 transition-transform" />
+              <Sparkles className="h-4 w-4 text-[#FDFBE7] group-hover:rotate-12 transition-transform" />
               <span className="text-[#A1A1AA] group-hover:text-white transition-colors">Ask AI</span>
             </button>
           </QuickTooltip>
@@ -161,24 +161,24 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
               <button className="flex items-center gap-2 p-1.5 focus:outline-none rounded-xl hover:bg-white/5 transition-all group">
                 <span className="sr-only">Open user menu</span>
                 <div className="relative">
-                  <Avatar className="h-8 w-8 ring-2 ring-white/10 group-hover:ring-[#00E5FF]/30 transition-all">
+                  <Avatar className="h-8 w-8 ring-2 ring-white/10 group-hover:ring-[#0046E2]/30 transition-all">
                     <AvatarImage src={user?.avatar_url || undefined} />
-                    <AvatarFallback className="bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] text-xs font-semibold">
+                    <AvatarFallback className="bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] text-xs font-semibold">
                       {getInitials(user?.full_name, user?.email || "U")}
                     </AvatarFallback>
                   </Avatar>
                   {/* Online indicator */}
-                  <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0B0B0B] bg-[#10B981]" />
+                  <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0f1a4a] bg-[#10B981]" />
                 </div>
                 <span className="hidden lg:flex lg:items-center">
                   <span
-                    className="ml-2 text-sm font-medium text-white group-hover:text-[#00E5FF] transition-colors"
+                    className="ml-2 text-sm font-medium text-white group-hover:text-[#0046E2] transition-colors"
                     aria-hidden="true"
                   >
                     {user?.full_name || user?.email?.split("@")[0]}
                   </span>
                   <ChevronDown
-                    className="ml-1 h-4 w-4 text-[#A1A1AA] group-hover:text-[#00E5FF] transition-colors"
+                    className="ml-1 h-4 w-4 text-[#A1A1AA] group-hover:text-[#0046E2] transition-colors"
                     aria-hidden="true"
                   />
                 </span>
@@ -186,13 +186,13 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="w-64 bg-[#1A1A1A]/95 backdrop-blur-xl border-white/10 text-white rounded-xl shadow-2xl shadow-black/50"
+              className="w-64 bg-[#1b2d7c]/95 backdrop-blur-xl border-white/10 text-white rounded-xl shadow-2xl shadow-black/50"
             >
               <DropdownMenuLabel className="font-normal px-4 py-3">
                 <div className="flex items-center gap-3">
                   <Avatar className="h-10 w-10 ring-2 ring-white/10">
                     <AvatarImage src={user?.avatar_url || undefined} />
-                    <AvatarFallback className="bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] text-sm font-semibold">
+                    <AvatarFallback className="bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] text-sm font-semibold">
                       {getInitials(user?.full_name, user?.email || "U")}
                     </AvatarFallback>
                   </Avatar>
@@ -202,7 +202,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
                     </p>
                     <p className="text-xs text-[#A1A1AA]">{user?.email}</p>
                     {organization && (
-                      <p className="text-xs bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] bg-clip-text text-transparent font-medium">{organization.name}</p>
+                      <p className="text-xs bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] bg-clip-text text-transparent font-medium">{organization.name}</p>
                     )}
                   </div>
                 </div>

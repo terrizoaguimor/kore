@@ -110,12 +110,12 @@ export default function TaskTable({
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: index * 0.05 }}
-        className={`${isSubtask ? 'ml-8 border-l-2 border-[#2A2A2A] pl-4' : ''}`}
+        className={`${isSubtask ? 'ml-8 border-l-2 border-[#2d3c8a] pl-4' : ''}`}
       >
         <div
           className={`
             flex items-center gap-3 p-3 rounded-lg transition-colors
-            ${task.status === 'COMPLETED' ? 'bg-[#00D68F]/10' : 'bg-[#1F1F1F] hover:bg-[#2A2A2A]/50'}
+            ${task.status === 'COMPLETED' ? 'bg-[#00D68F]/10' : 'bg-[#243178] hover:bg-[#2d3c8a]/50'}
             ${isBlocked ? 'opacity-70' : ''}
           `}
         >
@@ -161,7 +161,7 @@ export default function TaskTable({
                 <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#FF4757]/20 text-[#FF4757]">Bloqueada</span>
               )}
               {hasSubtasks && (
-                <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#2A2A2A] text-[#A1A1AA]">
+                <span className="px-2 py-0.5 rounded text-xs font-medium bg-[#2d3c8a] text-[#A1A1AA]">
                   {task._count?.subtasks || task.subtasks?.length} subtareas
                 </span>
               )}
@@ -216,7 +216,7 @@ export default function TaskTable({
                 <MoreHorizontal className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-52 bg-[#0B0B0B] border-[#2A2A2A]">
+            <DropdownMenuContent align="end" className="w-52 bg-[#0f1a4a] border-[#2d3c8a]">
               <DropdownMenuItem onClick={() => onEdit(task)} className="cursor-pointer">
                 <Edit2 className="w-4 h-4 mr-2" />
                 Editar

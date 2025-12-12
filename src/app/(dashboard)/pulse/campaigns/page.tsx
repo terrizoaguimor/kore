@@ -329,7 +329,7 @@ export default function CampaignsPage() {
   }
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}

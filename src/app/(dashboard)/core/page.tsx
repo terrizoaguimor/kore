@@ -97,12 +97,12 @@ export default function CorePage() {
   }
 
   return (
-    <div className="flex h-full flex-col bg-[#0B0B0B]">
+    <div className="flex h-full flex-col bg-[#0f1a4a]">
       {/* Header */}
-      <div className="border-b border-[#1F1F1F] px-6 py-4">
+      <div className="border-b border-[#243178] px-6 py-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#00E5FF]/20">
-            <Brain className="h-6 w-6 text-[#00E5FF]" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0046E2]/20">
+            <Brain className="h-6 w-6 text-[#0046E2]" />
           </div>
           <div>
             <h1 className="text-xl font-semibold text-white">The Core</h1>
@@ -131,8 +131,8 @@ export default function CorePage() {
               animate={{ opacity: 1, scale: 1 }}
               className="relative text-center"
             >
-              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 shadow-[0_0_40px_rgba(0,229,255,0.2)] backdrop-blur-sm">
-                <Brain className="h-10 w-10 text-[#00E5FF]" />
+              <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 shadow-[0_0_40px_rgba(0,229,255,0.2)] backdrop-blur-sm">
+                <Brain className="h-10 w-10 text-[#0046E2]" />
               </div>
               <h2 className="text-2xl font-bold text-white">Ask The Core</h2>
               <p className="mt-2 max-w-md text-[#A1A1AA]">
@@ -151,10 +151,10 @@ export default function CorePage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     onClick={() => handleSuggestionClick(suggestion.prompt)}
-                    className="group flex items-start gap-3 rounded-xl border border-[#1F1F1F] bg-[#1F1F1F]/90 backdrop-blur-sm p-4 text-left transition-all hover:border-[#00E5FF]/30 hover:shadow-[0_0_20px_rgba(0,229,255,0.1)]"
+                    className="group flex items-start gap-3 rounded-xl border border-[#243178] bg-[#243178]/90 backdrop-blur-sm p-4 text-left transition-all hover:border-[#0046E2]/30 hover:shadow-[0_0_20px_rgba(0,229,255,0.1)]"
                   >
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0B0B0B] group-hover:bg-[#00E5FF]/10 transition-colors">
-                      <Icon className="h-5 w-5 text-[#A1A1AA] group-hover:text-[#00E5FF] transition-colors" />
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0f1a4a] group-hover:bg-[#0046E2]/10 transition-colors">
+                      <Icon className="h-5 w-5 text-[#A1A1AA] group-hover:text-[#0046E2] transition-colors" />
                     </div>
                     <div>
                       <p className="font-medium text-white">{suggestion.title}</p>
@@ -179,30 +179,30 @@ export default function CorePage() {
                   )}
                 >
                   {message.role === "assistant" && (
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00E5FF]/20">
-                      <Bot className="h-5 w-5 text-[#00E5FF]" />
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0046E2]/20">
+                      <Bot className="h-5 w-5 text-[#0046E2]" />
                     </div>
                   )}
                   <div
                     className={cn(
                       "max-w-2xl rounded-2xl px-4 py-3",
                       message.role === "user"
-                        ? "bg-[#00E5FF] text-[#0B0B0B]"
-                        : "bg-[#1F1F1F] text-white"
+                        ? "bg-[#0046E2] text-[#0f1a4a]"
+                        : "bg-[#243178] text-white"
                     )}
                   >
                     <p className="whitespace-pre-wrap">{message.content}</p>
                     <p
                       className={cn(
                         "mt-2 text-xs",
-                        message.role === "user" ? "text-[#0B0B0B]/60" : "text-[#A1A1AA]"
+                        message.role === "user" ? "text-[#0f1a4a]/60" : "text-[#A1A1AA]"
                       )}
                     >
                       {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </p>
                   </div>
                   {message.role === "user" && (
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#1F1F1F]">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#243178]">
                       <User className="h-5 w-5 text-[#A1A1AA]" />
                     </div>
                   )}
@@ -216,11 +216,11 @@ export default function CorePage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="flex gap-4"
               >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#00E5FF]/20">
-                  <Bot className="h-5 w-5 text-[#00E5FF]" />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0046E2]/20">
+                  <Bot className="h-5 w-5 text-[#0046E2]" />
                 </div>
-                <div className="flex items-center gap-2 rounded-2xl bg-[#1F1F1F] px-4 py-3">
-                  <Loader2 className="h-4 w-4 animate-spin text-[#00E5FF]" />
+                <div className="flex items-center gap-2 rounded-2xl bg-[#243178] px-4 py-3">
+                  <Loader2 className="h-4 w-4 animate-spin text-[#0046E2]" />
                   <span className="text-[#A1A1AA]">Thinking...</span>
                 </div>
               </motion.div>
@@ -232,9 +232,9 @@ export default function CorePage() {
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-[#1F1F1F] p-4">
+      <div className="border-t border-[#243178] p-4">
         <form onSubmit={handleSubmit} className="mx-auto max-w-4xl">
-          <div className="flex items-center gap-4 rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-2">
+          <div className="flex items-center gap-4 rounded-xl border border-[#243178] bg-[#243178] p-2">
             <input
               type="text"
               value={input}
@@ -249,8 +249,8 @@ export default function CorePage() {
               className={cn(
                 "flex h-10 w-10 items-center justify-center rounded-lg transition-all",
                 input.trim() && !isLoading
-                  ? "bg-[#00E5FF] text-[#0B0B0B] hover:bg-[#00E5FF]/90"
-                  : "bg-[#2A2A2A] text-[#A1A1AA]"
+                  ? "bg-[#0046E2] text-[#0f1a4a] hover:bg-[#0046E2]/90"
+                  : "bg-[#2d3c8a] text-[#A1A1AA]"
               )}
             >
               {isLoading ? (

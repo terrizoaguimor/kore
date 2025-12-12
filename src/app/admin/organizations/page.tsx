@@ -351,7 +351,7 @@ export default function AdminOrganizationsPage() {
 
   const getStorageColor = (percentage: number) => {
     if (percentage >= 90) return "from-[#FF6B6B] to-[#EF4444]"
-    if (percentage >= 70) return "from-[#FFB830] to-[#F59E0B]"
+    if (percentage >= 70) return "from-[#0046E2] to-[#F59E0B]"
     return "from-[#10B981] to-[#059669]"
   }
 
@@ -365,8 +365,8 @@ export default function AdminOrganizationsPage() {
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case "owner": return "text-[#FFB830]"
-      case "admin": return "text-[#8B5CF6]"
+      case "owner": return "text-[#0046E2]"
+      case "admin": return "text-[#1b2d7c]"
       default: return "text-[#A1A1AA]"
     }
   }
@@ -383,7 +383,7 @@ export default function AdminOrganizationsPage() {
         </div>
         <Button
           onClick={() => setShowCreateModal(true)}
-          className="bg-gradient-to-r from-[#8B5CF6] to-[#FF6B6B] text-white hover:opacity-90 transition-opacity"
+          className="bg-gradient-to-r from-[#1b2d7c] to-[#FF6B6B] text-white hover:opacity-90 transition-opacity"
         >
           <Plus className="mr-2 h-4 w-4" />
           New Organization
@@ -402,7 +402,7 @@ export default function AdminOrganizationsPage() {
               setSearchQuery(e.target.value)
               setCurrentPage(1)
             }}
-            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50 focus:border-[#8B5CF6] transition-all"
+            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50 focus:border-[#1b2d7c] transition-all"
           />
         </div>
         <div className="flex items-center gap-2 text-sm text-[#A1A1AA]">
@@ -414,7 +414,7 @@ export default function AdminOrganizationsPage() {
       {/* Organizations Grid */}
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin h-8 w-8 border-2 border-[#8B5CF6] border-t-transparent rounded-full" />
+          <div className="animate-spin h-8 w-8 border-2 border-[#1b2d7c] border-t-transparent rounded-full" />
         </div>
       ) : paginatedOrgs.length === 0 ? (
         <div className="text-center py-20">
@@ -439,7 +439,7 @@ export default function AdminOrganizationsPage() {
               >
                 <div className="flex items-center gap-4">
                   {/* Logo */}
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-[#8B5CF6]/20 to-[#FF6B6B]/20 group-hover:from-[#8B5CF6]/30 group-hover:to-[#FF6B6B]/30 transition-all">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-[#1b2d7c]/20 to-[#FF6B6B]/20 group-hover:from-[#1b2d7c]/30 group-hover:to-[#FF6B6B]/30 transition-all">
                     {org.logo_url ? (
                       <img src={org.logo_url} alt={org.name} className="h-10 w-10 rounded-lg object-cover" />
                     ) : (
@@ -466,7 +466,7 @@ export default function AdminOrganizationsPage() {
                   <div className="hidden md:flex items-center gap-8">
                     <div className="text-center">
                       <div className="flex items-center justify-center gap-1.5 text-white mb-1">
-                        <Users className="h-4 w-4 text-[#00E5FF]" />
+                        <Users className="h-4 w-4 text-[#0046E2]" />
                         <span className="text-lg font-semibold">{org.member_count}</span>
                       </div>
                       <p className="text-xs text-[#A1A1AA]">Members</p>
@@ -506,7 +506,7 @@ export default function AdminOrganizationsPage() {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       align="end"
-                      className="w-48 bg-[#1A1A1A]/95 backdrop-blur-xl border-white/10"
+                      className="w-48 bg-[#1b2d7c]/95 backdrop-blur-xl border-white/10"
                     >
                       <DropdownMenuItem
                         onClick={() => openEditModal(org)}
@@ -563,7 +563,7 @@ export default function AdminOrganizationsPage() {
                 className={cn(
                   "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                   currentPage === page
-                    ? "bg-gradient-to-r from-[#8B5CF6] to-[#FF6B6B] text-white"
+                    ? "bg-gradient-to-r from-[#1b2d7c] to-[#FF6B6B] text-white"
                     : "bg-white/5 text-[#A1A1AA] hover:bg-white/10 hover:text-white"
                 )}
               >
@@ -583,7 +583,7 @@ export default function AdminOrganizationsPage() {
 
       {/* Create Modal */}
       <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
-        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-md">
+        <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold">Create Organization</DialogTitle>
             <DialogDescription className="text-[#A1A1AA]">
@@ -601,7 +601,7 @@ export default function AdminOrganizationsPage() {
                   setFormSlug(e.target.value.toLowerCase().replace(/[^a-z0-9]/g, "-"))
                 }}
                 placeholder="My Organization"
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
               />
             </div>
             <div>
@@ -611,7 +611,7 @@ export default function AdminOrganizationsPage() {
                 value={formSlug}
                 onChange={(e) => setFormSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))}
                 placeholder="my-organization"
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
               />
             </div>
             <div>
@@ -621,7 +621,7 @@ export default function AdminOrganizationsPage() {
                 value={formStorageQuota}
                 onChange={(e) => setFormStorageQuota(parseInt(e.target.value) || 5)}
                 min="1"
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
               />
             </div>
           </div>
@@ -636,7 +636,7 @@ export default function AdminOrganizationsPage() {
             <Button
               onClick={handleCreate}
               disabled={isSubmitting}
-              className="bg-gradient-to-r from-[#8B5CF6] to-[#FF6B6B] text-white"
+              className="bg-gradient-to-r from-[#1b2d7c] to-[#FF6B6B] text-white"
             >
               {isSubmitting ? "Creating..." : "Create"}
             </Button>
@@ -646,7 +646,7 @@ export default function AdminOrganizationsPage() {
 
       {/* Edit Modal */}
       <Dialog open={showEditModal} onOpenChange={setShowEditModal}>
-        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-md">
+        <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold">Edit Organization</DialogTitle>
             <DialogDescription className="text-[#A1A1AA]">
@@ -660,7 +660,7 @@ export default function AdminOrganizationsPage() {
                 type="text"
                 value={formName}
                 onChange={(e) => setFormName(e.target.value)}
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
               />
             </div>
             <div>
@@ -669,7 +669,7 @@ export default function AdminOrganizationsPage() {
                 type="text"
                 value={formSlug}
                 onChange={(e) => setFormSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))}
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
               />
             </div>
             <div>
@@ -679,7 +679,7 @@ export default function AdminOrganizationsPage() {
                 value={formStorageQuota}
                 onChange={(e) => setFormStorageQuota(parseInt(e.target.value) || 5)}
                 min="1"
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
               />
             </div>
           </div>
@@ -694,7 +694,7 @@ export default function AdminOrganizationsPage() {
             <Button
               onClick={handleUpdate}
               disabled={isSubmitting}
-              className="bg-gradient-to-r from-[#8B5CF6] to-[#FF6B6B] text-white"
+              className="bg-gradient-to-r from-[#1b2d7c] to-[#FF6B6B] text-white"
             >
               {isSubmitting ? "Saving..." : "Save Changes"}
             </Button>
@@ -704,7 +704,7 @@ export default function AdminOrganizationsPage() {
 
       {/* Delete Confirmation Modal */}
       <Dialog open={showDeleteModal} onOpenChange={setShowDeleteModal}>
-        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-md">
+        <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold text-[#FF6B6B]">Delete Organization</DialogTitle>
             <DialogDescription className="text-[#A1A1AA]">
@@ -733,7 +733,7 @@ export default function AdminOrganizationsPage() {
 
       {/* Members Modal */}
       <Dialog open={showMembersModal} onOpenChange={setShowMembersModal}>
-        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-lg">
+        <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-semibold">Manage Members</DialogTitle>
             <DialogDescription className="text-[#A1A1AA]">
@@ -748,22 +748,22 @@ export default function AdminOrganizationsPage() {
               value={addMemberEmail}
               onChange={(e) => setAddMemberEmail(e.target.value)}
               placeholder="Email address"
-              className="flex-1 rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+              className="flex-1 rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
             />
             <select
               value={addMemberRole}
               onChange={(e) => setAddMemberRole(e.target.value)}
-              className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/50"
+              className="rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#1b2d7c]/50"
             >
-              <option value="member" className="bg-[#1A1A1A]">Member</option>
-              <option value="admin" className="bg-[#1A1A1A]">Admin</option>
-              <option value="owner" className="bg-[#1A1A1A]">Owner</option>
+              <option value="member" className="bg-[#1b2d7c]">Member</option>
+              <option value="admin" className="bg-[#1b2d7c]">Admin</option>
+              <option value="owner" className="bg-[#1b2d7c]">Owner</option>
             </select>
             <Button
               onClick={handleAddMember}
               disabled={isSubmitting || !addMemberEmail}
               size="sm"
-              className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white"
+              className="bg-[#1b2d7c] hover:bg-[#7C3AED] text-white"
             >
               <UserPlus className="h-4 w-4" />
             </Button>
@@ -775,7 +775,7 @@ export default function AdminOrganizationsPage() {
               const RoleIcon = getRoleIcon(member.role)
               return (
                 <div key={member.id} className="flex items-center gap-3 p-3 rounded-xl bg-white/5">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#FF6B6B] flex items-center justify-center text-white font-semibold">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[#1b2d7c] to-[#FF6B6B] flex items-center justify-center text-white font-semibold">
                     {member.user.full_name?.[0] || member.user.email[0].toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -792,9 +792,9 @@ export default function AdminOrganizationsPage() {
                       getRoleColor(member.role)
                     )}
                   >
-                    <option value="member" className="bg-[#1A1A1A] text-white">Member</option>
-                    <option value="admin" className="bg-[#1A1A1A] text-white">Admin</option>
-                    <option value="owner" className="bg-[#1A1A1A] text-white">Owner</option>
+                    <option value="member" className="bg-[#1b2d7c] text-white">Member</option>
+                    <option value="admin" className="bg-[#1b2d7c] text-white">Admin</option>
+                    <option value="owner" className="bg-[#1b2d7c] text-white">Owner</option>
                   </select>
                   <button
                     onClick={() => handleRemoveMember(member.id)}

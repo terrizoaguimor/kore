@@ -60,10 +60,10 @@ const mockFiles = [
 ]
 
 const mockEvents = [
-  { title: "Team Standup", time: "9:00 AM", duration: "30 min", color: "#00E5FF", attendees: 8 },
-  { title: "Client Presentation", time: "11:00 AM", duration: "1 hour", color: "#FFB830", attendees: 4 },
+  { title: "Team Standup", time: "9:00 AM", duration: "30 min", color: "#0046E2", attendees: 8 },
+  { title: "Client Presentation", time: "11:00 AM", duration: "1 hour", color: "#FDFBE7", attendees: 4 },
   { title: "Product Review", time: "2:00 PM", duration: "45 min", color: "#10B981", attendees: 6 },
-  { title: "1:1 with Sarah", time: "4:00 PM", duration: "30 min", color: "#8B5CF6", attendees: 2 },
+  { title: "1:1 with Sarah", time: "4:00 PM", duration: "30 min", color: "#1b2d7c", attendees: 2 },
 ]
 
 const mockMessages = [
@@ -86,10 +86,10 @@ const mockContacts = [
 ]
 
 const features = [
-  { icon: Brain, title: "AI-Powered", description: "Intelligent assistance across all modules", gradient: "from-[#00E5FF] to-[#0EA5E9]" },
+  { icon: Brain, title: "AI-Powered", description: "Intelligent assistance across all modules", gradient: "from-[#0046E2] to-[#1A5AE8]" },
   { icon: Shield, title: "Enterprise Security", description: "Bank-level encryption and compliance", gradient: "from-[#10B981] to-[#059669]" },
-  { icon: Zap, title: "Lightning Fast", description: "Optimized for speed and performance", gradient: "from-[#FFB830] to-[#F59E0B]" },
-  { icon: Globe, title: "Work Anywhere", description: "Access from any device, anywhere", gradient: "from-[#8B5CF6] to-[#7C3AED]" },
+  { icon: Zap, title: "Lightning Fast", description: "Optimized for speed and performance", gradient: "from-[#1b2d7c] to-[#0046E2]" },
+  { icon: Globe, title: "Work Anywhere", description: "Access from any device, anywhere", gradient: "from-[#FDFBE7] to-[#0046E2]" },
 ]
 
 const stats = [
@@ -229,7 +229,7 @@ export default function LandingPage() {
 
       // Pulse animation for glowing elements
       gsap.to(".pulse-glow", {
-        boxShadow: "0 0 60px rgba(0, 229, 255, 0.4)",
+        boxShadow: "0 0 60px rgba(0, 70, 226, 0.4)",
         duration: 1.5,
         repeat: -1,
         yoyo: true,
@@ -595,7 +595,7 @@ export default function LandingPage() {
       case "pdf":
         return <FileText className="h-5 w-5 text-red-400" />
       case "folder":
-        return <FolderOpen className="h-5 w-5 text-[#FFB830]" />
+        return <FolderOpen className="h-5 w-5 text-[#FDFBE7]" />
       case "video":
         return <Video className="h-5 w-5 text-purple-400" />
       case "image":
@@ -608,15 +608,18 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#0B0B0B]">
+    <div className="relative min-h-screen bg-[#0f1a4a]">
       {/* Fixed Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0B0B0B]/80 backdrop-blur-xl border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f1a4a]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#00E5FF]/50 flex items-center justify-center shadow-lg shadow-[#00E5FF]/20">
-              <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-[#0B0B0B]" />
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-[#0046E2] to-[#0046E2]/50 flex items-center justify-center shadow-lg shadow-[#0046E2]/20">
+              <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-[#00E5FF] bg-clip-text text-transparent">KORE</span>
+            <div className="flex flex-col">
+              <span className="text-lg sm:text-xl font-bold font-[family-name:var(--font-montserrat)] bg-gradient-to-r from-white to-[#0046E2] bg-clip-text text-transparent">KORE</span>
+              <span className="text-[8px] sm:text-[10px] text-[#FDFBE7]/70 -mt-1 tracking-wider">BY SOCIOS</span>
+            </div>
           </div>
           <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             {[
@@ -631,12 +634,12 @@ export default function LandingPage() {
                 href={`#${item.id}`}
                 className={cn(
                   "text-sm transition-all duration-300 relative group",
-                  activeSection === item.id ? "text-[#00E5FF]" : "text-[#A1A1AA] hover:text-white"
+                  activeSection === item.id ? "text-[#0046E2]" : "text-[#A1A1AA] hover:text-white"
                 )}
               >
                 {item.label}
                 <span className={cn(
-                  "absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#00E5FF] to-[#FFB830] transition-all duration-300",
+                  "absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#0046E2] to-[#FDFBE7] transition-all duration-300",
                   activeSection === item.id ? "w-full" : "w-0 group-hover:w-full"
                 )} />
               </a>
@@ -645,13 +648,13 @@ export default function LandingPage() {
           <div className="flex items-center gap-2 sm:gap-4">
             <a
               href="#login"
-              className="hidden sm:block text-sm text-white hover:text-[#00E5FF] transition-colors"
+              className="hidden sm:block text-sm text-white hover:text-[#0046E2] transition-colors"
             >
               Sign In
             </a>
             <Link
               href="/register"
-              className="px-3 sm:px-4 py-2 bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] rounded-lg text-sm font-medium hover:shadow-lg hover:shadow-[#00E5FF]/30 transition-all hover:scale-105"
+              className="px-3 sm:px-4 py-2 bg-[#FDFBE7] text-[#0f1a4a] rounded-lg text-sm font-semibold hover:bg-[#F5F3D9] hover:shadow-lg hover:shadow-[#FDFBE7]/30 transition-all hover:scale-105"
             >
               Get Started
             </Link>
@@ -671,32 +674,32 @@ export default function LandingPage() {
         </div>
 
         {/* Animated gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-[#00E5FF]/20 rounded-full blur-[100px] sm:blur-[150px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-[#FFB830]/15 rounded-full blur-[100px] sm:blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-[#8B5CF6]/10 rounded-full blur-[120px] sm:blur-[180px] animate-pulse" style={{ animationDelay: "2s" }} />
+        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-[#0046E2]/20 rounded-full blur-[100px] sm:blur-[150px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-[#FDFBE7]/15 rounded-full blur-[100px] sm:blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-[#1b2d7c]/30 rounded-full blur-[120px] sm:blur-[180px] animate-pulse" style={{ animationDelay: "2s" }} />
 
         {/* Gradient overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B] via-transparent to-[#0B0B0B] z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B]/60 via-transparent to-[#0B0B0B]/60 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1a4a] via-transparent to-[#0f1a4a] z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f1a4a]/60 via-transparent to-[#0f1a4a]/60 z-10" />
 
         <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left side - Hero content */}
             <div className="text-center lg:text-left">
               {/* Badge */}
-              <div className="hero-badge inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-[#00E5FF]/10 to-[#FFB830]/10 border border-[#00E5FF]/20 mb-4 sm:mb-6">
-                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-[#FFB830]" />
-                <span className="text-xs sm:text-sm text-white">Introducing KORE AI Platform</span>
-                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#00E5FF]" />
+              <div className="hero-badge inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-[#0046E2]/10 to-[#FDFBE7]/10 border border-[#0046E2]/20 mb-4 sm:mb-6">
+                <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-[#FDFBE7]" />
+                <span className="text-xs sm:text-sm text-white">Introducing KORE By Socios</span>
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#0046E2]" />
               </div>
 
-              <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 tracking-tight leading-tight">
-                <span className="bg-gradient-to-r from-white via-[#00E5FF] to-white bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                  The Future of
+              <h1 className="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-montserrat)] text-white mb-4 sm:mb-6 tracking-tight leading-tight">
+                <span className="bg-gradient-to-r from-white via-[#0046E2] to-white bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                  The Origin of
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-[#FFB830] via-[#00E5FF] to-[#8B5CF6] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
-                  Collaboration
+                <span className="bg-gradient-to-r from-[#FDFBE7] via-[#0046E2] to-[#1b2d7c] bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                  Everything
                 </span>
               </h1>
 
@@ -707,14 +710,14 @@ export default function LandingPage() {
               <div className="hero-cta flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-12">
                 <Link
                   href="/register"
-                  className="group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] rounded-xl text-base sm:text-lg font-semibold hover:shadow-xl hover:shadow-[#00E5FF]/30 transition-all hover:scale-105 flex items-center justify-center gap-2"
+                  className="group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-[#FDFBE7] text-[#0f1a4a] rounded-xl text-base sm:text-lg font-bold hover:bg-[#F5F3D9] hover:shadow-xl hover:shadow-[#FDFBE7]/30 transition-all hover:scale-105 flex items-center justify-center gap-2"
                 >
                   <Rocket className="h-4 w-4 sm:h-5 sm:w-5" />
                   Start Free Trial
                   <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <button className="group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-white/20 text-white rounded-xl text-base sm:text-lg font-semibold hover:bg-white/5 hover:border-[#00E5FF]/50 transition-all flex items-center justify-center gap-2">
-                  <Play className="h-4 w-4 sm:h-5 sm:w-5 group-hover:text-[#00E5FF] transition-colors" />
+                <button className="group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border border-white/20 text-white rounded-xl text-base sm:text-lg font-semibold hover:bg-white/5 hover:border-[#FDFBE7]/50 transition-all flex items-center justify-center gap-2">
+                  <Play className="h-4 w-4 sm:h-5 sm:w-5 group-hover:text-[#FDFBE7] transition-colors" />
                   Watch Demo
                 </button>
               </div>
@@ -723,7 +726,7 @@ export default function LandingPage() {
               <div className="hero-stats grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
                 {stats.map((stat, index) => (
                   <div key={index} className="text-center lg:text-left">
-                    <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#00E5FF] to-[#FFB830] bg-clip-text text-transparent">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#0046E2] to-[#FDFBE7] bg-clip-text text-transparent">
                       {stat.value}
                     </div>
                     <div className="text-xs sm:text-sm text-[#A1A1AA]">{stat.label}</div>
@@ -736,14 +739,14 @@ export default function LandingPage() {
             <div id="login" className="login-panel w-full max-w-md mx-auto lg:ml-auto">
               <div className="relative">
                 {/* Glow effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#00E5FF] via-[#8B5CF6] to-[#FFB830] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-[#0046E2] via-[#1b2d7c] to-[#FDFBE7] rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity" />
 
-                <div className="relative rounded-2xl bg-[#0B0B0B]/90 backdrop-blur-xl border border-white/10 p-6 sm:p-8 shadow-2xl">
+                <div className="relative rounded-2xl bg-[#0f1a4a]/90 backdrop-blur-xl border border-white/10 p-6 sm:p-8 shadow-2xl">
                   <div className="text-center mb-6">
-                    <div className="float-element inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 mb-4 pulse-glow">
-                      <Lock className="h-6 w-6 sm:h-7 sm:w-7 text-[#00E5FF]" />
+                    <div className="float-element inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 mb-4 pulse-glow">
+                      <Lock className="h-6 w-6 sm:h-7 sm:w-7 text-[#0046E2]" />
                     </div>
-                    <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Welcome Back</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold font-[family-name:var(--font-montserrat)] text-white mb-2">Welcome Back</h2>
                     <p className="text-sm text-[#A1A1AA]">Sign in to access your workspace</p>
                   </div>
 
@@ -758,12 +761,12 @@ export default function LandingPage() {
                     <div>
                       <label className="block text-sm font-medium text-[#A1A1AA] mb-2">Email</label>
                       <div className="relative group">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#A1A1AA] group-focus-within:text-[#00E5FF] transition-colors" />
+                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#A1A1AA] group-focus-within:text-[#0046E2] transition-colors" />
                         <input
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#00E5FF]/50 focus:ring-2 focus:ring-[#00E5FF]/20 transition-all"
+                          className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0046E2]/50 focus:ring-2 focus:ring-[#0046E2]/20 transition-all"
                           placeholder="you@company.com"
                         />
                       </div>
@@ -772,12 +775,12 @@ export default function LandingPage() {
                     <div>
                       <label className="block text-sm font-medium text-[#A1A1AA] mb-2">Password</label>
                       <div className="relative group">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#A1A1AA] group-focus-within:text-[#00E5FF] transition-colors" />
+                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#A1A1AA] group-focus-within:text-[#0046E2] transition-colors" />
                         <input
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#00E5FF]/50 focus:ring-2 focus:ring-[#00E5FF]/20 transition-all"
+                          className="w-full pl-10 pr-12 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0046E2]/50 focus:ring-2 focus:ring-[#0046E2]/20 transition-all"
                           placeholder="••••••••"
                         />
                         <button
@@ -793,12 +796,12 @@ export default function LandingPage() {
                     <div className="flex items-center justify-between">
                       <label className="flex items-center gap-2 cursor-pointer group">
                         <input type="checkbox" className="sr-only peer" />
-                        <div className="h-5 w-5 rounded border border-white/20 bg-white/5 flex items-center justify-center peer-checked:bg-[#00E5FF] peer-checked:border-[#00E5FF] transition-all group-hover:border-[#00E5FF]/50">
-                          <Check className="h-3 w-3 text-[#0B0B0B] opacity-0 peer-checked:opacity-100" />
+                        <div className="h-5 w-5 rounded border border-white/20 bg-white/5 flex items-center justify-center peer-checked:bg-[#0046E2] peer-checked:border-[#0046E2] transition-all group-hover:border-[#0046E2]/50">
+                          <Check className="h-3 w-3 text-white opacity-0 peer-checked:opacity-100" />
                         </div>
                         <span className="text-sm text-[#A1A1AA]">Remember me</span>
                       </label>
-                      <Link href="/forgot-password" className="text-sm text-[#00E5FF] hover:underline">
+                      <Link href="/forgot-password" className="text-sm text-[#0046E2] hover:underline">
                         Forgot password?
                       </Link>
                     </div>
@@ -806,7 +809,7 @@ export default function LandingPage() {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full py-3 bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] rounded-xl font-semibold hover:shadow-lg hover:shadow-[#00E5FF]/30 transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-[#FDFBE7] text-[#0f1a4a] rounded-xl font-bold hover:bg-[#F5F3D9] hover:shadow-lg hover:shadow-[#FDFBE7]/30 transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2"
                     >
                       {isLoading ? (
                         <>
@@ -825,7 +828,7 @@ export default function LandingPage() {
                   <div className="mt-6 text-center">
                     <p className="text-sm text-[#A1A1AA]">
                       Don&apos;t have an account?{" "}
-                      <Link href="/register" className="text-[#00E5FF] hover:underline font-medium">
+                      <Link href="/register" className="text-[#0046E2] hover:underline font-medium">
                         Create one free
                       </Link>
                     </p>
@@ -839,11 +842,11 @@ export default function LandingPage() {
                         <span className="text-xs">Secure</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Cloud className="h-4 w-4 text-[#00E5FF]" />
+                        <Cloud className="h-4 w-4 text-[#0046E2]" />
                         <span className="text-xs">Cloud-based</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Star className="h-4 w-4 text-[#FFB830]" />
+                        <Star className="h-4 w-4 text-[#FDFBE7]" />
                         <span className="text-xs">5-star rated</span>
                       </div>
                     </div>
@@ -857,8 +860,8 @@ export default function LandingPage() {
         {/* Scroll indicator */}
         <div className="scroll-indicator absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
           <span className="text-[10px] sm:text-xs text-[#A1A1AA] uppercase tracking-widest">Scroll to explore</span>
-          <div className="h-10 sm:h-12 w-6 sm:w-7 rounded-full border-2 border-[#00E5FF]/30 flex items-start justify-center p-1.5">
-            <div className="h-2 w-2 rounded-full bg-[#00E5FF] animate-bounce" />
+          <div className="h-10 sm:h-12 w-6 sm:w-7 rounded-full border-2 border-[#0046E2]/30 flex items-start justify-center p-1.5">
+            <div className="h-2 w-2 rounded-full bg-[#0046E2] animate-bounce" />
           </div>
         </div>
       </section>
@@ -870,17 +873,17 @@ export default function LandingPage() {
         className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden"
       >
         {/* Background elements */}
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00E5FF]/50 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FFB830]/50 to-transparent" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0046E2]/50 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FDFBE7]/50 to-transparent" />
 
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00E5FF]/10 border border-[#00E5FF]/20 mb-4">
-              <Sparkles className="h-4 w-4 text-[#00E5FF]" />
-              <span className="text-sm text-[#00E5FF]">Why Choose KORE</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0046E2]/10 border border-[#0046E2]/20 mb-4">
+              <Sparkles className="h-4 w-4 text-[#0046E2]" />
+              <span className="text-sm text-[#0046E2]">Why Choose KORE</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Everything you need, <span className="bg-gradient-to-r from-[#00E5FF] to-[#FFB830] bg-clip-text text-transparent">unified</span>
+              Everything you need, <span className="bg-gradient-to-r from-[#0046E2] to-[#FDFBE7] bg-clip-text text-transparent">unified</span>
             </h2>
             <p className="text-base sm:text-lg text-[#A1A1AA] max-w-2xl mx-auto">
               One platform to manage files, schedule meetings, communicate with your team, and get AI-powered insights.
@@ -893,7 +896,7 @@ export default function LandingPage() {
               return (
                 <div
                   key={index}
-                  className="feature-card group p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-[#00E5FF]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#00E5FF]/10 cursor-pointer"
+                  className="feature-card group p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-[#0046E2]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#0046E2]/10 cursor-pointer"
                 >
                   <div className={cn(
                     "h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-gradient-to-br flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg",
@@ -901,7 +904,7 @@ export default function LandingPage() {
                   )}>
                     <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-[#00E5FF] transition-colors">{feature.title}</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-[#0046E2] transition-colors">{feature.title}</h3>
                   <p className="text-sm sm:text-base text-[#A1A1AA]">{feature.description}</p>
                 </div>
               )
@@ -911,8 +914,8 @@ export default function LandingPage() {
           {/* Stats Section */}
           <div className="stats-section mt-16 sm:mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="stat-item text-center p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#00E5FF]/30 transition-all hover:scale-105">
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#00E5FF] to-[#FFB830] bg-clip-text text-transparent mb-2">
+              <div key={index} className="stat-item text-center p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#0046E2]/30 transition-all hover:scale-105">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#0046E2] to-[#FDFBE7] bg-clip-text text-transparent mb-2">
                   {stat.value}
                 </div>
                 <div className="text-sm sm:text-base text-[#A1A1AA]">{stat.label}</div>
@@ -929,19 +932,19 @@ export default function LandingPage() {
         className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
       >
         {/* Background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[400px] sm:h-[800px] bg-[#00E5FF]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[400px] sm:h-[800px] bg-[#0046E2]/10 rounded-full blur-[100px] sm:blur-[150px]" />
 
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
           <div className="order-2 lg:order-1">
             <div className="core-title">
               <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] flex items-center justify-center shadow-lg shadow-[#00E5FF]/30">
-                  <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-[#0B0B0B]" />
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] flex items-center justify-center shadow-lg shadow-[#0046E2]/30">
+                  <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-[#0f1a4a]" />
                 </div>
-                <span className="text-[#00E5FF] font-semibold text-base sm:text-lg">THE CORE</span>
+                <span className="text-[#0046E2] font-semibold text-base sm:text-lg">THE CORE</span>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-                Your <span className="bg-gradient-to-r from-[#00E5FF] to-[#8B5CF6] bg-clip-text text-transparent">AI-Powered</span> Command Center
+                Your <span className="bg-gradient-to-r from-[#0046E2] to-[#1b2d7c] bg-clip-text text-transparent">AI-Powered</span> Command Center
               </h2>
               <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
                 Ask anything. Get intelligent answers. The Core understands your data across all modules and provides actionable insights in seconds.
@@ -957,9 +960,9 @@ export default function LandingPage() {
               ].map((item, index) => {
                 const Icon = item.icon
                 return (
-                  <div key={index} className="core-feature flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#00E5FF]/30 hover:bg-white/10 transition-all group cursor-pointer">
-                    <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-gradient-to-br from-[#00E5FF]/20 to-transparent flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#00E5FF]" />
+                  <div key={index} className="core-feature flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#0046E2]/30 hover:bg-white/10 transition-all group cursor-pointer">
+                    <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-gradient-to-br from-[#0046E2]/20 to-transparent flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#0046E2]" />
                     </div>
                     <span className="text-sm sm:text-base text-white">{item.text}</span>
                   </div>
@@ -971,11 +974,11 @@ export default function LandingPage() {
           {/* Core Mockup */}
           <div className="core-mockup order-1 lg:order-2">
             <div className="relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#00E5FF]/30 via-[#8B5CF6]/20 to-[#FFB830]/30 rounded-2xl blur-xl opacity-50" />
-              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 p-4 sm:p-6 shadow-2xl">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#0046E2]/30 via-[#1b2d7c]/20 to-[#FDFBE7]/30 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1b2d7c] border border-white/10 p-4 sm:p-6 shadow-2xl">
                 <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                  <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-[#00E5FF]/20 flex items-center justify-center">
-                    <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-[#00E5FF]" />
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-[#0046E2]/20 flex items-center justify-center">
+                    <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-[#0046E2]" />
                   </div>
                   <div>
                     <p className="text-white font-medium text-sm sm:text-base">The Core</p>
@@ -986,17 +989,17 @@ export default function LandingPage() {
                 {/* Chat mockup */}
                 <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                   <div className="flex justify-end">
-                    <div className="bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] rounded-2xl rounded-br-md px-3 sm:px-4 py-2 max-w-[85%]">
+                    <div className="bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] rounded-2xl rounded-br-md px-3 sm:px-4 py-2 max-w-[85%]">
                       <p className="text-xs sm:text-sm">What were our top performing campaigns last quarter?</p>
                     </div>
                   </div>
                   <div className="flex justify-start">
-                    <div className="bg-[#2A2A2A] text-white rounded-2xl rounded-bl-md px-3 sm:px-4 py-3 max-w-[90%]">
+                    <div className="bg-[#243178] text-white rounded-2xl rounded-bl-md px-3 sm:px-4 py-3 max-w-[90%]">
                       <p className="text-xs sm:text-sm mb-2">Based on your analytics data, here are your top 3 campaigns from Q3:</p>
                       <div className="space-y-2">
                         {[
-                          { color: "#00E5FF", text: "Summer Sale - 245% ROI" },
-                          { color: "#FFB830", text: "Product Launch - 189% ROI" },
+                          { color: "#0046E2", text: "Summer Sale - 245% ROI" },
+                          { color: "#FDFBE7", text: "Product Launch - 189% ROI" },
                           { color: "#10B981", text: "Email Nurture - 156% ROI" },
                         ].map((item, i) => (
                           <div key={i} className="flex items-center gap-2 text-[10px] sm:text-xs group cursor-pointer hover:translate-x-1 transition-transform">
@@ -1009,15 +1012,15 @@ export default function LandingPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 sm:gap-3 bg-[#2A2A2A] rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 group hover:ring-2 hover:ring-[#00E5FF]/30 transition-all">
+                <div className="flex items-center gap-2 sm:gap-3 bg-[#243178] rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 group hover:ring-2 hover:ring-[#0046E2]/30 transition-all">
                   <input
                     type="text"
                     placeholder="Ask The Core anything..."
                     className="flex-1 bg-transparent text-xs sm:text-sm text-white placeholder:text-[#A1A1AA] outline-none"
                     disabled
                   />
-                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#0B0B0B]" />
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#0f1a4a]" />
                   </div>
                 </div>
               </div>
@@ -1032,18 +1035,18 @@ export default function LandingPage() {
         id="drive"
         className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
       >
-        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#FFB830]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#FDFBE7]/10 rounded-full blur-[100px] sm:blur-[150px]" />
 
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
           {/* Drive Mockup */}
           <div className="drive-content">
             <div className="relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#FFB830]/30 to-[#F59E0B]/20 rounded-2xl blur-xl opacity-50" />
-              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#FDFBE7]/30 to-[#FDFBE7]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1b2d7c] border border-white/10 overflow-hidden shadow-2xl">
                 {/* Header */}
                 <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <HardDrive className="h-4 w-4 sm:h-5 sm:w-5 text-[#FFB830]" />
+                    <HardDrive className="h-4 w-4 sm:h-5 sm:w-5 text-[#FDFBE7]" />
                     <span className="text-white font-medium text-sm sm:text-base">KORE Drive</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -1067,7 +1070,7 @@ export default function LandingPage() {
                         {getFileIcon(file.type)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-white text-xs sm:text-sm font-medium truncate group-hover:text-[#FFB830] transition-colors">{file.name}</p>
+                        <p className="text-white text-xs sm:text-sm font-medium truncate group-hover:text-[#FDFBE7] transition-colors">{file.name}</p>
                         <p className="text-[10px] sm:text-xs text-[#A1A1AA]">
                           {file.type === "folder" ? `${file.items} items` : file.size} • {file.modified}
                         </p>
@@ -1083,7 +1086,7 @@ export default function LandingPage() {
                     <span>24.5 GB of 100 GB</span>
                   </div>
                   <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full w-1/4 bg-gradient-to-r from-[#FFB830] to-[#00E5FF] rounded-full" />
+                    <div className="h-full w-1/4 bg-gradient-to-r from-[#FDFBE7] to-[#0046E2] rounded-full" />
                   </div>
                 </div>
               </div>
@@ -1092,13 +1095,13 @@ export default function LandingPage() {
 
           <div>
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#FFB830] to-[#F59E0B] flex items-center justify-center shadow-lg shadow-[#FFB830]/30">
-                <HardDrive className="h-5 w-5 sm:h-6 sm:w-6 text-[#0B0B0B]" />
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#FDFBE7] to-[#FDFBE7] flex items-center justify-center shadow-lg shadow-[#FDFBE7]/30">
+                <HardDrive className="h-5 w-5 sm:h-6 sm:w-6 text-[#0f1a4a]" />
               </div>
-              <span className="text-[#FFB830] font-semibold text-base sm:text-lg">KORE DRIVE</span>
+              <span className="text-[#FDFBE7] font-semibold text-base sm:text-lg">KORE DRIVE</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-              All Your Files, <span className="bg-gradient-to-r from-[#FFB830] to-[#F59E0B] bg-clip-text text-transparent">One Secure Place</span>
+              All Your Files, <span className="bg-gradient-to-r from-[#FDFBE7] to-[#FDFBE7] bg-clip-text text-transparent">One Secure Place</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
               Store, share, and collaborate on files with enterprise-grade security. Access everything from anywhere, on any device.
@@ -1113,8 +1116,8 @@ export default function LandingPage() {
               ].map((item, index) => {
                 const Icon = item.icon
                 return (
-                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#FFB830]/30 hover:bg-white/10 transition-all cursor-pointer group">
-                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#FFB830] group-hover:scale-110 transition-transform" />
+                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#FDFBE7]/30 hover:bg-white/10 transition-all cursor-pointer group">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#FDFBE7] group-hover:scale-110 transition-transform" />
                     <span className="text-white text-xs sm:text-sm">{item.text}</span>
                   </div>
                 )
@@ -1166,7 +1169,7 @@ export default function LandingPage() {
           <div className="calendar-content order-1 lg:order-2">
             <div className="relative">
               <div className="absolute -inset-2 bg-gradient-to-r from-[#10B981]/30 to-[#059669]/20 rounded-2xl blur-xl opacity-50" />
-              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+              <div className="relative rounded-2xl bg-[#1b2d7c] border border-white/10 overflow-hidden shadow-2xl">
                 <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-2 sm:gap-3">
                     <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-[#10B981]" />
@@ -1199,7 +1202,7 @@ export default function LandingPage() {
                             {Array.from({ length: Math.min(event.attendees, 3) }).map((_, i) => (
                               <div
                                 key={i}
-                                className="h-5 w-5 sm:h-6 sm:w-6 rounded-full bg-white/20 border-2 border-[#1F1F1F]"
+                                className="h-5 w-5 sm:h-6 sm:w-6 rounded-full bg-white/20 border-2 border-[#1b2d7c]"
                               />
                             ))}
                           </div>
@@ -1223,16 +1226,16 @@ export default function LandingPage() {
         id="contacts"
         className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
       >
-        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#8B5CF6]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#1b2d7c]/10 rounded-full blur-[100px] sm:blur-[150px]" />
 
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
           {/* Contacts Mockup */}
           <div className="contacts-content">
             <div className="relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#8B5CF6]/30 to-[#7C3AED]/20 rounded-2xl blur-xl opacity-50" />
-              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-6">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#1b2d7c]/30 to-[#0f1a4a]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1b2d7c] border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-6">
                 <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                  <Users className="h-4 w-4 sm:h-5 sm:w-5 text-[#8B5CF6]" />
+                  <Users className="h-4 w-4 sm:h-5 sm:w-5 text-[#1b2d7c]" />
                   <span className="text-white font-medium text-sm sm:text-base">KORE Contacts</span>
                 </div>
 
@@ -1242,7 +1245,7 @@ export default function LandingPage() {
                       key={index}
                       className="contact-card flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all cursor-pointer group"
                     >
-                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#00E5FF] flex items-center justify-center text-white font-semibold text-sm sm:text-base group-hover:scale-110 transition-transform">
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-[#1b2d7c] to-[#0046E2] flex items-center justify-center text-white font-semibold text-sm sm:text-base group-hover:scale-110 transition-transform">
                         {contact.avatar}
                       </div>
                       <div className="flex-1">
@@ -1250,10 +1253,10 @@ export default function LandingPage() {
                         <p className="text-xs sm:text-sm text-[#A1A1AA]">{contact.role}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#00E5FF]/20 transition-colors">
+                        <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#0046E2]/20 transition-colors">
                           <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-[#A1A1AA]" />
                         </div>
-                        <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#00E5FF]/20 transition-colors">
+                        <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#0046E2]/20 transition-colors">
                           <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-[#A1A1AA]" />
                         </div>
                       </div>
@@ -1266,13 +1269,13 @@ export default function LandingPage() {
 
           <div>
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center shadow-lg shadow-[#8B5CF6]/30">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#1b2d7c] to-[#0f1a4a] flex items-center justify-center shadow-lg shadow-[#1b2d7c]/30">
                 <Users className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <span className="text-[#8B5CF6] font-semibold text-base sm:text-lg">KORE CONTACTS</span>
+              <span className="text-[#1b2d7c] font-semibold text-base sm:text-lg">KORE CONTACTS</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-              Your Network, <span className="bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] bg-clip-text text-transparent">Organized</span>
+              Your Network, <span className="bg-gradient-to-r from-[#1b2d7c] to-[#0f1a4a] bg-clip-text text-transparent">Organized</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
               Keep all your contacts in one place. Rich profiles, smart groups, and instant access to connect with anyone.
@@ -1287,8 +1290,8 @@ export default function LandingPage() {
               ].map((item, index) => {
                 const Icon = item.icon
                 return (
-                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#8B5CF6]/30 hover:bg-white/10 transition-all cursor-pointer group">
-                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#8B5CF6] group-hover:scale-110 transition-transform" />
+                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#1b2d7c]/30 hover:bg-white/10 transition-all cursor-pointer group">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#1b2d7c] group-hover:scale-110 transition-transform" />
                     <span className="text-white text-xs sm:text-sm">{item.text}</span>
                   </div>
                 )
@@ -1304,18 +1307,18 @@ export default function LandingPage() {
         id="talk"
         className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
       >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[400px] sm:h-[800px] bg-[#EC4899]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[400px] sm:h-[800px] bg-[#0046E2]/10 rounded-full blur-[100px] sm:blur-[150px]" />
 
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
           <div className="order-2 lg:order-1">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#DB2777] flex items-center justify-center shadow-lg shadow-[#EC4899]/30">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] flex items-center justify-center shadow-lg shadow-[#0046E2]/30">
                 <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <span className="text-[#EC4899] font-semibold text-base sm:text-lg">KORE TALK</span>
+              <span className="text-[#0046E2] font-semibold text-base sm:text-lg">KORE TALK</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-              Connect <span className="bg-gradient-to-r from-[#EC4899] to-[#DB2777] bg-clip-text text-transparent">Instantly</span>
+              Connect <span className="bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] bg-clip-text text-transparent">Instantly</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
               Real-time messaging, HD video calls, and seamless collaboration. Stay connected with your team wherever you are.
@@ -1329,8 +1332,8 @@ export default function LandingPage() {
                 "File sharing in conversations",
               ].map((item, index) => (
                 <div key={index} className="flex items-center gap-3 group cursor-pointer">
-                  <div className="h-2 w-2 rounded-full bg-[#EC4899] group-hover:scale-150 transition-transform" />
-                  <span className="text-sm sm:text-base text-white group-hover:text-[#EC4899] transition-colors">{item}</span>
+                  <div className="h-2 w-2 rounded-full bg-[#0046E2] group-hover:scale-150 transition-transform" />
+                  <span className="text-sm sm:text-base text-white group-hover:text-[#0046E2] transition-colors">{item}</span>
                 </div>
               ))}
             </div>
@@ -1339,14 +1342,14 @@ export default function LandingPage() {
           {/* Talk Mockup */}
           <div className="talk-content order-1 lg:order-2">
             <div className="relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-[#EC4899]/30 to-[#DB2777]/20 rounded-2xl blur-xl opacity-50" />
-              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#0046E2]/30 to-[#1A5AE8]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1b2d7c] border border-white/10 overflow-hidden shadow-2xl">
                 <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center justify-between">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-[#EC4899]" />
+                    <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-[#0046E2]" />
                     <span className="text-white font-medium text-sm sm:text-base">Messages</span>
                   </div>
-                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-[#EC4899] flex items-center justify-center">
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-[#0046E2] flex items-center justify-center">
                     <Bell className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                   </div>
                 </div>
@@ -1357,7 +1360,7 @@ export default function LandingPage() {
                       key={index}
                       className="message-item flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-white/5 transition-all cursor-pointer group"
                     >
-                      <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-medium flex-shrink-0 group-hover:scale-110 transition-transform ${msg.isGroup ? 'bg-gradient-to-br from-[#EC4899] to-[#8B5CF6]' : 'bg-gradient-to-br from-[#00E5FF] to-[#10B981]'}`}>
+                      <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-medium flex-shrink-0 group-hover:scale-110 transition-transform ${msg.isGroup ? 'bg-gradient-to-br from-[#0046E2] to-[#1b2d7c]' : 'bg-gradient-to-br from-[#0046E2] to-[#10B981]'}`}>
                         {msg.avatar}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -1373,9 +1376,9 @@ export default function LandingPage() {
 
                 {/* Video call preview */}
                 <div className="p-3 sm:p-4 border-t border-white/10">
-                  <div className="rounded-xl bg-gradient-to-br from-[#EC4899]/20 to-[#8B5CF6]/20 p-3 sm:p-4 flex items-center justify-between">
+                  <div className="rounded-xl bg-gradient-to-br from-[#0046E2]/20 to-[#1b2d7c]/20 p-3 sm:p-4 flex items-center justify-between">
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#EC4899] flex items-center justify-center animate-pulse">
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#0046E2] flex items-center justify-center animate-pulse">
                         <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                       </div>
                       <div>
@@ -1405,7 +1408,7 @@ export default function LandingPage() {
         id="tasks"
         className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
       >
-        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#F59E0B]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#FDFBE7]/10 rounded-full blur-[100px] sm:blur-[150px]" />
 
         <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
           {/* Tasks Mockup */}
@@ -1413,10 +1416,10 @@ export default function LandingPage() {
             <div className="grid gap-4 sm:gap-6">
               {/* Tasks Card */}
               <div className="relative">
-                <div className="absolute -inset-2 bg-gradient-to-r from-[#F59E0B]/30 to-[#D97706]/20 rounded-2xl blur-xl opacity-50" />
-                <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#FDFBE7]/30 to-[#0046E2]/20 rounded-2xl blur-xl opacity-50" />
+                <div className="relative rounded-2xl bg-[#1b2d7c] border border-white/10 overflow-hidden shadow-2xl">
                   <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center gap-2 sm:gap-3">
-                    <CheckSquare className="h-4 w-4 sm:h-5 sm:w-5 text-[#F59E0B]" />
+                    <CheckSquare className="h-4 w-4 sm:h-5 sm:w-5 text-[#FDFBE7]" />
                     <span className="text-white font-medium text-sm sm:text-base">Tasks</span>
                   </div>
                   <div className="p-3 sm:p-4 space-y-2">
@@ -1425,7 +1428,7 @@ export default function LandingPage() {
                         key={index}
                         className="task-item flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer group"
                       >
-                        <div className={`h-4 w-4 sm:h-5 sm:w-5 rounded border-2 flex items-center justify-center transition-all ${task.status === 'done' ? 'bg-[#10B981] border-[#10B981]' : 'border-white/30 group-hover:border-[#F59E0B]'}`}>
+                        <div className={`h-4 w-4 sm:h-5 sm:w-5 rounded border-2 flex items-center justify-center transition-all ${task.status === 'done' ? 'bg-[#10B981] border-[#10B981]' : 'border-white/30 group-hover:border-[#FDFBE7]'}`}>
                           {task.status === 'done' && (
                             <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
                           )}
@@ -1448,10 +1451,10 @@ export default function LandingPage() {
 
               {/* Notes Card */}
               <div className="relative">
-                <div className="absolute -inset-2 bg-gradient-to-r from-[#F59E0B]/20 to-[#D97706]/10 rounded-2xl blur-xl opacity-50" />
-                <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#FDFBE7]/20 to-[#0046E2]/10 rounded-2xl blur-xl opacity-50" />
+                <div className="relative rounded-2xl bg-[#1b2d7c] border border-white/10 overflow-hidden shadow-2xl">
                   <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center gap-2 sm:gap-3">
-                    <StickyNote className="h-4 w-4 sm:h-5 sm:w-5 text-[#F59E0B]" />
+                    <StickyNote className="h-4 w-4 sm:h-5 sm:w-5 text-[#FDFBE7]" />
                     <span className="text-white font-medium text-sm sm:text-base">Quick Note</span>
                   </div>
                   <div className="p-3 sm:p-4">
@@ -1472,13 +1475,13 @@ export default function LandingPage() {
 
           <div>
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#D97706] flex items-center justify-center shadow-lg shadow-[#F59E0B]/30">
-                <CheckSquare className="h-5 w-5 sm:h-6 sm:w-6 text-[#0B0B0B]" />
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#FDFBE7] to-[#0046E2] flex items-center justify-center shadow-lg shadow-[#FDFBE7]/30">
+                <CheckSquare className="h-5 w-5 sm:h-6 sm:w-6 text-[#0f1a4a]" />
               </div>
-              <span className="text-[#F59E0B] font-semibold text-base sm:text-lg">TASKS & NOTES</span>
+              <span className="text-[#FDFBE7] font-semibold text-base sm:text-lg">TASKS & NOTES</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
-              Stay <span className="bg-gradient-to-r from-[#F59E0B] to-[#D97706] bg-clip-text text-transparent">on Track</span>
+              Stay <span className="bg-gradient-to-r from-[#FDFBE7] to-[#0046E2] bg-clip-text text-transparent">on Track</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
               Manage tasks with Kanban boards, capture ideas with rich notes, and never miss a deadline again.
@@ -1493,8 +1496,8 @@ export default function LandingPage() {
               ].map((item, index) => {
                 const Icon = item.icon
                 return (
-                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#F59E0B]/30 hover:bg-white/10 transition-all cursor-pointer group">
-                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#F59E0B] group-hover:scale-110 transition-transform" />
+                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#FDFBE7]/30 hover:bg-white/10 transition-all cursor-pointer group">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#FDFBE7] group-hover:scale-110 transition-transform" />
                     <span className="text-white text-xs sm:text-sm">{item.text}</span>
                   </div>
                 )
@@ -1510,18 +1513,18 @@ export default function LandingPage() {
         className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden"
       >
         {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0B0B] via-[#00E5FF]/5 to-[#0B0B0B]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[1000px] h-[500px] sm:h-[1000px] bg-[#00E5FF]/10 rounded-full blur-[150px] sm:blur-[200px]" />
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00E5FF]/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1a4a] via-[#0046E2]/5 to-[#0f1a4a]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[1000px] h-[500px] sm:h-[1000px] bg-[#0046E2]/10 rounded-full blur-[150px] sm:blur-[200px]" />
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#0046E2]/50 to-transparent" />
 
         <div className="cta-content relative z-10 max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#00E5FF]/10 to-[#FFB830]/10 border border-[#00E5FF]/20 mb-6">
-            <Rocket className="h-4 w-4 text-[#FFB830]" />
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#0046E2]/10 to-[#FDFBE7]/10 border border-[#0046E2]/20 mb-6">
+            <Rocket className="h-4 w-4 text-[#FDFBE7]" />
             <span className="text-sm text-white">Ready to get started?</span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-4 sm:mb-6">
-            Transform your <span className="bg-gradient-to-r from-[#00E5FF] via-[#8B5CF6] to-[#FFB830] bg-clip-text text-transparent">workflow</span> today
+            Transform your <span className="bg-gradient-to-r from-[#0046E2] via-[#1b2d7c] to-[#FDFBE7] bg-clip-text text-transparent">workflow</span> today
           </h2>
           <p className="text-base sm:text-xl text-[#A1A1AA] mb-8 sm:mb-10 max-w-2xl mx-auto">
             Join thousands of teams already using KORE to collaborate better, work smarter, and achieve more.
@@ -1529,7 +1532,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               href="/register"
-              className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] rounded-xl text-lg sm:text-xl font-semibold hover:shadow-xl hover:shadow-[#00E5FF]/30 transition-all hover:scale-105 flex items-center justify-center gap-3"
+              className="group w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] rounded-xl text-lg sm:text-xl font-semibold hover:shadow-xl hover:shadow-[#0046E2]/30 transition-all hover:scale-105 flex items-center justify-center gap-3"
             >
               <Rocket className="h-5 w-5 sm:h-6 sm:w-6" />
               Get Started Free
@@ -1537,7 +1540,7 @@ export default function LandingPage() {
             </Link>
             <a
               href="#login"
-              className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 border border-white/20 text-white rounded-xl text-lg sm:text-xl font-semibold hover:bg-white/5 hover:border-[#00E5FF]/50 transition-all flex items-center justify-center"
+              className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 border border-white/20 text-white rounded-xl text-lg sm:text-xl font-semibold hover:bg-white/5 hover:border-[#0046E2]/50 transition-all flex items-center justify-center"
             >
               Sign In
             </a>
@@ -1553,15 +1556,18 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
-              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#00E5FF]/50 flex items-center justify-center shadow-lg shadow-[#00E5FF]/20">
-                <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-[#0B0B0B]" />
+              <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-br from-[#0046E2] to-[#0046E2]/50 flex items-center justify-center shadow-lg shadow-[#0046E2]/20">
+                <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </div>
-              <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-[#00E5FF] bg-clip-text text-transparent">KORE</span>
+              <div className="flex flex-col">
+                <span className="text-lg sm:text-xl font-bold font-[family-name:var(--font-montserrat)] bg-gradient-to-r from-white to-[#0046E2] bg-clip-text text-transparent">KORE</span>
+                <span className="text-[8px] sm:text-[10px] text-[#FDFBE7]/70 -mt-1 tracking-wider">BY SOCIOS</span>
+              </div>
             </div>
             <div className="flex items-center gap-4 sm:gap-8 text-xs sm:text-sm text-[#A1A1AA]">
-              <Link href="/privacy" className="hover:text-[#00E5FF] transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#00E5FF] transition-colors">Terms</Link>
-              <Link href="/status" className="hover:text-[#00E5FF] transition-colors flex items-center gap-1.5">
+              <Link href="/privacy" className="hover:text-[#0046E2] transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#0046E2] transition-colors">Terms</Link>
+              <Link href="/status" className="hover:text-[#0046E2] transition-colors flex items-center gap-1.5">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]"></span>
@@ -1570,7 +1576,7 @@ export default function LandingPage() {
               </Link>
             </div>
             <p className="text-xs sm:text-sm text-[#A1A1AA]">
-              © {new Date().getFullYear()} KORE. All rights reserved.
+              © {new Date().getFullYear()} KORE By Socios. All rights reserved.
             </p>
           </div>
         </div>

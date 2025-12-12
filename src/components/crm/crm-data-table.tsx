@@ -116,20 +116,20 @@ export function CRMDataTable<T extends { id: string }>({
             placeholder={searchPlaceholder}
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
-            className="pl-10 bg-[#1F1F1F] border-[#2A2A2A] text-white placeholder:text-[#A1A1AA] focus:border-[#F39C12]"
+            className="pl-10 bg-[#243178] border-[#2d3c8a] text-white placeholder:text-[#A1A1AA] focus:border-[#F39C12]"
           />
         </div>
-        <Button variant="outline" className="border-[#2A2A2A] bg-[#1F1F1F] text-[#A1A1AA] hover:text-white hover:bg-[#2A2A2A]">
+        <Button variant="outline" className="border-[#2d3c8a] bg-[#243178] text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a]">
           <Filter className="mr-2 h-4 w-4" />
           Filter
         </Button>
       </div>
 
       {/* Table */}
-      <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] overflow-hidden">
+      <div className="rounded-xl border border-[#243178] bg-[#243178] overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="border-[#2A2A2A] hover:bg-transparent">
+            <TableRow className="border-[#2d3c8a] hover:bg-transparent">
               {onSelectionChange && (
                 <TableHead className="w-12 text-[#A1A1AA]">
                   <Checkbox
@@ -166,19 +166,19 @@ export function CRMDataTable<T extends { id: string }>({
             {isLoading ? (
               // Loading skeleton
               Array.from({ length: 5 }).map((_, i) => (
-                <TableRow key={i} className="border-[#2A2A2A]">
+                <TableRow key={i} className="border-[#2d3c8a]">
                   {onSelectionChange && (
                     <TableCell>
-                      <div className="h-4 w-4 rounded bg-[#2A2A2A] animate-pulse" />
+                      <div className="h-4 w-4 rounded bg-[#2d3c8a] animate-pulse" />
                     </TableCell>
                   )}
                   {columns.map((column) => (
                     <TableCell key={column.key}>
-                      <div className="h-4 w-24 rounded bg-[#2A2A2A] animate-pulse" />
+                      <div className="h-4 w-24 rounded bg-[#2d3c8a] animate-pulse" />
                     </TableCell>
                   ))}
                   <TableCell>
-                    <div className="h-4 w-4 rounded bg-[#2A2A2A] animate-pulse" />
+                    <div className="h-4 w-4 rounded bg-[#2d3c8a] animate-pulse" />
                   </TableCell>
                 </TableRow>
               ))
@@ -199,7 +199,7 @@ export function CRMDataTable<T extends { id: string }>({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                   className={cn(
-                    "border-[#2A2A2A] hover:bg-[#2A2A2A]/50 transition-colors cursor-pointer",
+                    "border-[#2d3c8a] hover:bg-[#2d3c8a]/50 transition-colors cursor-pointer",
                     selectedItems.includes(item.id) && "bg-[#F39C12]/10"
                   )}
                   onClick={() => onView?.(item)}
@@ -228,15 +228,15 @@ export function CRMDataTable<T extends { id: string }>({
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-[#1F1F1F] border-[#2A2A2A]">
+                        <DropdownMenuContent align="end" className="bg-[#243178] border-[#2d3c8a]">
                           {onView && (
-                            <DropdownMenuItem onClick={() => onView(item)} className="text-white hover:bg-[#2A2A2A]">
+                            <DropdownMenuItem onClick={() => onView(item)} className="text-white hover:bg-[#2d3c8a]">
                               <Eye className="mr-2 h-4 w-4" />
                               View
                             </DropdownMenuItem>
                           )}
                           {onEdit && (
-                            <DropdownMenuItem onClick={() => onEdit(item)} className="text-white hover:bg-[#2A2A2A]">
+                            <DropdownMenuItem onClick={() => onEdit(item)} className="text-white hover:bg-[#2d3c8a]">
                               <Pencil className="mr-2 h-4 w-4" />
                               Edit
                             </DropdownMenuItem>
@@ -244,7 +244,7 @@ export function CRMDataTable<T extends { id: string }>({
                           {onDelete && (
                             <DropdownMenuItem
                               onClick={() => onDelete(item)}
-                              className="text-red-400 hover:bg-[#2A2A2A] hover:text-red-400"
+                              className="text-red-400 hover:bg-[#2d3c8a] hover:text-red-400"
                             >
                               <Trash2 className="mr-2 h-4 w-4" />
                               Delete
@@ -272,7 +272,7 @@ export function CRMDataTable<T extends { id: string }>({
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 border-[#2A2A2A] bg-[#1F1F1F] text-[#A1A1AA] hover:text-white"
+              className="h-8 w-8 border-[#2d3c8a] bg-[#243178] text-[#A1A1AA] hover:text-white"
               disabled
             >
               <ChevronLeft className="h-4 w-4" />
@@ -281,7 +281,7 @@ export function CRMDataTable<T extends { id: string }>({
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 border-[#2A2A2A] bg-[#1F1F1F] text-[#A1A1AA] hover:text-white"
+              className="h-8 w-8 border-[#2d3c8a] bg-[#243178] text-[#A1A1AA] hover:text-white"
               disabled
             >
               <ChevronRight className="h-4 w-4" />
@@ -302,7 +302,7 @@ export function CRMStatusBadge({
   variant?: "default" | "success" | "warning" | "danger" | "info"
 }) {
   const variantClasses = {
-    default: "bg-[#2A2A2A] text-[#A1A1AA]",
+    default: "bg-[#2d3c8a] text-[#A1A1AA]",
     success: "bg-green-500/20 text-green-400 border-green-500/30",
     warning: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
     danger: "bg-red-500/20 text-red-400 border-red-500/30",

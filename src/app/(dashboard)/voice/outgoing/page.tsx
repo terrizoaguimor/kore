@@ -9,7 +9,7 @@ export default function OutgoingCallsPage() {
       title="Outgoing Calls"
       description="Track outbound calls and campaigns"
       icon={PhoneOutgoing}
-      iconColor="#00E5FF"
+      iconColor="#0046E2"
       backHref="/voice"
       backLabel="Back to Voice"
       actionLabel="New Campaign"

@@ -190,10 +190,10 @@ export function ShareDialog({ file, open, onOpenChange }: ShareDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-lg">
+      <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-lg">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold flex items-center gap-2">
-            <Link2 className="h-5 w-5 text-[#00E5FF]" />
+            <Link2 className="h-5 w-5 text-[#0046E2]" />
             Share "{file.name}"
           </DialogTitle>
           <DialogDescription className="text-[#A1A1AA]">
@@ -205,7 +205,7 @@ export function ShareDialog({ file, open, onOpenChange }: ShareDialogProps) {
           {/* Create New Share Section */}
           <div className="space-y-4">
             <h3 className="text-sm font-medium text-white flex items-center gap-2">
-              <Globe className="h-4 w-4 text-[#00E5FF]" />
+              <Globe className="h-4 w-4 text-[#0046E2]" />
               Create Share Link
             </h3>
 
@@ -216,7 +216,7 @@ export function ShareDialog({ file, open, onOpenChange }: ShareDialogProps) {
                 <SelectTrigger className="bg-white/5 border-white/10 text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1F1F1F] border-white/10">
+                <SelectContent className="bg-[#243178] border-white/10">
                   <SelectItem value="view" className="text-white hover:bg-white/10">
                     <div className="flex items-center gap-2">
                       <Eye className="h-4 w-4" /> View only
@@ -283,7 +283,7 @@ export function ShareDialog({ file, open, onOpenChange }: ShareDialogProps) {
                 <SelectTrigger className="bg-white/5 border-white/10 text-white">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-[#1F1F1F] border-white/10">
+                <SelectContent className="bg-[#243178] border-white/10">
                   <SelectItem value="1" className="text-white hover:bg-white/10">1 day</SelectItem>
                   <SelectItem value="7" className="text-white hover:bg-white/10">7 days</SelectItem>
                   <SelectItem value="30" className="text-white hover:bg-white/10">30 days</SelectItem>
@@ -314,7 +314,7 @@ export function ShareDialog({ file, open, onOpenChange }: ShareDialogProps) {
             <Button
               onClick={createShare}
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold hover:opacity-90"
+              className="w-full bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] font-semibold hover:opacity-90"
             >
               {isLoading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -338,7 +338,7 @@ export function ShareDialog({ file, open, onOpenChange }: ShareDialogProps) {
                     className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-[#00E5FF]/10">
+                      <div className="p-2 rounded-lg bg-[#0046E2]/10">
                         {getPermissionIcon(share.permission)}
                       </div>
                       <div>

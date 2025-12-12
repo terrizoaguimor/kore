@@ -46,7 +46,7 @@ const getFileIcon = (item: FileType) => {
 }
 
 const getIconColor = (item: FileType) => {
-  if (item.type === "folder") return "text-[#00E5FF]"
+  if (item.type === "folder") return "text-[#0046E2]"
 
   const mime = item.mime_type || ""
   if (mime.startsWith("image/")) return "text-green-400"
@@ -185,16 +185,16 @@ export default function TrashPage() {
 
   if (!organization) {
     return (
-      <div className="flex h-full items-center justify-center bg-[#0B0B0B]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#00E5FF]" />
+      <div className="flex h-full items-center justify-center bg-[#0f1a4a]">
+        <Loader2 className="h-8 w-8 animate-spin text-[#0046E2]" />
       </div>
     )
   }
 
   return (
-    <div className="flex h-full flex-col bg-[#0B0B0B]">
+    <div className="flex h-full flex-col bg-[#0f1a4a]">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#1F1F1F] px-6 py-4">
+      <div className="flex items-center justify-between border-b border-[#243178] px-6 py-4">
         <div className="flex items-center gap-3">
           <Trash2 className="h-6 w-6 text-[#A1A1AA]" />
           <h1 className="text-xl font-semibold text-white">Trash</h1>
@@ -214,7 +214,7 @@ export default function TrashPage() {
                 Empty Trash
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent className="bg-[#1A1A1A] border-white/10">
+            <AlertDialogContent className="bg-[#1b2d7c] border-white/10">
               <AlertDialogHeader>
                 <AlertDialogTitle className="text-white flex items-center gap-2">
                   <AlertTriangle className="h-5 w-5 text-red-400" />
@@ -249,7 +249,7 @@ export default function TrashPage() {
       <div className="flex-1 overflow-auto p-6">
         {isLoading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="h-8 w-8 animate-spin text-[#00E5FF]" />
+            <Loader2 className="h-8 w-8 animate-spin text-[#0046E2]" />
           </div>
         ) : trashedFiles.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center">
@@ -260,8 +260,8 @@ export default function TrashPage() {
             </p>
           </div>
         ) : (
-          <div className="rounded-lg border border-[#1F1F1F] bg-[#1F1F1F]">
-            <div className="grid grid-cols-12 gap-4 border-b border-[#2A2A2A] px-4 py-3 text-sm font-medium text-[#A1A1AA]">
+          <div className="rounded-lg border border-[#243178] bg-[#243178]">
+            <div className="grid grid-cols-12 gap-4 border-b border-[#2d3c8a] px-4 py-3 text-sm font-medium text-[#A1A1AA]">
               <div className="col-span-5">Name</div>
               <div className="col-span-2">Size</div>
               <div className="col-span-3">Deleted</div>
@@ -274,7 +274,7 @@ export default function TrashPage() {
               return (
                 <div
                   key={item.id}
-                  className="grid grid-cols-12 gap-4 border-b border-[#2A2A2A] px-4 py-3 last:border-0 hover:bg-[#2A2A2A]/50 items-center transition-colors"
+                  className="grid grid-cols-12 gap-4 border-b border-[#2d3c8a] px-4 py-3 last:border-0 hover:bg-[#2d3c8a]/50 items-center transition-colors"
                 >
                   <div className="col-span-5 flex items-center gap-3">
                     <Icon className={`h-5 w-5 flex-shrink-0 ${iconColor}`} />
@@ -295,7 +295,7 @@ export default function TrashPage() {
                       size="sm"
                       onClick={() => restoreFile(item)}
                       disabled={isRestoring === item.id}
-                      className="text-[#00E5FF] hover:text-[#00E5FF] hover:bg-[#00E5FF]/10"
+                      className="text-[#0046E2] hover:text-[#0046E2] hover:bg-[#0046E2]/10"
                     >
                       {isRestoring === item.id ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
@@ -320,7 +320,7 @@ export default function TrashPage() {
                           )}
                         </Button>
                       </AlertDialogTrigger>
-                      <AlertDialogContent className="bg-[#1A1A1A] border-white/10">
+                      <AlertDialogContent className="bg-[#1b2d7c] border-white/10">
                         <AlertDialogHeader>
                           <AlertDialogTitle className="text-white flex items-center gap-2">
                             <AlertTriangle className="h-5 w-5 text-red-400" />

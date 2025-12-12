@@ -87,7 +87,7 @@ export default function LinkPage() {
   ]
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <motion.div
@@ -96,8 +96,8 @@ export default function LinkPage() {
           transition={{ duration: 0.4 }}
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/20">
-              <Link2 className="h-5 w-5 text-[#FFB830]" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/20">
+              <Link2 className="h-5 w-5 text-[#0046E2]" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white">KORE Link</h1>
@@ -106,7 +106,7 @@ export default function LinkPage() {
           </div>
         </motion.div>
         <Link href="/link/contacts">
-          <button className="flex items-center gap-2 rounded-lg bg-[#FFB830] px-4 py-2 text-sm font-medium text-white hover:bg-[#FFB830]/90 transition-colors">
+          <button className="flex items-center gap-2 rounded-lg bg-[#0046E2] px-4 py-2 text-sm font-medium text-white hover:bg-[#0046E2]/90 transition-colors">
             <Plus className="h-4 w-4" />
             New Contact
           </button>
@@ -120,7 +120,7 @@ export default function LinkPage() {
         transition={{ duration: 0.4, delay: 0.1 }}
         className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4"
       >
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center justify-between">
             <Users className="h-5 w-5 text-[#A1A1AA]" />
             {statsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
@@ -131,7 +131,7 @@ export default function LinkPage() {
           <p className="text-sm text-[#A1A1AA]">Total Contacts</p>
         </div>
 
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center justify-between">
             <Briefcase className="h-5 w-5 text-[#A1A1AA]" />
             {statsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
@@ -142,18 +142,18 @@ export default function LinkPage() {
           <p className="text-sm text-[#A1A1AA]">Active Deals</p>
         </div>
 
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center justify-between">
             <DollarSign className="h-5 w-5 text-[#A1A1AA]" />
             {statsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
           </div>
-          <p className="mt-3 text-2xl font-bold text-[#FFB830]">
+          <p className="mt-3 text-2xl font-bold text-[#0046E2]">
             {statsLoading ? "-" : formatCurrency(stats?.pipeline_value || 0)}
           </p>
           <p className="text-sm text-[#A1A1AA]">Pipeline Value</p>
         </div>
 
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] p-4">
           <div className="flex items-center justify-between">
             <Target className="h-5 w-5 text-[#A1A1AA]" />
             {dealsLoading && <Loader2 className="h-4 w-4 animate-spin text-[#A1A1AA]" />}
@@ -178,12 +178,12 @@ export default function LinkPage() {
             const Icon = module.icon
             return (
               <Link key={module.name} href={module.href}>
-                <div className="group rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-5 transition-all hover:border-[#FFB830]/30 hover:shadow-[0_0_20px_rgba(255,184,48,0.1)]">
+                <div className="group rounded-xl border border-[#243178] bg-[#243178] p-5 transition-all hover:border-[#0046E2]/30 hover:shadow-[0_0_20px_rgba(255,184,48,0.1)]">
                   <div className="flex items-start justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/10">
-                      <Icon className="h-5 w-5 text-[#FFB830]" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/10">
+                      <Icon className="h-5 w-5 text-[#0046E2]" />
                     </div>
-                    <span className="rounded-full bg-[#0B0B0B] px-2 py-1 text-xs text-[#A1A1AA]">
+                    <span className="rounded-full bg-[#0f1a4a] px-2 py-1 text-xs text-[#A1A1AA]">
                       {module.count}
                     </span>
                   </div>
@@ -204,20 +204,20 @@ export default function LinkPage() {
       >
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-white">Recent Deals</h2>
-          <Link href="/link/deals" className="text-sm text-[#FFB830] hover:underline">
+          <Link href="/link/deals" className="text-sm text-[#0046E2] hover:underline">
             View all
           </Link>
         </div>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] divide-y divide-[#2A2A2A]">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] divide-y divide-[#2d3c8a]">
           {dealsLoading ? (
             <div className="flex items-center justify-center p-8">
-              <Loader2 className="h-6 w-6 animate-spin text-[#FFB830]" />
+              <Loader2 className="h-6 w-6 animate-spin text-[#0046E2]" />
             </div>
           ) : recentDeals.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-8 text-center">
               <Briefcase className="h-10 w-10 text-[#A1A1AA] mb-2" />
               <p className="text-[#A1A1AA]">No deals yet</p>
-              <Link href="/link/deals" className="mt-2 text-sm text-[#FFB830] hover:underline">
+              <Link href="/link/deals" className="mt-2 text-sm text-[#0046E2] hover:underline">
                 Create your first deal
               </Link>
             </div>
@@ -225,8 +225,8 @@ export default function LinkPage() {
             recentDeals.map((deal) => (
               <div key={deal.id} className="flex items-center justify-between p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFB830]/10">
-                    <Briefcase className="h-5 w-5 text-[#FFB830]" />
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0046E2]/10">
+                    <Briefcase className="h-5 w-5 text-[#0046E2]" />
                   </div>
                   <div>
                     <p className="font-medium text-white">{deal.deal_name}</p>

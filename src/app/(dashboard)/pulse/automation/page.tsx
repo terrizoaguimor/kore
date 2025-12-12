@@ -123,7 +123,7 @@ const demoAutomations: MarketingAutomation[] = [
 const statusConfig = {
   draft: { label: 'Borrador', color: 'bg-[#71717A]/20 text-[#A1A1AA]' },
   active: { label: 'Activa', color: 'bg-[#00D68F]/20 text-[#00D68F]' },
-  paused: { label: 'Pausada', color: 'bg-[#FFB830]/20 text-[#FFB830]' },
+  paused: { label: 'Pausada', color: 'bg-[#0046E2]/20 text-[#0046E2]' },
   error: { label: 'Error', color: 'bg-[#FF4757]/20 text-[#FF4757]' },
 }
 
@@ -198,7 +198,7 @@ export default function AutomationPage() {
 
   if (isBuilderOpen) {
     return (
-      <div className="min-h-full bg-[#0B0B0B] p-6">
+      <div className="min-h-full bg-[#0f1a4a] p-6">
         <AutomationBuilder
           automation={selectedAutomation}
           accentColor={accentColor}
@@ -210,7 +210,7 @@ export default function AutomationPage() {
   }
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Back Link */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -261,23 +261,23 @@ export default function AutomationPage() {
         transition={{ delay: 0.1 }}
         className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
       >
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <p className="text-[#A1A1AA] text-sm">Total</p>
           <p className="text-2xl font-bold text-white">{automations.length}</p>
         </div>
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <p className="text-[#00D68F] text-sm">Activas</p>
           <p className="text-2xl font-bold text-white">
             {automations.filter(a => a.status === 'active').length}
           </p>
         </div>
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <p className="text-[#A1A1AA] text-sm">Ejecuciones Totales</p>
           <p className="text-2xl font-bold text-white">
             {automations.reduce((sum, a) => sum + (a.total_executions || 0), 0).toLocaleString()}
           </p>
         </div>
-        <div className="bg-[#1F1F1F] rounded-lg p-4 border border-[#2A2A2A]">
+        <div className="bg-[#243178] rounded-lg p-4 border border-[#2d3c8a]">
           <p className="text-[#A1A1AA] text-sm">Tasa de Éxito</p>
           <p className="text-2xl font-bold text-white">
             {(() => {
@@ -302,7 +302,7 @@ export default function AutomationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: index * 0.05 }}
-                className="bg-[#1F1F1F] rounded-lg border border-[#2A2A2A] p-4 hover:border-[#3A3A3A] transition-colors"
+                className="bg-[#243178] rounded-lg border border-[#2d3c8a] p-4 hover:border-[#3A3A3A] transition-colors"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                   {/* Info */}
@@ -361,7 +361,7 @@ export default function AutomationPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleStatusChange(automation.id, 'paused')}
-                        className="text-[#FFB830] hover:text-[#FFB830]/80 hover:bg-[#FFB830]/10"
+                        className="text-[#0046E2] hover:text-[#0046E2]/80 hover:bg-[#0046E2]/10"
                       >
                         <Pause className="h-4 w-4" />
                       </Button>
@@ -382,15 +382,15 @@ export default function AutomationPage() {
                           <MoreHorizontal className="h-4 w-4" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="bg-[#1F1F1F] border-[#2A2A2A]">
+                      <DropdownMenuContent align="end" className="bg-[#243178] border-[#2d3c8a]">
                         <DropdownMenuItem
                           onClick={() => handleEdit(automation)}
-                          className="text-white hover:bg-[#2A2A2A]"
+                          className="text-white hover:bg-[#2d3c8a]"
                         >
                           <Pencil className="mr-2 h-4 w-4" />
                           Editar
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-[#2A2A2A]" />
+                        <DropdownMenuSeparator className="bg-[#2d3c8a]" />
                         <DropdownMenuItem
                           onClick={() => handleDelete(automation.id)}
                           className="text-[#FF4757] hover:bg-[#FF4757]/10"
@@ -408,7 +408,7 @@ export default function AutomationPage() {
         </AnimatePresence>
 
         {automations.length === 0 && (
-          <div className="text-center py-12 bg-[#1F1F1F] rounded-lg border border-[#2A2A2A]">
+          <div className="text-center py-12 bg-[#243178] rounded-lg border border-[#2d3c8a]">
             <Zap className="h-12 w-12 mx-auto mb-4 text-[#3A3A3A]" />
             <p className="text-[#A1A1AA]">No hay automatizaciones creadas</p>
             <Button

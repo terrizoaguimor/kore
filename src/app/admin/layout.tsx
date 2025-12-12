@@ -80,8 +80,8 @@ export default function AdminLayout({
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-[#0B0B0B]">
-        <div className="animate-spin h-8 w-8 border-2 border-[#00E5FF] border-t-transparent rounded-full" />
+      <div className="flex h-screen items-center justify-center bg-[#0f1a4a]">
+        <div className="animate-spin h-8 w-8 border-2 border-[#0046E2] border-t-transparent rounded-full" />
       </div>
     )
   }
@@ -92,22 +92,22 @@ export default function AdminLayout({
 
   return (
     <TooltipProvider delayDuration={200}>
-      <div className="flex h-screen bg-[#0B0B0B]">
+      <div className="flex h-screen bg-[#0f1a4a]">
         {/* Ambient gradients */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="absolute -top-[400px] -left-[400px] w-[800px] h-[800px] bg-[#8B5CF6]/[0.03] rounded-full blur-[150px]" />
+          <div className="absolute -top-[400px] -left-[400px] w-[800px] h-[800px] bg-[#1b2d7c]/[0.03] rounded-full blur-[150px]" />
           <div className="absolute -bottom-[300px] -right-[300px] w-[600px] h-[600px] bg-[#FF6B6B]/[0.03] rounded-full blur-[150px]" />
         </div>
 
         {/* Sidebar */}
-        <div className="relative w-72 border-r border-white/5 bg-[#0B0B0B]/95 backdrop-blur-xl z-10">
+        <div className="relative w-72 border-r border-white/5 bg-[#0f1a4a]/95 backdrop-blur-xl z-10">
           {/* Gradient border */}
-          <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#8B5CF6]/20 via-white/5 to-[#FF6B6B]/20" />
+          <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-[#1b2d7c]/20 via-white/5 to-[#FF6B6B]/20" />
 
           {/* Header */}
           <div className="flex h-16 items-center justify-between border-b border-white/5 px-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#8B5CF6] to-[#FF6B6B]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#1b2d7c] to-[#FF6B6B]">
                 <Shield className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -140,14 +140,14 @@ export default function AdminLayout({
                   className={cn(
                     "flex items-center gap-3 rounded-xl px-3 py-3 text-sm transition-all duration-200 group",
                     isActive
-                      ? "bg-gradient-to-r from-[#8B5CF6]/20 to-[#FF6B6B]/10 text-white border border-white/10"
+                      ? "bg-gradient-to-r from-[#1b2d7c]/20 to-[#FF6B6B]/10 text-white border border-white/10"
                       : "text-[#A1A1AA] hover:bg-white/5 hover:text-white"
                   )}
                 >
                   <div className={cn(
                     "flex h-8 w-8 items-center justify-center rounded-lg transition-all",
                     isActive
-                      ? "bg-gradient-to-br from-[#8B5CF6] to-[#FF6B6B]"
+                      ? "bg-gradient-to-br from-[#1b2d7c] to-[#FF6B6B]"
                       : "bg-white/5 group-hover:bg-white/10"
                   )}>
                     <item.icon className={cn("h-4 w-4", isActive ? "text-white" : "text-[#A1A1AA] group-hover:text-white")} />

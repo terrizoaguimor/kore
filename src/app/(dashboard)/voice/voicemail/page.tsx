@@ -9,7 +9,7 @@ export default function VoicemailPage() {
       title="Voicemail"
       description="Listen to and manage voicemail messages"
       icon={Voicemail}
-      iconColor="#00E5FF"
+      iconColor="#0046E2"
       backHref="/voice"
       backLabel="Back to Voice"
     />

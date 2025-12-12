@@ -139,11 +139,11 @@ export default function PlanningDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
+          className="bg-[#243178] rounded-xl p-4 border border-[#2d3c8a]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#00E5FF]/20 rounded-full flex items-center justify-center">
-              <FolderKanban className="w-6 h-6 text-[#00E5FF]" />
+            <div className="w-12 h-12 bg-[#0046E2]/20 rounded-full flex items-center justify-center">
+              <FolderKanban className="w-6 h-6 text-[#0046E2]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-white">{stats.totalPlans}</p>
@@ -156,7 +156,7 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
+          className="bg-[#243178] rounded-xl p-4 border border-[#2d3c8a]"
         >
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-[#00D68F]/20 rounded-full flex items-center justify-center">
@@ -173,11 +173,11 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
+          className="bg-[#243178] rounded-xl p-4 border border-[#2d3c8a]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#FFB830]/20 rounded-full flex items-center justify-center">
-              <Clock className="w-6 h-6 text-[#FFB830]" />
+            <div className="w-12 h-12 bg-[#0046E2]/20 rounded-full flex items-center justify-center">
+              <Clock className="w-6 h-6 text-[#0046E2]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-white">{stats.activePlans}</p>
@@ -190,11 +190,11 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-[#1F1F1F] rounded-xl p-4 border border-[#2A2A2A]"
+          className="bg-[#243178] rounded-xl p-4 border border-[#2d3c8a]"
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-[#00E5FF]/20 rounded-full flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-[#00E5FF]" />
+            <div className="w-12 h-12 bg-[#0046E2]/20 rounded-full flex items-center justify-center">
+              <TrendingUp className="w-6 h-6 text-[#0046E2]" />
             </div>
             <div>
               <p className="text-2xl font-bold text-white">
@@ -212,12 +212,12 @@ export default function PlanningDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 rounded-2xl p-6 mb-8 border border-[#00E5FF]/20"
+          className="bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 rounded-2xl p-6 mb-8 border border-[#0046E2]/20"
         >
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <Calendar className="w-6 h-6 text-[#00E5FF]" />
+                <Calendar className="w-6 h-6 text-[#0046E2]" />
                 <h2 className="text-xl font-bold text-white">Plan {currentYear}</h2>
                 <Badge className="bg-[#00D68F] text-white border-0">Activo</Badge>
               </div>
@@ -268,10 +268,10 @@ export default function PlanningDashboard() {
         {aiLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[1, 2, 3, 4].map(i => (
-              <div key={i} className="bg-[#0B0B0B]/50 rounded-xl p-4 animate-pulse">
-                <div className="h-4 bg-[#2A2A2A] rounded w-3/4 mb-2"></div>
-                <div className="h-3 bg-[#2A2A2A] rounded w-full mb-1"></div>
-                <div className="h-3 bg-[#2A2A2A] rounded w-2/3"></div>
+              <div key={i} className="bg-[#0f1a4a]/50 rounded-xl p-4 animate-pulse">
+                <div className="h-4 bg-[#2d3c8a] rounded w-3/4 mb-2"></div>
+                <div className="h-3 bg-[#2d3c8a] rounded w-full mb-1"></div>
+                <div className="h-3 bg-[#2d3c8a] rounded w-2/3"></div>
               </div>
             ))}
           </div>
@@ -293,7 +293,7 @@ export default function PlanningDashboard() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index }}
-                  className="bg-[#0B0B0B]/80 rounded-xl p-4 hover:bg-[#0B0B0B] transition-colors border border-[#2A2A2A]"
+                  className="bg-[#0f1a4a]/80 rounded-xl p-4 hover:bg-[#0f1a4a] transition-colors border border-[#2d3c8a]"
                 >
                   <div className="flex items-start gap-3">
                     <div className={`w-8 h-8 ${config.bg} rounded-lg flex items-center justify-center flex-shrink-0`}>
@@ -305,12 +305,12 @@ export default function PlanningDashboard() {
                       <div className="flex items-center gap-2 mt-2">
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
                           suggestion.priority === 'URGENT' ? 'bg-[#FF4757]/20 text-[#FF4757]' :
-                          suggestion.priority === 'HIGH' ? 'bg-[#FFB830]/20 text-[#FFB830]' :
-                          suggestion.priority === 'MEDIUM' ? 'bg-[#00E5FF]/20 text-[#00E5FF]' : 'bg-[#2A2A2A] text-[#A1A1AA]'
+                          suggestion.priority === 'HIGH' ? 'bg-[#0046E2]/20 text-[#0046E2]' :
+                          suggestion.priority === 'MEDIUM' ? 'bg-[#0046E2]/20 text-[#0046E2]' : 'bg-[#2d3c8a] text-[#A1A1AA]'
                         }`}>
                           {suggestion.priority}
                         </span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-[#2A2A2A] text-[#A1A1AA]">{suggestion.category}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-[#2d3c8a] text-[#A1A1AA]">{suggestion.category}</span>
                       </div>
                     </div>
                   </div>
@@ -340,10 +340,10 @@ export default function PlanningDashboard() {
 
         {loading ? (
           <div className="flex items-center justify-center h-48">
-            <Loader2 className="w-8 h-8 animate-spin text-[#00E5FF]" />
+            <Loader2 className="w-8 h-8 animate-spin text-[#0046E2]" />
           </div>
         ) : plans.length === 0 ? (
-          <div className="bg-[#1F1F1F] rounded-xl p-12 text-center border border-[#2A2A2A]">
+          <div className="bg-[#243178] rounded-xl p-12 text-center border border-[#2d3c8a]">
             <FolderKanban className="w-16 h-16 mx-auto mb-4 text-[#A1A1AA]/30" />
             <h3 className="text-lg font-medium mb-2 text-white">No hay planes creados</h3>
             <p className="text-[#A1A1AA] mb-4">

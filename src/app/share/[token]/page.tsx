@@ -186,16 +186,16 @@ export default function SharePage({ params }: { params: Promise<{ token: string 
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-[#00E5FF]" />
+      <div className="min-h-screen bg-[#0f1a4a] flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-[#0046E2]" />
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-4">
-        <Card className="w-full max-w-md bg-[#1F1F1F] border-white/10">
+      <div className="min-h-screen bg-[#0f1a4a] flex items-center justify-center p-4">
+        <Card className="w-full max-w-md bg-[#243178] border-white/10">
           <CardContent className="pt-6 text-center">
             <AlertCircle className="h-16 w-16 text-red-400 mx-auto mb-4" />
             <h2 className="text-xl font-bold text-white mb-2">Share Not Found</h2>
@@ -214,8 +214,8 @@ export default function SharePage({ params }: { params: Promise<{ token: string 
 
   if (isExpired) {
     return (
-      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-4">
-        <Card className="w-full max-w-md bg-[#1F1F1F] border-white/10">
+      <div className="min-h-screen bg-[#0f1a4a] flex items-center justify-center p-4">
+        <Card className="w-full max-w-md bg-[#243178] border-white/10">
           <CardContent className="pt-6 text-center">
             <Clock className="h-16 w-16 text-yellow-400 mx-auto mb-4" />
             <h2 className="text-xl font-bold text-white mb-2">Link Expired</h2>
@@ -229,10 +229,10 @@ export default function SharePage({ params }: { params: Promise<{ token: string 
   // Password screen
   if (shareData.requires_password && !isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-4">
-        <Card className="w-full max-w-md bg-[#1F1F1F] border-white/10">
+      <div className="min-h-screen bg-[#0f1a4a] flex items-center justify-center p-4">
+        <Card className="w-full max-w-md bg-[#243178] border-white/10">
           <CardHeader className="text-center">
-            <Lock className="h-12 w-12 text-[#00E5FF] mx-auto mb-2" />
+            <Lock className="h-12 w-12 text-[#0046E2] mx-auto mb-2" />
             <CardTitle className="text-white">Password Required</CardTitle>
             <CardDescription className="text-[#A1A1AA]">
               This file is password protected
@@ -250,7 +250,7 @@ export default function SharePage({ params }: { params: Promise<{ token: string 
             <Button
               onClick={verifyPassword}
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold"
+              className="w-full bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] font-semibold"
             >
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Unlock"}
             </Button>
@@ -262,12 +262,12 @@ export default function SharePage({ params }: { params: Promise<{ token: string 
 
   // Main share view
   return (
-    <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center p-4">
-      <Card className="w-full max-w-lg bg-[#1F1F1F] border-white/10">
+    <div className="min-h-screen bg-[#0f1a4a] flex items-center justify-center p-4">
+      <Card className="w-full max-w-lg bg-[#243178] border-white/10">
         <CardHeader>
           <div className="flex items-center gap-4">
-            <div className="p-4 rounded-xl bg-[#00E5FF]/10">
-              <Icon className="h-10 w-10 text-[#00E5FF]" />
+            <div className="p-4 rounded-xl bg-[#0046E2]/10">
+              <Icon className="h-10 w-10 text-[#0046E2]" />
             </div>
             <div className="flex-1 min-w-0">
               <CardTitle className="text-white truncate">{shareData.file.name}</CardTitle>
@@ -317,7 +317,7 @@ export default function SharePage({ params }: { params: Promise<{ token: string 
             <Button
               onClick={handleDownload}
               disabled={isDownloading || !!downloadLimitReached}
-              className="w-full bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold"
+              className="w-full bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] font-semibold"
             >
               {isDownloading ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

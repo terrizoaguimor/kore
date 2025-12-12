@@ -147,8 +147,8 @@ export default function TermsPage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
       {/* Header */}
       <div className="text-center mb-16">
-        <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 mb-6">
-          <FileText className="h-8 w-8 text-[#00E5FF]" />
+        <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 mb-6">
+          <FileText className="h-8 w-8 text-[#0046E2]" />
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
           Terms and Conditions
@@ -169,7 +169,7 @@ export default function TermsPage() {
             <a
               key={section.id}
               href={`#${section.id}`}
-              className="flex items-center gap-2 text-sm text-[#A1A1AA] hover:text-[#00E5FF] transition-colors py-1"
+              className="flex items-center gap-2 text-sm text-[#A1A1AA] hover:text-[#0046E2] transition-colors py-1"
             >
               <section.icon className="h-4 w-4" />
               {section.title}
@@ -187,8 +187,8 @@ export default function TermsPage() {
             className="scroll-mt-24"
           >
             <div className="flex items-start gap-4 mb-4">
-              <div className="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 flex items-center justify-center">
-                <section.icon className="h-5 w-5 text-[#00E5FF]" />
+              <div className="flex-shrink-0 h-10 w-10 rounded-xl bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 flex items-center justify-center">
+                <section.icon className="h-5 w-5 text-[#0046E2]" />
               </div>
               <h2 className="text-2xl font-bold text-white pt-1">{section.title}</h2>
             </div>
@@ -206,7 +206,7 @@ export default function TermsPage() {
       </div>
 
       {/* Agreement Notice */}
-      <div className="mt-16 p-6 rounded-2xl bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10">
+      <div className="mt-16 p-6 rounded-2xl bg-gradient-to-r from-[#0046E2]/10 to-[#8B5CF6]/10 border border-white/10">
         <p className="text-center text-[#A1A1AA]">
           By using KORE, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.
         </p>

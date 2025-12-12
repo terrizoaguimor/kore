@@ -318,9 +318,9 @@ export default function WhatsAppPage() {
   }
 
   return (
-    <div className="min-h-full bg-[#0B0B0B]">
+    <div className="min-h-full bg-[#0f1a4a]">
       {/* Header - Only visible on mobile when no conversation selected */}
-      <div className={`p-4 border-b border-[#2A2A2A] lg:hidden ${selectedConversation ? 'hidden' : ''}`}>
+      <div className={`p-4 border-b border-[#2d3c8a] lg:hidden ${selectedConversation ? 'hidden' : ''}`}>
         <Link
           href="/voice"
           className="inline-flex items-center gap-2 text-[#A1A1AA] hover:text-white transition-colors mb-4"
@@ -343,7 +343,7 @@ export default function WhatsAppPage() {
       </div>
 
       {/* Desktop Header */}
-      <div className="hidden lg:block p-4 border-b border-[#2A2A2A]">
+      <div className="hidden lg:block p-4 border-b border-[#2d3c8a]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link

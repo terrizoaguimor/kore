@@ -9,7 +9,7 @@ export default function IncomingCallsPage() {
       title="Incoming Calls"
       description="View and manage incoming call history"
       icon={PhoneIncoming}
-      iconColor="#00E5FF"
+      iconColor="#0046E2"
       backHref="/voice"
       backLabel="Back to Voice"
     />

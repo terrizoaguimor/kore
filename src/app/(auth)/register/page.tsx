@@ -103,7 +103,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#0B0B0B]">
+    <div className="flex min-h-screen bg-[#0f1a4a]">
       {/* Left side - Register form */}
       <div className="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-16 xl:px-24">
         <motion.div
@@ -122,7 +122,7 @@ export default function RegisterPage() {
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="font-semibold text-[#00E5FF] hover:text-[#00E5FF]/80 transition-colors"
+                className="font-semibold text-[#0046E2] hover:text-[#0046E2]/80 transition-colors"
               >
                 Sign in
               </Link>
@@ -145,7 +145,7 @@ export default function RegisterPage() {
                     autoComplete="name"
                     disabled={isLoading}
                     {...register("fullName")}
-                    className="block w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all disabled:opacity-50"
+                    className="block w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all disabled:opacity-50"
                     placeholder="John Doe"
                   />
                 </div>
@@ -167,7 +167,7 @@ export default function RegisterPage() {
                     autoComplete="email"
                     disabled={isLoading}
                     {...register("email")}
-                    className="block w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all disabled:opacity-50"
+                    className="block w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all disabled:opacity-50"
                     placeholder="you@company.com"
                   />
                 </div>
@@ -188,7 +188,7 @@ export default function RegisterPage() {
                     autoComplete="new-password"
                     disabled={isLoading}
                     {...register("password")}
-                    className="block w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all disabled:opacity-50 pr-12"
+                    className="block w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all disabled:opacity-50 pr-12"
                     placeholder="Create a strong password"
                   />
                   <button
@@ -236,7 +236,7 @@ export default function RegisterPage() {
                     autoComplete="new-password"
                     disabled={isLoading}
                     {...register("confirmPassword")}
-                    className="block w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all disabled:opacity-50"
+                    className="block w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all disabled:opacity-50"
                     placeholder="Confirm your password"
                   />
                 </div>
@@ -251,15 +251,15 @@ export default function RegisterPage() {
                   id="acceptTerms"
                   type="checkbox"
                   {...register("acceptTerms")}
-                  className="mt-1 h-4 w-4 rounded border-white/20 bg-white/5 text-[#00E5FF] focus:ring-[#00E5FF]/50"
+                  className="mt-1 h-4 w-4 rounded border-white/20 bg-white/5 text-[#0046E2] focus:ring-[#0046E2]/50"
                 />
                 <label htmlFor="acceptTerms" className="text-sm text-[#A1A1AA]">
                   I agree to the{" "}
-                  <Link href="/terms" className="text-[#00E5FF] hover:underline">
+                  <Link href="/terms" className="text-[#0046E2] hover:underline">
                     Terms of Service
                   </Link>{" "}
                   and{" "}
-                  <Link href="/privacy" className="text-[#00E5FF] hover:underline">
+                  <Link href="/privacy" className="text-[#0046E2] hover:underline">
                     Privacy Policy
                   </Link>
                 </label>
@@ -272,7 +272,7 @@ export default function RegisterPage() {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full h-12 bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold hover:shadow-lg hover:shadow-[#00E5FF]/30 transition-all"
+                className="w-full h-12 bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] font-semibold hover:shadow-lg hover:shadow-[#0046E2]/30 transition-all"
               >
                 {isLoading ? (
                   <>
@@ -295,7 +295,7 @@ export default function RegisterPage() {
       <div className="relative hidden lg:block lg:w-1/2 overflow-hidden">
         <NeuralNetworkField particleCount={400} hubCount={12} />
 
-        <div className="absolute inset-0 bg-gradient-to-br from-[#00E5FF]/5 to-[#8B5CF6]/5" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0046E2]/5 to-[#1b2d7c]/5" />
 
         {/* Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center p-16">
@@ -305,8 +305,8 @@ export default function RegisterPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-center"
           >
-            <div className="inline-flex items-center justify-center h-20 w-20 rounded-2xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 mb-6">
-              <Building2 className="h-10 w-10 text-[#00E5FF]" />
+            <div className="inline-flex items-center justify-center h-20 w-20 rounded-2xl bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 mb-6">
+              <Building2 className="h-10 w-10 text-[#0046E2]" />
             </div>
             <h3 className="text-3xl font-bold text-white mb-4">
               Start your journey

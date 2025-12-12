@@ -20,7 +20,7 @@ export default async function OGImage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#0B0B0B",
+          backgroundColor: "#0f1a4a",
           backgroundImage:
             "radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.1) 0%, transparent 50%)",
         }}
@@ -59,30 +59,30 @@ export default async function OGImage() {
               cx="24"
               cy="24"
               r="22"
-              fill="#00E5FF"
+              fill="#0046E2"
               fillOpacity="0.15"
-              stroke="#00E5FF"
+              stroke="#0046E2"
               strokeWidth="1"
             />
             <path
               d="M18 12L18 36"
-              stroke="#00E5FF"
+              stroke="#0046E2"
               strokeWidth="3"
               strokeLinecap="round"
             />
             <path
               d="M18 24L30 12"
-              stroke="#00E5FF"
+              stroke="#0046E2"
               strokeWidth="3"
               strokeLinecap="round"
             />
             <path
               d="M18 24L30 36"
-              stroke="#00E5FF"
+              stroke="#0046E2"
               strokeWidth="3"
               strokeLinecap="round"
             />
-            <circle cx="24" cy="24" r="3" fill="#00E5FF" />
+            <circle cx="24" cy="24" r="3" fill="#0046E2" />
           </svg>
         </div>
 
@@ -105,7 +105,7 @@ export default async function OGImage() {
           style={{
             display: "flex",
             fontSize: 32,
-            color: "#00E5FF",
+            color: "#0046E2",
             marginBottom: 8,
           }}
         >

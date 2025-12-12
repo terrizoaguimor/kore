@@ -9,21 +9,21 @@ export default function LegalLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-[#0B0B0B] relative">
+    <div className="min-h-screen bg-[#0f1a4a] relative">
       {/* Background gradients */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-[400px] -left-[400px] w-[800px] h-[800px] bg-[#00E5FF]/[0.03] rounded-full blur-[150px]" />
+        <div className="absolute -top-[400px] -left-[400px] w-[800px] h-[800px] bg-[#0046E2]/[0.03] rounded-full blur-[150px]" />
         <div className="absolute -bottom-[300px] -right-[300px] w-[600px] h-[600px] bg-[#8B5CF6]/[0.03] rounded-full blur-[150px]" />
       </div>
 
       {/* Navigation */}
-      <nav className="sticky top-0 z-50 bg-[#0B0B0B]/80 backdrop-blur-xl border-b border-white/5">
+      <nav className="sticky top-0 z-50 bg-[#0f1a4a]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#00E5FF]/50 flex items-center justify-center shadow-lg shadow-[#00E5FF]/20 group-hover:shadow-[#00E5FF]/40 transition-all">
-              <Brain className="h-5 w-5 text-[#0B0B0B]" />
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#0046E2] to-[#0046E2]/50 flex items-center justify-center shadow-lg shadow-[#0046E2]/20 group-hover:shadow-[#0046E2]/40 transition-all">
+              <Brain className="h-5 w-5 text-[#0f1a4a]" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-white to-[#00E5FF] bg-clip-text text-transparent">KORE</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-white to-[#0046E2] bg-clip-text text-transparent">KORE</span>
           </Link>
           <Link
             href="/"
@@ -48,13 +48,13 @@ export default function LegalLayout({
               © {new Date().getFullYear()} KORE. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/terms" className="text-sm text-[#A1A1AA] hover:text-[#00E5FF] transition-colors">
+              <Link href="/terms" className="text-sm text-[#A1A1AA] hover:text-[#0046E2] transition-colors">
                 Terms
               </Link>
-              <Link href="/privacy" className="text-sm text-[#A1A1AA] hover:text-[#00E5FF] transition-colors">
+              <Link href="/privacy" className="text-sm text-[#A1A1AA] hover:text-[#0046E2] transition-colors">
                 Privacy
               </Link>
-              <Link href="/status" className="text-sm text-[#A1A1AA] hover:text-[#00E5FF] transition-colors">
+              <Link href="/status" className="text-sm text-[#A1A1AA] hover:text-[#0046E2] transition-colors">
                 Status
               </Link>
             </div>

@@ -12,7 +12,7 @@ export default function Icon() {
       <div
         style={{
           fontSize: 24,
-          background: "#0B0B0B",
+          background: "#0f1a4a",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -30,23 +30,23 @@ export default function Icon() {
         >
           <path
             d="M10 6V26"
-            stroke="#00E5FF"
+            stroke="#0046E2"
             strokeWidth="3"
             strokeLinecap="round"
           />
           <path
             d="M10 16L22 6"
-            stroke="#00E5FF"
+            stroke="#0046E2"
             strokeWidth="3"
             strokeLinecap="round"
           />
           <path
             d="M10 16L22 26"
-            stroke="#00E5FF"
+            stroke="#0046E2"
             strokeWidth="3"
             strokeLinecap="round"
           />
-          <circle cx="16" cy="16" r="2.5" fill="#00E5FF" />
+          <circle cx="16" cy="16" r="2.5" fill="#0046E2" />
         </svg>
       </div>
     ),

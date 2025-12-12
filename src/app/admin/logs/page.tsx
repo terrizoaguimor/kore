@@ -41,25 +41,25 @@ interface ActivityLogWithDetails extends ActivityLog {
 
 const actionConfig: Record<string, { icon: typeof Activity; color: string; bgColor: string }> = {
   create: { icon: Edit3, color: "text-[#10B981]", bgColor: "bg-[#10B981]/10" },
-  update: { icon: Edit3, color: "text-[#00E5FF]", bgColor: "bg-[#00E5FF]/10" },
+  update: { icon: Edit3, color: "text-[#0046E2]", bgColor: "bg-[#0046E2]/10" },
   delete: { icon: Trash2, color: "text-[#FF6B6B]", bgColor: "bg-[#FF6B6B]/10" },
-  login: { icon: LogIn, color: "text-[#8B5CF6]", bgColor: "bg-[#8B5CF6]/10" },
+  login: { icon: LogIn, color: "text-[#1b2d7c]", bgColor: "bg-[#1b2d7c]/10" },
   logout: { icon: LogOut, color: "text-[#A1A1AA]", bgColor: "bg-white/10" },
-  upload: { icon: Upload, color: "text-[#00E5FF]", bgColor: "bg-[#00E5FF]/10" },
-  download: { icon: Download, color: "text-[#FFB830]", bgColor: "bg-[#FFB830]/10" },
+  upload: { icon: Upload, color: "text-[#0046E2]", bgColor: "bg-[#0046E2]/10" },
+  download: { icon: Download, color: "text-[#0046E2]", bgColor: "bg-[#0046E2]/10" },
   share: { icon: Share2, color: "text-[#FF6B6B]", bgColor: "bg-[#FF6B6B]/10" },
   view: { icon: Eye, color: "text-[#A1A1AA]", bgColor: "bg-white/10" },
 }
 
 const entityConfig: Record<string, { icon: typeof FileText; color: string }> = {
-  file: { icon: FileText, color: "text-[#00E5FF]" },
-  folder: { icon: FileText, color: "text-[#FFB830]" },
-  user: { icon: UserIcon, color: "text-[#8B5CF6]" },
+  file: { icon: FileText, color: "text-[#0046E2]" },
+  folder: { icon: FileText, color: "text-[#0046E2]" },
+  user: { icon: UserIcon, color: "text-[#1b2d7c]" },
   organization: { icon: Building2, color: "text-[#FF6B6B]" },
   calendar: { icon: Calendar, color: "text-[#10B981]" },
-  contact: { icon: UserIcon, color: "text-[#00E5FF]" },
-  message: { icon: MessageSquare, color: "text-[#FFB830]" },
-  task: { icon: CheckSquare, color: "text-[#8B5CF6]" },
+  contact: { icon: UserIcon, color: "text-[#0046E2]" },
+  message: { icon: MessageSquare, color: "text-[#0046E2]" },
+  task: { icon: CheckSquare, color: "text-[#1b2d7c]" },
   note: { icon: StickyNote, color: "text-[#FF6B6B]" },
 }
 
@@ -169,7 +169,7 @@ export default function AdminLogsPage() {
               setSearchQuery(e.target.value)
               setCurrentPage(1)
             }}
-            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#FFB830]/50 focus:border-[#FFB830] transition-all"
+            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all"
           />
         </div>
 
@@ -182,17 +182,17 @@ export default function AdminLogsPage() {
                 setActionFilter(e.target.value)
                 setCurrentPage(1)
               }}
-              className="appearance-none rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 pr-10 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#FFB830]/50 focus:border-[#FFB830] transition-all cursor-pointer"
+              className="appearance-none rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 pr-10 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all cursor-pointer"
             >
-              <option value="all" className="bg-[#1A1A1A]">All Actions</option>
-              <option value="create" className="bg-[#1A1A1A]">Create</option>
-              <option value="update" className="bg-[#1A1A1A]">Update</option>
-              <option value="delete" className="bg-[#1A1A1A]">Delete</option>
-              <option value="login" className="bg-[#1A1A1A]">Login</option>
-              <option value="logout" className="bg-[#1A1A1A]">Logout</option>
-              <option value="upload" className="bg-[#1A1A1A]">Upload</option>
-              <option value="download" className="bg-[#1A1A1A]">Download</option>
-              <option value="share" className="bg-[#1A1A1A]">Share</option>
+              <option value="all" className="bg-[#1b2d7c]">All Actions</option>
+              <option value="create" className="bg-[#1b2d7c]">Create</option>
+              <option value="update" className="bg-[#1b2d7c]">Update</option>
+              <option value="delete" className="bg-[#1b2d7c]">Delete</option>
+              <option value="login" className="bg-[#1b2d7c]">Login</option>
+              <option value="logout" className="bg-[#1b2d7c]">Logout</option>
+              <option value="upload" className="bg-[#1b2d7c]">Upload</option>
+              <option value="download" className="bg-[#1b2d7c]">Download</option>
+              <option value="share" className="bg-[#1b2d7c]">Share</option>
             </select>
             <Filter className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#A1A1AA] pointer-events-none" />
           </div>
@@ -205,18 +205,18 @@ export default function AdminLogsPage() {
                 setEntityFilter(e.target.value)
                 setCurrentPage(1)
               }}
-              className="appearance-none rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 pr-10 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#FFB830]/50 focus:border-[#FFB830] transition-all cursor-pointer"
+              className="appearance-none rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 pr-10 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all cursor-pointer"
             >
-              <option value="all" className="bg-[#1A1A1A]">All Entities</option>
-              <option value="file" className="bg-[#1A1A1A]">Files</option>
-              <option value="folder" className="bg-[#1A1A1A]">Folders</option>
-              <option value="user" className="bg-[#1A1A1A]">Users</option>
-              <option value="organization" className="bg-[#1A1A1A]">Organizations</option>
-              <option value="calendar" className="bg-[#1A1A1A]">Calendar</option>
-              <option value="contact" className="bg-[#1A1A1A]">Contacts</option>
-              <option value="message" className="bg-[#1A1A1A]">Messages</option>
-              <option value="task" className="bg-[#1A1A1A]">Tasks</option>
-              <option value="note" className="bg-[#1A1A1A]">Notes</option>
+              <option value="all" className="bg-[#1b2d7c]">All Entities</option>
+              <option value="file" className="bg-[#1b2d7c]">Files</option>
+              <option value="folder" className="bg-[#1b2d7c]">Folders</option>
+              <option value="user" className="bg-[#1b2d7c]">Users</option>
+              <option value="organization" className="bg-[#1b2d7c]">Organizations</option>
+              <option value="calendar" className="bg-[#1b2d7c]">Calendar</option>
+              <option value="contact" className="bg-[#1b2d7c]">Contacts</option>
+              <option value="message" className="bg-[#1b2d7c]">Messages</option>
+              <option value="task" className="bg-[#1b2d7c]">Tasks</option>
+              <option value="note" className="bg-[#1b2d7c]">Notes</option>
             </select>
             <Filter className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#A1A1AA] pointer-events-none" />
           </div>
@@ -232,7 +232,7 @@ export default function AdminLogsPage() {
       {/* Logs List */}
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin h-8 w-8 border-2 border-[#FFB830] border-t-transparent rounded-full" />
+          <div className="animate-spin h-8 w-8 border-2 border-[#0046E2] border-t-transparent rounded-full" />
         </div>
       ) : paginatedLogs.length === 0 ? (
         <div className="text-center py-20">
@@ -272,7 +272,7 @@ export default function AdminLogsPage() {
                       <>
                         <Avatar className="h-8 w-8 ring-2 ring-white/10">
                           <AvatarImage src={log.user.avatar_url || undefined} />
-                          <AvatarFallback className="bg-gradient-to-br from-[#8B5CF6] to-[#FF6B6B] text-white text-xs font-semibold">
+                          <AvatarFallback className="bg-gradient-to-br from-[#1b2d7c] to-[#FF6B6B] text-white text-xs font-semibold">
                             {log.user.full_name?.substring(0, 2).toUpperCase() || log.user.email.substring(0, 2).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
@@ -374,7 +374,7 @@ export default function AdminLogsPage() {
                   className={cn(
                     "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                     currentPage === page
-                      ? "bg-gradient-to-r from-[#FFB830] to-[#F59E0B] text-[#0B0B0B]"
+                      ? "bg-gradient-to-r from-[#0046E2] to-[#F59E0B] text-[#0f1a4a]"
                       : "bg-white/5 text-[#A1A1AA] hover:bg-white/10 hover:text-white"
                   )}
                 >

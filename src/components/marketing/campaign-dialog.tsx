@@ -134,7 +134,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={formData.name || ''}
                     onChange={(e) => updateFormData('name', e.target.value)}
                     placeholder="Mi campaña de marketing"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     required
                   />
                 </div>
@@ -145,7 +145,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={formData.description || ''}
                     onChange={(e) => updateFormData('description', e.target.value)}
                     placeholder="Describe el objetivo de esta campaña..."
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     rows={3}
                   />
                 </div>
@@ -156,7 +156,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={formData.type}
                     onValueChange={(value) => updateFormData('type', value)}
                   >
-                    <SelectTrigger className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]">
+                    <SelectTrigger className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]">
                       <SelectValue placeholder="Seleccionar tipo" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
@@ -175,7 +175,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={formData.status}
                     onValueChange={(value) => updateFormData('status', value)}
                   >
-                    <SelectTrigger className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]">
+                    <SelectTrigger className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]">
                       <SelectValue placeholder="Seleccionar estado" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
@@ -194,7 +194,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
-                        className="mt-2 w-full justify-start text-left font-normal bg-[#0B0B0B] border-[#2A2A2A]"
+                        className="mt-2 w-full justify-start text-left font-normal bg-[#0f1a4a] border-[#2A2A2A]"
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {startDate ? format(startDate, "PPP", { locale: es }) : "Seleccionar fecha"}
@@ -217,7 +217,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     <PopoverTrigger asChild>
                       <Button
                         variant="outline"
-                        className="mt-2 w-full justify-start text-left font-normal bg-[#0B0B0B] border-[#2A2A2A]"
+                        className="mt-2 w-full justify-start text-left font-normal bg-[#0f1a4a] border-[#2A2A2A]"
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {endDate ? format(endDate, "PPP", { locale: es }) : "Seleccionar fecha"}
@@ -241,7 +241,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={formData.budget || 0}
                     onChange={(e) => updateFormData('budget', parseFloat(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                     step={0.01}
                   />
@@ -258,7 +258,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                       value={(formData.content as Record<string, string>)?.subject || ''}
                       onChange={(e) => updateNestedData('content', 'subject', e.target.value)}
                       placeholder="Asunto de tu email..."
-                      className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                      className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     />
                   </div>
                 )}
@@ -269,7 +269,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={(formData.content as Record<string, string>)?.body || ''}
                     onChange={(e) => updateNestedData('content', 'body', e.target.value)}
                     placeholder="Escribe el contenido de tu campaña..."
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     rows={10}
                   />
                 </div>
@@ -288,7 +288,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                       min: parseInt(e.target.value) || undefined
                     })}
                     placeholder="18"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                   />
                 </div>
@@ -303,7 +303,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                       max: parseInt(e.target.value) || undefined
                     })}
                     placeholder="65"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                   />
                 </div>
@@ -316,7 +316,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                       e.target.value.split(',').map(s => s.trim()).filter(Boolean)
                     )}
                     placeholder="Miami, New York, Los Angeles"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                   />
                 </div>
 
@@ -328,7 +328,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                       e.target.value.split(',').map(s => s.trim()).filter(Boolean)
                     )}
                     placeholder="tecnología, finanzas, salud"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                   />
                 </div>
 
@@ -338,7 +338,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={(formData.target_audience as Record<string, unknown>)?.customerType as string || ''}
                     onValueChange={(value) => updateNestedData('target_audience', 'customerType', value)}
                   >
-                    <SelectTrigger className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]">
+                    <SelectTrigger className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]">
                       <SelectValue placeholder="Seleccionar tipo" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1F1F1F] border-[#2A2A2A]">
@@ -360,7 +360,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={(formData.goals as any)?.leads || 0}
                     onChange={(e) => updateNestedData('goals', 'leads', parseInt(e.target.value) || 0)}
                     placeholder="100"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                   />
                 </div>
@@ -372,7 +372,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={(formData.goals as any)?.conversions || 0}
                     onChange={(e) => updateNestedData('goals', 'conversions', parseInt(e.target.value) || 0)}
                     placeholder="10"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                   />
                 </div>
@@ -384,7 +384,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={(formData.goals as any)?.revenue || 0}
                     onChange={(e) => updateNestedData('goals', 'revenue', parseFloat(e.target.value) || 0)}
                     placeholder="10000"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                     step={0.01}
                   />
@@ -397,7 +397,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={(formData.goals as any)?.openRate || 0}
                     onChange={(e) => updateNestedData('goals', 'openRate', parseFloat(e.target.value) || 0)}
                     placeholder="25"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                     max={100}
                     step={0.1}
@@ -411,7 +411,7 @@ export function CampaignDialog({ open, onOpenChange, campaign, onSave }: Campaig
                     value={(formData.goals as any)?.clickRate || 0}
                     onChange={(e) => updateNestedData('goals', 'clickRate', parseFloat(e.target.value) || 0)}
                     placeholder="5"
-                    className="mt-2 bg-[#0B0B0B] border-[#2A2A2A]"
+                    className="mt-2 bg-[#0f1a4a] border-[#2A2A2A]"
                     min={0}
                     max={100}
                     step={0.1}

@@ -110,9 +110,9 @@ export default function AdminUsersPage() {
   const getRoleColor = (role: string) => {
     switch (role) {
       case "owner":
-        return "text-[#FFB830] bg-[#FFB830]/10"
+        return "text-[#0046E2] bg-[#0046E2]/10"
       case "admin":
-        return "text-[#8B5CF6] bg-[#8B5CF6]/10"
+        return "text-[#1b2d7c] bg-[#1b2d7c]/10"
       default:
         return "text-[#A1A1AA] bg-white/10"
     }
@@ -272,7 +272,7 @@ export default function AdminUsersPage() {
               setSearchQuery(e.target.value)
               setCurrentPage(1)
             }}
-            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all"
+            className="w-full rounded-xl bg-white/5 border border-white/10 pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all"
           />
         </div>
         <div className="flex items-center gap-2 text-sm text-[#A1A1AA]">
@@ -284,7 +284,7 @@ export default function AdminUsersPage() {
       {/* Users List */}
       {isLoading ? (
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin h-8 w-8 border-2 border-[#00E5FF] border-t-transparent rounded-full" />
+          <div className="animate-spin h-8 w-8 border-2 border-[#0046E2] border-t-transparent rounded-full" />
         </div>
       ) : paginatedUsers.length === 0 ? (
         <div className="text-center py-20">
@@ -306,9 +306,9 @@ export default function AdminUsersPage() {
             >
               <div className="flex items-center gap-4">
                 {/* Avatar */}
-                <Avatar className="h-14 w-14 ring-2 ring-white/10 group-hover:ring-[#00E5FF]/30 transition-all">
+                <Avatar className="h-14 w-14 ring-2 ring-white/10 group-hover:ring-[#0046E2]/30 transition-all">
                   <AvatarImage src={user.avatar_url || undefined} />
-                  <AvatarFallback className="bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] text-lg font-semibold">
+                  <AvatarFallback className="bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] text-lg font-semibold">
                     {user.full_name?.substring(0, 2).toUpperCase() || user.email.substring(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
@@ -373,7 +373,7 @@ export default function AdminUsersPage() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
                     align="end"
-                    className="w-48 bg-[#1A1A1A]/95 backdrop-blur-xl border-white/10"
+                    className="w-48 bg-[#1b2d7c]/95 backdrop-blur-xl border-white/10"
                   >
                     <DropdownMenuItem
                       onClick={() => handleEditClick(user)}
@@ -426,7 +426,7 @@ export default function AdminUsersPage() {
                 className={cn(
                   "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                   currentPage === page
-                    ? "bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B]"
+                    ? "bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a]"
                     : "bg-white/5 text-[#A1A1AA] hover:bg-white/10 hover:text-white"
                 )}
               >
@@ -446,7 +446,7 @@ export default function AdminUsersPage() {
 
       {/* Edit User Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-md">
+        <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">Edit User</DialogTitle>
             <DialogDescription className="text-[#A1A1AA]">
@@ -458,7 +458,7 @@ export default function AdminUsersPage() {
             <div className="flex items-center gap-4 mb-6">
               <Avatar className="h-16 w-16 ring-2 ring-white/10">
                 <AvatarImage src={selectedUser?.avatar_url || undefined} />
-                <AvatarFallback className="bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] text-xl font-semibold">
+                <AvatarFallback className="bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] text-xl font-semibold">
                   {selectedUser?.full_name?.substring(0, 2).toUpperCase() || selectedUser?.email.substring(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
@@ -474,7 +474,7 @@ export default function AdminUsersPage() {
                 type="text"
                 value={editFullName}
                 onChange={(e) => setEditFullName(e.target.value)}
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all"
                 placeholder="Enter full name"
               />
             </div>
@@ -485,7 +485,7 @@ export default function AdminUsersPage() {
                 type="tel"
                 value={editPhone}
                 onChange={(e) => setEditPhone(e.target.value)}
-                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all"
+                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all"
                 placeholder="Enter phone number"
               />
             </div>
@@ -502,7 +502,7 @@ export default function AdminUsersPage() {
             <Button
               onClick={handleUpdate}
               disabled={isSaving}
-              className="bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold hover:opacity-90"
+              className="bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] font-semibold hover:opacity-90"
             >
               {isSaving ? "Saving..." : "Save Changes"}
             </Button>
@@ -512,7 +512,7 @@ export default function AdminUsersPage() {
 
       {/* Delete User Dialog */}
       <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-md">
+        <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-md">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-[#FF6B6B]" />
@@ -566,7 +566,7 @@ export default function AdminUsersPage() {
 
       {/* Manage Memberships Dialog */}
       <Dialog open={membershipsDialogOpen} onOpenChange={setMembershipsDialogOpen}>
-        <DialogContent className="bg-[#1A1A1A] border-white/10 text-white max-w-lg">
+        <DialogContent className="bg-[#1b2d7c] border-white/10 text-white max-w-lg">
           <DialogHeader>
             <DialogTitle className="text-xl font-bold">Manage Memberships</DialogTitle>
             <DialogDescription className="text-[#A1A1AA]">
@@ -588,8 +588,8 @@ export default function AdminUsersPage() {
                     className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-[#00E5FF]/20 to-[#0EA5E9]/20 flex items-center justify-center">
-                        <Building2 className="h-5 w-5 text-[#00E5FF]" />
+                      <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-[#0046E2]/20 to-[#1A5AE8]/20 flex items-center justify-center">
+                        <Building2 className="h-5 w-5 text-[#0046E2]" />
                       </div>
                       <div>
                         <p className="font-medium text-white">{membership.organization?.name}</p>
@@ -603,7 +603,7 @@ export default function AdminUsersPage() {
                       <select
                         value={membership.role}
                         onChange={(e) => handleUpdateMembershipRole(membership.id, membership.organization_id, e.target.value)}
-                        className="rounded-lg bg-white/5 border border-white/10 px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50"
+                        className="rounded-lg bg-white/5 border border-white/10 px-3 py-1.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50"
                       >
                         <option value="member">Member</option>
                         <option value="admin">Admin</option>

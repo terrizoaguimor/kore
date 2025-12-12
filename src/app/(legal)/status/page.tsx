@@ -35,7 +35,7 @@ const services = [
     status: "operational",
     uptime: "99.99%",
     latency: "45ms",
-    gradient: "from-[#00E5FF] to-[#0EA5E9]",
+    gradient: "from-[#0046E2] to-[#1A5AE8]",
   },
   {
     name: "KORE Link",
@@ -44,7 +44,7 @@ const services = [
     status: "operational",
     uptime: "99.98%",
     latency: "32ms",
-    gradient: "from-[#FFB830] to-[#F59E0B]",
+    gradient: "from-[#0046E2] to-[#F59E0B]",
   },
   {
     name: "KORE Voice",
@@ -53,7 +53,7 @@ const services = [
     status: "operational",
     uptime: "99.95%",
     latency: "28ms",
-    gradient: "from-[#8B5CF6] to-[#7C3AED]",
+    gradient: "from-[#0f1a4a] to-[#7C3AED]",
   },
   {
     name: "KORE Meet",
@@ -89,7 +89,7 @@ const services = [
     status: "operational",
     uptime: "99.99%",
     latency: "42ms",
-    gradient: "from-[#00E5FF] to-[#0EA5E9]",
+    gradient: "from-[#0046E2] to-[#1A5AE8]",
   },
   {
     name: "KORE OS",
@@ -186,7 +186,7 @@ const getStatusIcon = (status: string) => {
     case "operational":
       return <CheckCircle2 className="h-5 w-5 text-[#10B981]" />
     case "degraded":
-      return <AlertCircle className="h-5 w-5 text-[#FFB830]" />
+      return <AlertCircle className="h-5 w-5 text-[#0046E2]" />
     case "outage":
       return <XCircle className="h-5 w-5 text-[#EF4444]" />
     default:
@@ -199,7 +199,7 @@ const getStatusColor = (status: string) => {
     case "operational":
       return "bg-[#10B981]"
     case "degraded":
-      return "bg-[#FFB830]"
+      return "bg-[#0046E2]"
     case "outage":
       return "bg-[#EF4444]"
     default:
@@ -240,12 +240,12 @@ export default function StatusPage() {
           "inline-flex items-center justify-center h-20 w-20 rounded-3xl mb-6",
           allOperational
             ? "bg-gradient-to-br from-[#10B981]/20 to-[#10B981]/5"
-            : "bg-gradient-to-br from-[#FFB830]/20 to-[#FFB830]/5"
+            : "bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5"
         )}>
           {allOperational ? (
             <CheckCircle2 className="h-10 w-10 text-[#10B981]" />
           ) : (
-            <AlertCircle className="h-10 w-10 text-[#FFB830]" />
+            <AlertCircle className="h-10 w-10 text-[#0046E2]" />
           )}
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
@@ -253,7 +253,7 @@ export default function StatusPage() {
         </h1>
         <p className={cn(
           "text-xl font-medium",
-          allOperational ? "text-[#10B981]" : "text-[#FFB830]"
+          allOperational ? "text-[#10B981]" : "text-[#0046E2]"
         )}>
           {allOperational ? "All Systems Operational" : "Some Systems Experiencing Issues"}
         </p>
@@ -286,7 +286,7 @@ export default function StatusPage() {
               title={`${day.date}: ${getStatusText(day.status)}`}
             >
               <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block z-10">
-                <div className="bg-[#1A1A1A] border border-white/10 rounded-lg px-2 py-1 text-xs text-white whitespace-nowrap">
+                <div className="bg-[#0f1a4a] border border-white/10 rounded-lg px-2 py-1 text-xs text-white whitespace-nowrap">
                   {day.date}
                 </div>
               </div>
@@ -300,7 +300,7 @@ export default function StatusPage() {
               <span className="w-3 h-3 rounded-sm bg-[#10B981]" /> Operational
             </span>
             <span className="flex items-center gap-1">
-              <span className="w-3 h-3 rounded-sm bg-[#FFB830]" /> Degraded
+              <span className="w-3 h-3 rounded-sm bg-[#0046E2]" /> Degraded
             </span>
             <span className="flex items-center gap-1">
               <span className="w-3 h-3 rounded-sm bg-[#EF4444]" /> Outage
@@ -345,7 +345,7 @@ export default function StatusPage() {
                     {getStatusIcon(service.status)}
                     <span className={cn(
                       "text-sm font-medium",
-                      service.status === "operational" ? "text-[#10B981]" : "text-[#FFB830]"
+                      service.status === "operational" ? "text-[#10B981]" : "text-[#0046E2]"
                     )}>
                       {getStatusText(service.status)}
                     </span>
@@ -368,8 +368,8 @@ export default function StatusPage() {
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-[#00E5FF]/10 flex items-center justify-center">
-                    <item.icon className="h-4 w-4 text-[#00E5FF]" />
+                  <div className="h-8 w-8 rounded-lg bg-[#0046E2]/10 flex items-center justify-center">
+                    <item.icon className="h-4 w-4 text-[#0046E2]" />
                   </div>
                   <div>
                     <h3 className="font-medium text-white text-sm">{item.name}</h3>
@@ -399,7 +399,7 @@ export default function StatusPage() {
                 <div className="flex items-center gap-4">
                   <div className={cn(
                     "h-2 w-2 rounded-full",
-                    incident.status === "resolved" ? "bg-[#10B981]" : "bg-[#FFB830]"
+                    incident.status === "resolved" ? "bg-[#10B981]" : "bg-[#0046E2]"
                   )} />
                   <div>
                     <h3 className="font-medium text-white">{incident.title}</h3>
@@ -411,7 +411,7 @@ export default function StatusPage() {
                     "text-xs px-2 py-1 rounded-full",
                     incident.status === "resolved"
                       ? "bg-[#10B981]/20 text-[#10B981]"
-                      : "bg-[#FFB830]/20 text-[#FFB830]"
+                      : "bg-[#0046E2]/20 text-[#0046E2]"
                   )}>
                     {incident.status === "resolved" ? "Resolved" : "Investigating"}
                   </span>
@@ -438,7 +438,7 @@ export default function StatusPage() {
       </div>
 
       {/* Subscribe to Updates */}
-      <div className="p-8 rounded-2xl bg-gradient-to-r from-[#00E5FF]/10 to-[#8B5CF6]/10 border border-white/10">
+      <div className="p-8 rounded-2xl bg-gradient-to-r from-[#0046E2]/10 to-[#0f1a4a]/10 border border-white/10">
         <div className="text-center">
           <h2 className="text-xl font-bold text-white mb-2">Subscribe to Updates</h2>
           <p className="text-sm text-[#A1A1AA] mb-6">
@@ -448,9 +448,9 @@ export default function StatusPage() {
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#00E5FF]/50 transition-colors"
+              className="flex-1 px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:border-[#0046E2]/50 transition-colors"
             />
-            <button className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-medium hover:shadow-lg hover:shadow-[#00E5FF]/25 transition-all">
+            <button className="px-6 py-2.5 rounded-lg bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] font-medium hover:shadow-lg hover:shadow-[#0046E2]/25 transition-all">
               Subscribe
             </button>
           </div>

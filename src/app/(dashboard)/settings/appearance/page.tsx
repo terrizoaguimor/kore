@@ -33,11 +33,11 @@ const themes = [
 ]
 
 const accentColors = [
-  { id: "blue", name: "Blue", color: "#00E5FF" },
-  { id: "purple", name: "Purple", color: "#8B5CF6" },
+  { id: "blue", name: "Blue", color: "#0046E2" },
+  { id: "purple", name: "Purple", color: "#1b2d7c" },
   { id: "green", name: "Green", color: "#00D68F" },
   { id: "red", name: "Red", color: "#FF4757" },
-  { id: "orange", name: "Orange", color: "#FFB830" },
+  { id: "orange", name: "Orange", color: "#0046E2" },
   { id: "pink", name: "Pink", color: "#EC4899" },
 ]
 
@@ -67,7 +67,7 @@ export default function AppearanceSettingsPage() {
     setAccentColor(color)
     localStorage.setItem("accent-color", color)
     // Apply accent color to CSS variables
-    const colorValue = accentColors.find((c) => c.id === color)?.color || "#00E5FF"
+    const colorValue = accentColors.find((c) => c.id === color)?.color || "#0046E2"
     document.documentElement.style.setProperty("--primary", colorValue)
     toast.success("Accent color updated")
   }

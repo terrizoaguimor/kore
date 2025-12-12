@@ -350,20 +350,20 @@ export default function FloatingDialer() {
           zIndex: 9999,
         }}
         className={`
-          w-80 rounded-2xl bg-[#0B0B0B] border border-[#2A2A2A] shadow-2xl overflow-hidden
+          w-80 rounded-2xl bg-[#0f1a4a] border border-[#2d3c8a] shadow-2xl overflow-hidden
           ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}
         `}
       >
         {/* Header */}
         <div
           onMouseDown={handleMouseDown}
-          className="flex items-center justify-between px-4 py-3 bg-[#1F1F1F] border-b border-[#2A2A2A]"
+          className="flex items-center justify-between px-4 py-3 bg-[#243178] border-b border-[#2d3c8a]"
         >
           <div className="flex items-center gap-2">
             <Phone className="h-5 w-5 text-[#00D68F]" />
             <span className="font-medium text-white">Teléfono</span>
             {isConnecting && (
-              <Loader2 className="h-4 w-4 animate-spin text-[#00E5FF]" />
+              <Loader2 className="h-4 w-4 animate-spin text-[#0046E2]" />
             )}
           </div>
           <div className="flex items-center gap-1">
@@ -388,13 +388,13 @@ export default function FloatingDialer() {
 
         {/* View Tabs */}
         {!activeCall && (
-          <div className="flex border-b border-[#2A2A2A]">
+          <div className="flex border-b border-[#2d3c8a]">
             <button
               onClick={() => setView('dialpad')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors ${
                 view === 'dialpad'
-                  ? 'text-[#00E5FF] border-b-2 border-[#00E5FF] bg-[#00E5FF]/5'
-                  : 'text-[#A1A1AA] hover:text-white hover:bg-[#1F1F1F]'
+                  ? 'text-[#0046E2] border-b-2 border-[#0046E2] bg-[#0046E2]/5'
+                  : 'text-[#A1A1AA] hover:text-white hover:bg-[#243178]'
               }`}
             >
               <Grid3X3 className="h-4 w-4" />
@@ -404,8 +404,8 @@ export default function FloatingDialer() {
               onClick={() => setView('history')}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium transition-colors ${
                 view === 'history'
-                  ? 'text-[#00E5FF] border-b-2 border-[#00E5FF] bg-[#00E5FF]/5'
-                  : 'text-[#A1A1AA] hover:text-white hover:bg-[#1F1F1F]'
+                  ? 'text-[#0046E2] border-b-2 border-[#0046E2] bg-[#0046E2]/5'
+                  : 'text-[#A1A1AA] hover:text-white hover:bg-[#243178]'
               }`}
             >
               <History className="h-4 w-4" />
@@ -420,7 +420,7 @@ export default function FloatingDialer() {
           {view === 'dialpad' && !activeCall && (
             <div className="space-y-4">
               {/* Phone Number Display */}
-              <div className="flex items-center gap-2 bg-[#1F1F1F] rounded-xl px-4 py-3">
+              <div className="flex items-center gap-2 bg-[#243178] rounded-xl px-4 py-3">
                 <input
                   type="tel"
                   value={formatPhoneNumber(phoneNumber)}
@@ -446,7 +446,7 @@ export default function FloatingDialer() {
                   <button
                     key={btn.digit}
                     onClick={() => appendDigit(btn.digit)}
-                    className="flex flex-col items-center justify-center h-16 rounded-xl bg-[#1F1F1F] hover:bg-[#2A2A2A] transition-colors"
+                    className="flex flex-col items-center justify-center h-16 rounded-xl bg-[#243178] hover:bg-[#2d3c8a] transition-colors"
                   >
                     <span className="text-2xl font-medium text-white">{btn.digit}</span>
                     {btn.letters && (
@@ -474,7 +474,7 @@ export default function FloatingDialer() {
             <div className="space-y-2 max-h-80 overflow-y-auto">
               {recentCalls.length === 0 ? (
                 <div className="text-center py-8">
-                  <History className="h-12 w-12 mx-auto text-[#2A2A2A] mb-3" />
+                  <History className="h-12 w-12 mx-auto text-[#2d3c8a] mb-3" />
                   <p className="text-[#A1A1AA] text-sm">No hay llamadas recientes</p>
                 </div>
               ) : (
@@ -483,15 +483,15 @@ export default function FloatingDialer() {
                     key={call.id}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-[#1F1F1F] hover:bg-[#2A2A2A] transition-colors cursor-pointer group"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[#243178] hover:bg-[#2d3c8a] transition-colors cursor-pointer group"
                     onClick={() => handleCallFromHistory(call.phoneNumber)}
                   >
                     <div className={`p-2 rounded-full ${
-                      call.direction === 'inbound' ? 'bg-[#00E5FF]/10' : 'bg-[#00D68F]/10'
+                      call.direction === 'inbound' ? 'bg-[#0046E2]/10' : 'bg-[#00D68F]/10'
                     }`}>
                       {call.direction === 'inbound' ? (
                         <PhoneIncoming className={`h-4 w-4 ${
-                          call.direction === 'inbound' ? 'text-[#00E5FF]' : 'text-[#00D68F]'
+                          call.direction === 'inbound' ? 'text-[#0046E2]' : 'text-[#00D68F]'
                         }`} />
                       ) : (
                         <PhoneOutgoing className="h-4 w-4 text-[#00D68F]" />
@@ -526,7 +526,7 @@ export default function FloatingDialer() {
             <div className="space-y-6">
               {/* Call Info */}
               <div className="text-center">
-                <div className="w-20 h-20 mx-auto rounded-full bg-[#1F1F1F] flex items-center justify-center mb-4">
+                <div className="w-20 h-20 mx-auto rounded-full bg-[#243178] flex items-center justify-center mb-4">
                   <User className="h-10 w-10 text-[#A1A1AA]" />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-1">
@@ -535,12 +535,12 @@ export default function FloatingDialer() {
                 <div className="flex items-center justify-center gap-2">
                   {activeCall.status === 'connecting' && (
                     <>
-                      <Loader2 className="h-4 w-4 animate-spin text-[#00E5FF]" />
+                      <Loader2 className="h-4 w-4 animate-spin text-[#0046E2]" />
                       <span className="text-[#A1A1AA]">Conectando...</span>
                     </>
                   )}
                   {activeCall.status === 'ringing' && (
-                    <span className="text-[#FFB830]">Llamando...</span>
+                    <span className="text-[#0046E2]">Llamando...</span>
                   )}
                   {(activeCall.status === 'active' || activeCall.status === 'in_progress') && (
                     <span className="text-[#00D68F] font-mono text-lg">
@@ -548,7 +548,7 @@ export default function FloatingDialer() {
                     </span>
                   )}
                   {activeCall.status === 'held' && (
-                    <span className="text-[#FFB830]">En espera</span>
+                    <span className="text-[#0046E2]">En espera</span>
                   )}
                 </div>
                 {activeCall.isRecording && (
@@ -566,7 +566,7 @@ export default function FloatingDialer() {
                   className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-colors ${
                     activeCall.isMuted
                       ? 'bg-[#FF4757]/20 text-[#FF4757]'
-                      : 'bg-[#1F1F1F] text-[#A1A1AA] hover:bg-[#2A2A2A]'
+                      : 'bg-[#243178] text-[#A1A1AA] hover:bg-[#2d3c8a]'
                   }`}
                 >
                   {activeCall.isMuted ? (
@@ -579,7 +579,7 @@ export default function FloatingDialer() {
 
                 <button
                   onClick={() => setView('dialpad')}
-                  className="flex flex-col items-center gap-1 p-3 rounded-xl bg-[#1F1F1F] text-[#A1A1AA] hover:bg-[#2A2A2A] transition-colors"
+                  className="flex flex-col items-center gap-1 p-3 rounded-xl bg-[#243178] text-[#A1A1AA] hover:bg-[#2d3c8a] transition-colors"
                 >
                   <Grid3X3 className="h-6 w-6" />
                   <span className="text-xs">Teclado</span>
@@ -587,7 +587,7 @@ export default function FloatingDialer() {
 
                 <button
                   onClick={() => {}}
-                  className="flex flex-col items-center gap-1 p-3 rounded-xl bg-[#1F1F1F] text-[#A1A1AA] hover:bg-[#2A2A2A] transition-colors"
+                  className="flex flex-col items-center gap-1 p-3 rounded-xl bg-[#243178] text-[#A1A1AA] hover:bg-[#2d3c8a] transition-colors"
                 >
                   <Volume2 className="h-6 w-6" />
                   <span className="text-xs">Altavoz</span>
@@ -597,8 +597,8 @@ export default function FloatingDialer() {
                   onClick={handleToggleHold}
                   className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-colors ${
                     activeCall.isOnHold
-                      ? 'bg-[#FFB830]/20 text-[#FFB830]'
-                      : 'bg-[#1F1F1F] text-[#A1A1AA] hover:bg-[#2A2A2A]'
+                      ? 'bg-[#0046E2]/20 text-[#0046E2]'
+                      : 'bg-[#243178] text-[#A1A1AA] hover:bg-[#2d3c8a]'
                   }`}
                 >
                   {activeCall.isOnHold ? (
@@ -614,7 +614,7 @@ export default function FloatingDialer() {
                   className={`flex flex-col items-center gap-1 p-3 rounded-xl transition-colors ${
                     activeCall.isRecording
                       ? 'bg-[#FF4757]/20 text-[#FF4757]'
-                      : 'bg-[#1F1F1F] text-[#A1A1AA] hover:bg-[#2A2A2A]'
+                      : 'bg-[#243178] text-[#A1A1AA] hover:bg-[#2d3c8a]'
                   }`}
                 >
                   <CircleDot className="h-6 w-6" />
@@ -623,7 +623,7 @@ export default function FloatingDialer() {
 
                 <button
                   onClick={() => {}}
-                  className="flex flex-col items-center gap-1 p-3 rounded-xl bg-[#1F1F1F] text-[#A1A1AA] hover:bg-[#2A2A2A] transition-colors"
+                  className="flex flex-col items-center gap-1 p-3 rounded-xl bg-[#243178] text-[#A1A1AA] hover:bg-[#2d3c8a] transition-colors"
                 >
                   <User className="h-6 w-6" />
                   <span className="text-xs">Transferir</span>

@@ -211,7 +211,7 @@ export default function PrivacyPage() {
       </div>
 
       {/* Certifications */}
-      <div className="mb-16 p-6 rounded-2xl bg-gradient-to-r from-[#10B981]/10 to-[#00E5FF]/10 border border-white/10">
+      <div className="mb-16 p-6 rounded-2xl bg-gradient-to-r from-[#10B981]/10 to-[#0046E2]/10 border border-white/10">
         <h2 className="text-xl font-bold text-white mb-4 text-center">Compliance & Certifications</h2>
         <div className="flex flex-wrap justify-center gap-3">
           {certifications.map((cert, index) => (
@@ -224,10 +224,10 @@ export default function PrivacyPage() {
                 cert.status === "Certified"
                   ? "bg-[#10B981]/20 text-[#10B981]"
                   : cert.status === "Compliant"
-                  ? "bg-[#00E5FF]/20 text-[#00E5FF]"
+                  ? "bg-[#0046E2]/20 text-[#0046E2]"
                   : cert.status === "Available"
                   ? "bg-[#8B5CF6]/20 text-[#8B5CF6]"
-                  : "bg-[#FFB830]/20 text-[#FFB830]"
+                  : "bg-[#0046E2]/20 text-[#0046E2]"
               }`}>
                 {cert.status}
               </span>
@@ -283,8 +283,8 @@ export default function PrivacyPage() {
       {/* Contact Section */}
       <div className="mt-16 p-8 rounded-2xl bg-white/5 border border-white/10">
         <div className="flex items-center gap-4 mb-4">
-          <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#00E5FF]/20 to-[#00E5FF]/5 flex items-center justify-center">
-            <Mail className="h-6 w-6 text-[#00E5FF]" />
+          <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[#0046E2]/20 to-[#0046E2]/5 flex items-center justify-center">
+            <Mail className="h-6 w-6 text-[#0046E2]" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-white">Questions or Concerns?</h2>
@@ -294,11 +294,11 @@ export default function PrivacyPage() {
         <div className="grid sm:grid-cols-2 gap-4 mt-6">
           <div className="p-4 rounded-xl bg-white/5">
             <p className="text-sm text-[#A1A1AA] mb-1">Data Protection Officer</p>
-            <a href="mailto:dpo@kore.ai" className="text-[#00E5FF] hover:underline">dpo@kore.ai</a>
+            <a href="mailto:dpo@kore.ai" className="text-[#0046E2] hover:underline">dpo@kore.ai</a>
           </div>
           <div className="p-4 rounded-xl bg-white/5">
             <p className="text-sm text-[#A1A1AA] mb-1">Privacy Inquiries</p>
-            <a href="mailto:privacy@kore.ai" className="text-[#00E5FF] hover:underline">privacy@kore.ai</a>
+            <a href="mailto:privacy@kore.ai" className="text-[#0046E2] hover:underline">privacy@kore.ai</a>
           </div>
         </div>
       </div>

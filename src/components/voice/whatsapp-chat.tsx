@@ -100,7 +100,7 @@ export function WhatsAppChat({
 
   if (!conversation) {
     return (
-      <div className="flex items-center justify-center h-full bg-[#0B0B0B]">
+      <div className="flex items-center justify-center h-full bg-[#0f1a4a]">
         <div className="text-center">
           <div
             className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center"
@@ -128,9 +128,9 @@ export function WhatsAppChat({
   })
 
   return (
-    <div className="flex flex-col h-full bg-[#0B0B0B]">
+    <div className="flex flex-col h-full bg-[#0f1a4a]">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-[#2A2A2A] bg-[#1F1F1F]">
+      <div className="flex items-center justify-between p-4 border-b border-[#2d3c8a] bg-[#243178]">
         <div className="flex items-center gap-3">
           {onBack && (
             <Button
@@ -144,7 +144,7 @@ export function WhatsAppChat({
           )}
           <Avatar>
             <AvatarImage src={conversation.contact_profile_pic || undefined} />
-            <AvatarFallback className="bg-[#2A2A2A] text-white">
+            <AvatarFallback className="bg-[#2d3c8a] text-white">
               {getInitials(conversation.contact_name || conversation.contact_phone)}
             </AvatarFallback>
           </Avatar>
@@ -173,14 +173,14 @@ export function WhatsAppChat({
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-[#1F1F1F] border-[#2A2A2A]">
-              <DropdownMenuItem className="text-white hover:bg-[#2A2A2A]">
+            <DropdownMenuContent align="end" className="bg-[#243178] border-[#2d3c8a]">
+              <DropdownMenuItem className="text-white hover:bg-[#2d3c8a]">
                 Ver perfil
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-white hover:bg-[#2A2A2A]">
+              <DropdownMenuItem className="text-white hover:bg-[#2d3c8a]">
                 Buscar en chat
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-white hover:bg-[#2A2A2A]">
+              <DropdownMenuItem className="text-white hover:bg-[#2d3c8a]">
                 Silenciar notificaciones
               </DropdownMenuItem>
               <DropdownMenuItem className="text-red-400 hover:bg-red-500/10">
@@ -204,7 +204,7 @@ export function WhatsAppChat({
             <div key={groupIndex}>
               {/* Date separator */}
               <div className="flex justify-center mb-4">
-                <span className="px-3 py-1 rounded-lg bg-[#1F1F1F]/80 text-xs text-[#A1A1AA]">
+                <span className="px-3 py-1 rounded-lg bg-[#243178]/80 text-xs text-[#A1A1AA]">
                   {group.date}
                 </span>
               </div>
@@ -225,13 +225,13 @@ export function WhatsAppChat({
                       className={`max-w-[75%] rounded-lg px-3 py-2 ${
                         isOutbound
                           ? 'bg-[#005C4B] rounded-tr-none'
-                          : 'bg-[#1F1F1F] rounded-tl-none'
+                          : 'bg-[#243178] rounded-tl-none'
                       }`}
                     >
                       {/* Message content based on type */}
                       {message.message_type === 'image' && (
                         <div className="mb-1">
-                          <div className="bg-[#0B0B0B] rounded-lg p-8 flex items-center justify-center">
+                          <div className="bg-[#0f1a4a] rounded-lg p-8 flex items-center justify-center">
                             <ImageIcon className="h-8 w-8 text-[#A1A1AA]" />
                           </div>
                           {message.media_caption && (
@@ -241,7 +241,7 @@ export function WhatsAppChat({
                       )}
 
                       {message.message_type === 'document' && (
-                        <div className="flex items-center gap-3 mb-1 bg-[#0B0B0B] rounded-lg p-3">
+                        <div className="flex items-center gap-3 mb-1 bg-[#0f1a4a] rounded-lg p-3">
                           <File className="h-8 w-8 text-[#A1A1AA]" />
                           <div>
                             <p className="text-sm text-white">{message.media_filename || 'Documento'}</p>
@@ -272,7 +272,7 @@ export function WhatsAppChat({
         {/* Typing indicator */}
         {isTyping && (
           <div className="flex justify-start mb-2">
-            <div className="bg-[#1F1F1F] rounded-lg px-4 py-2 rounded-tl-none">
+            <div className="bg-[#243178] rounded-lg px-4 py-2 rounded-tl-none">
               <div className="flex gap-1">
                 <span className="w-2 h-2 bg-[#A1A1AA] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                 <span className="w-2 h-2 bg-[#A1A1AA] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -286,7 +286,7 @@ export function WhatsAppChat({
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-[#2A2A2A] bg-[#1F1F1F]">
+      <div className="p-4 border-t border-[#2d3c8a] bg-[#243178]">
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="sm" className="text-[#A1A1AA] hover:text-white">
             <Smile className="h-5 w-5" />
@@ -299,7 +299,7 @@ export function WhatsAppChat({
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Escribe un mensaje..."
-            className="flex-1 bg-[#0B0B0B] border-none text-white placeholder:text-[#A1A1AA]"
+            className="flex-1 bg-[#0f1a4a] border-none text-white placeholder:text-[#A1A1AA]"
           />
           {newMessage.trim() ? (
             <Button

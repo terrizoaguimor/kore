@@ -187,7 +187,7 @@ export default function BlockedIPsPage() {
                         Permanent
                       </span>
                     ) : (
-                      <span className="px-2 py-0.5 rounded-md bg-[#FFB830]/10 text-xs text-[#FFB830] font-medium">
+                      <span className="px-2 py-0.5 rounded-md bg-[#0046E2]/10 text-xs text-[#0046E2] font-medium">
                         Temporary
                       </span>
                     )}
@@ -235,7 +235,7 @@ export default function BlockedIPsPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="relative w-full max-w-md p-6 rounded-2xl bg-[#1A1A1A] border border-white/10 shadow-2xl"
+            className="relative w-full max-w-md p-6 rounded-2xl bg-[#1b2d7c] border border-white/10 shadow-2xl"
           >
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-white">Block IP Address</h2>

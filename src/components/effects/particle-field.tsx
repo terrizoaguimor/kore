@@ -26,8 +26,8 @@ interface ParticleFieldProps {
 
 export function ParticleField({
   particleCount = 150,
-  particleColor = "#00E5FF",
-  lineColor = "#00E5FF",
+  particleColor = "#0046E2",
+  lineColor = "#0046E2",
   maxDistance = 120,
   mouseRadius = 150,
   speed = 0.5,

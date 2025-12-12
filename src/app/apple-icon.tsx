@@ -12,7 +12,7 @@ export default function AppleIcon() {
       <div
         style={{
           fontSize: 24,
-          background: "#0B0B0B",
+          background: "#0f1a4a",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -30,23 +30,23 @@ export default function AppleIcon() {
         >
           <path
             d="M18 8V40"
-            stroke="#00E5FF"
+            stroke="#0046E2"
             strokeWidth="4"
             strokeLinecap="round"
           />
           <path
             d="M18 24L34 8"
-            stroke="#00E5FF"
+            stroke="#0046E2"
             strokeWidth="4"
             strokeLinecap="round"
           />
           <path
             d="M18 24L34 40"
-            stroke="#00E5FF"
+            stroke="#0046E2"
             strokeWidth="4"
             strokeLinecap="round"
           />
-          <circle cx="24" cy="24" r="4" fill="#00E5FF" />
+          <circle cx="24" cy="24" r="4" fill="#0046E2" />
         </svg>
       </div>
     ),

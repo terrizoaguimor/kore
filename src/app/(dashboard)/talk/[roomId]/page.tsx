@@ -237,16 +237,16 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
 
   if (isLoading) {
     return (
-      <div className="flex h-full items-center justify-center bg-[#0B0B0B]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#00E5FF]" />
+      <div className="flex h-full items-center justify-center bg-[#0f1a4a]">
+        <Loader2 className="h-8 w-8 animate-spin text-[#0046E2]" />
       </div>
     )
   }
 
   return (
-    <div className="flex h-full flex-col bg-[#0B0B0B]">
+    <div className="flex h-full flex-col bg-[#0f1a4a]">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#1F1F1F] px-4 py-3">
+      <div className="flex items-center justify-between border-b border-[#243178] px-4 py-3">
         <div className="flex items-center gap-3">
           <Button
             variant="ghost"
@@ -259,7 +259,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
 
           <Avatar className="h-10 w-10">
             <AvatarImage src={getRoomAvatar() || undefined} />
-            <AvatarFallback className="bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] font-semibold">
+            <AvatarFallback className="bg-gradient-to-br from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] font-semibold">
               {getRoomName().substring(0, 2).toUpperCase()}
             </AvatarFallback>
           </Avatar>
@@ -298,7 +298,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
                 <Users className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent className="bg-[#1A1A1A] border-white/10 text-white">
+            <SheetContent className="bg-[#1b2d7c] border-white/10 text-white">
               <SheetHeader>
                 <SheetTitle className="text-white">Participants</SheetTitle>
               </SheetHeader>
@@ -307,7 +307,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
                   <div key={p.id} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={p.user?.avatar_url || undefined} />
-                      <AvatarFallback className="bg-[#00E5FF]/20 text-[#00E5FF]">
+                      <AvatarFallback className="bg-[#0046E2]/20 text-[#0046E2]">
                         {p.user?.full_name?.substring(0, 2).toUpperCase() || "?"}
                       </AvatarFallback>
                     </Avatar>
@@ -331,7 +331,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-[#1A1A1A] border-white/10">
+            <DropdownMenuContent align="end" className="bg-[#1b2d7c] border-white/10">
               <DropdownMenuItem className="text-[#A1A1AA] hover:text-white hover:bg-white/5">
                 <Settings className="mr-2 h-4 w-4" />
                 Settings
@@ -376,7 +376,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
                         {showAvatar && (
                           <Avatar className="h-8 w-8">
                             <AvatarImage src={msg.sender?.avatar_url || undefined} />
-                            <AvatarFallback className="bg-[#00E5FF]/20 text-[#00E5FF] text-xs">
+                            <AvatarFallback className="bg-[#0046E2]/20 text-[#0046E2] text-xs">
                               {msg.sender?.full_name?.substring(0, 2).toUpperCase() || "?"}
                             </AvatarFallback>
                           </Avatar>
@@ -393,8 +393,8 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
                       <div
                         className={`px-4 py-2 rounded-2xl ${
                           isOwn
-                            ? "bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B]"
-                            : "bg-[#1F1F1F] text-white"
+                            ? "bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a]"
+                            : "bg-[#243178] text-white"
                         }`}
                       >
                         <p className="whitespace-pre-wrap break-words">{msg.content}</p>
@@ -404,7 +404,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
                           {format(new Date(msg.created_at), "HH:mm")}
                         </span>
                         {isOwn && (
-                          <CheckCheck className="h-3 w-3 text-[#00E5FF]" />
+                          <CheckCheck className="h-3 w-3 text-[#0046E2]" />
                         )}
                       </div>
                     </div>
@@ -418,7 +418,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
       </div>
 
       {/* Input */}
-      <div className="border-t border-[#1F1F1F] p-4">
+      <div className="border-t border-[#243178] p-4">
         <div className="flex items-end gap-2">
           <Button
             variant="ghost"
@@ -436,7 +436,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
               onKeyDown={handleKeyDown}
               placeholder="Type a message..."
               rows={1}
-              className="w-full resize-none rounded-xl bg-[#1F1F1F] border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#00E5FF]/50 focus:border-[#00E5FF] transition-all"
+              className="w-full resize-none rounded-xl bg-[#243178] border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all"
               style={{ minHeight: "48px", maxHeight: "200px" }}
             />
             <Button
@@ -451,7 +451,7 @@ export default function ChatRoomPage({ params }: { params: Promise<{ roomId: str
           <Button
             onClick={sendMessage}
             disabled={!newMessage.trim() || isSending}
-            className="bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] hover:opacity-90 flex-shrink-0"
+            className="bg-gradient-to-r from-[#0046E2] to-[#1A5AE8] text-[#0f1a4a] hover:opacity-90 flex-shrink-0"
           >
             {isSending ? (
               <Loader2 className="h-5 w-5 animate-spin" />

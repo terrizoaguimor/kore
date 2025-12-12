@@ -1,36 +1,31 @@
 import type { Metadata } from "next"
-import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google"
+import { Montserrat, Inter } from "next/font/google"
 import { getLocale, getMessages } from "next-intl/server"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { IntlProvider } from "@/components/providers/intl-provider"
 import { Toaster } from "@/components/ui/sonner"
 import "./globals.css"
 
-// Body font - Clean and readable
-const inter = Inter({
-  variable: "--font-inter",
+// Títulos - Montserrat ExtraBold (Brand Guidelines)
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
 })
 
-// Display font - Modern geometric (similar to Monument Extended)
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-monument",
+// Body/Subtitles - Inter Tight (Brand Guidelines)
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 })
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
-
 export const metadata: Metadata = {
   title: {
-    default: "KORE - The Origin of Everything",
-    template: "%s | KORE",
+    default: "KORE By Socios - The Origin of Everything",
+    template: "%s | KORE By Socios",
   },
-  description: "KORE: Complete CRM Marketing Suite. The origin of everything — Files, Calendar, Contacts, Chat, Office, Voice, and Marketing Automation all in one powerful platform.",
+  description: "KORE By Socios: Complete CRM Marketing Suite. The origin of everything — Files, Calendar, Contacts, Chat, Office, Voice, and Marketing Automation all in one powerful platform.",
   keywords: [
     "CRM",
     "marketing automation",
@@ -51,10 +46,11 @@ export const metadata: Metadata = {
     "lead management",
     "sales pipeline",
     "KORE",
+    "Socios Del Negocio",
   ],
-  authors: [{ name: "KORE Team" }],
-  creator: "KORE",
-  publisher: "KORE",
+  authors: [{ name: "Socios Del Negocio" }],
+  creator: "KORE By Socios",
+  publisher: "Socios Del Negocio",
   robots: {
     index: true,
     follow: true,
@@ -71,24 +67,24 @@ export const metadata: Metadata = {
     locale: "en_US",
     alternateLocale: "es_ES",
     url: "https://kore.app",
-    title: "KORE - The Origin of Everything",
-    description: "Complete CRM Marketing Suite. Files, Calendar, Contacts, Chat, Office, Voice & Marketing Automation — all in one platform.",
-    siteName: "KORE",
+    title: "KORE By Socios - The Origin of Everything",
+    description: "Complete CRM Marketing Suite by Socios Del Negocio. Files, Calendar, Contacts, Chat, Office, Voice & Marketing Automation — all in one platform.",
+    siteName: "KORE By Socios",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "KORE - Complete CRM Marketing Suite",
+        alt: "KORE By Socios - Complete CRM Marketing Suite",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "KORE - The Origin of Everything",
-    description: "Complete CRM Marketing Suite. Files, Calendar, Contacts, Chat, Office, Voice & Marketing Automation.",
+    title: "KORE By Socios - The Origin of Everything",
+    description: "Complete CRM Marketing Suite by Socios Del Negocio. Files, Calendar, Contacts, Chat, Office, Voice & Marketing Automation.",
     images: ["/og-image.png"],
-    creator: "@kaborecr",
+    creator: "@sociosdelnegocio",
   },
   icons: {
     icon: [
@@ -121,7 +117,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${montserrat.variable} ${inter.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"

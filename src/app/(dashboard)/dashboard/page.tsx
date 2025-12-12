@@ -24,7 +24,7 @@ const modules = [
     description: "Files, Calendar, Contacts & More",
     icon: HardDrive,
     href: "/files",
-    color: "#00E5FF",
+    color: "#0046E2",
     stats: { label: "Files", value: "1,234" },
   },
   {
@@ -40,7 +40,7 @@ const modules = [
     description: "Telephony & Communications",
     icon: Phone,
     href: "/voice",
-    color: "#00E5FF",
+    color: "#0046E2",
     stats: { label: "Calls Today", value: "48" },
   },
   {
@@ -48,7 +48,7 @@ const modules = [
     description: "CRM & Relationships",
     icon: Link2,
     href: "/link",
-    color: "#FFB830",
+    color: "#0046E2",
     stats: { label: "Contacts", value: "892" },
   },
 ]
@@ -64,7 +64,7 @@ export default function DashboardPage() {
   const { user, organization } = useAuthStore()
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Header */}
       <div className="mb-8">
         <motion.div
@@ -89,22 +89,22 @@ export default function DashboardPage() {
         className="mb-8"
       >
         <Link href="/core">
-          <div className="relative overflow-hidden rounded-xl border border-[#00E5FF]/30 bg-gradient-to-r from-[#00E5FF]/20 via-[#00E5FF]/10 to-transparent p-6 hover:shadow-[0_0_30px_rgba(0,229,255,0.2)] transition-all group">
+          <div className="relative overflow-hidden rounded-xl border border-[#0046E2]/30 bg-gradient-to-r from-[#0046E2]/20 via-[#0046E2]/10 to-transparent p-6 hover:shadow-[0_0_30px_rgba(0,229,255,0.2)] transition-all group">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#00E5FF]/20 group-hover:bg-[#00E5FF]/30 transition-colors">
-                  <Brain className="h-7 w-7 text-[#00E5FF]" />
+                <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#0046E2]/20 group-hover:bg-[#0046E2]/30 transition-colors">
+                  <Brain className="h-7 w-7 text-[#0046E2]" />
                 </div>
                 <div>
                   <h2 className="text-xl font-semibold text-white">The Core</h2>
                   <p className="text-[#A1A1AA]">Ask the AI for insights, strategy suggestions, or help with any task</p>
                 </div>
               </div>
-              <ArrowUpRight className="h-6 w-6 text-[#00E5FF] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ArrowUpRight className="h-6 w-6 text-[#0046E2] opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             {/* Animated background */}
             <div className="absolute inset-0 -z-10">
-              <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#00E5FF]/10 blur-[80px]" />
+              <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#0046E2]/10 blur-[80px]" />
             </div>
           </div>
         </Link>
@@ -122,7 +122,7 @@ export default function DashboardPage() {
           return (
             <div
               key={stat.label}
-              className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-4"
+              className="rounded-xl border border-[#243178] bg-[#243178] p-4"
             >
               <div className="flex items-center justify-between">
                 <Icon className="h-5 w-5 text-[#A1A1AA]" />
@@ -154,7 +154,7 @@ export default function DashboardPage() {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] p-5 transition-all hover:border-opacity-50"
+                  className="group rounded-xl border border-[#243178] bg-[#243178] p-5 transition-all hover:border-opacity-50"
                   style={{ borderColor: `${module.color}30` }}
                 >
                   <div className="flex items-start justify-between">
@@ -190,7 +190,7 @@ export default function DashboardPage() {
         className="mt-8"
       >
         <h2 className="mb-4 text-lg font-semibold text-white">Recent Activity</h2>
-        <div className="rounded-xl border border-[#1F1F1F] bg-[#1F1F1F] divide-y divide-[#2A2A2A]">
+        <div className="rounded-xl border border-[#243178] bg-[#243178] divide-y divide-[#2d3c8a]">
           {[
             { action: "File uploaded", detail: "Q4-Report.pdf", time: "2 min ago", module: "Drive" },
             { action: "Campaign launched", detail: "Holiday Sale 2024", time: "1 hour ago", module: "Pulse" },
@@ -203,7 +203,7 @@ export default function DashboardPage() {
                 <p className="text-sm text-[#A1A1AA]">{item.detail}</p>
               </div>
               <div className="text-right">
-                <span className="text-xs text-[#00E5FF]">{item.module}</span>
+                <span className="text-xs text-[#0046E2]">{item.module}</span>
                 <p className="text-xs text-[#A1A1AA]">{item.time}</p>
               </div>
             </div>

@@ -18,13 +18,13 @@ interface CategoryBadgeProps {
 }
 
 const categoryConfig: Record<TaskCategory, { label: string; className: string; icon: typeof Megaphone }> = {
-  CAMPAIGN: { label: 'Campana', className: 'bg-[#00E5FF]/20 text-[#00E5FF]', icon: Megaphone },
+  CAMPAIGN: { label: 'Campana', className: 'bg-[#0046E2]/20 text-[#0046E2]', icon: Megaphone },
   CONTENT: { label: 'Contenido', className: 'bg-[#A78BFA]/20 text-[#A78BFA]', icon: FileText },
   SOCIAL: { label: 'Social', className: 'bg-[#FF4757]/20 text-[#FF4757]', icon: Share2 },
-  EVENT: { label: 'Evento', className: 'bg-[#00E5FF]/20 text-[#00E5FF]', icon: Calendar },
-  MEETING: { label: 'Reunion', className: 'bg-[#FFB830]/20 text-[#FFB830]', icon: Users },
-  ADMIN: { label: 'Admin', className: 'bg-[#2A2A2A] text-[#A1A1AA]', icon: Briefcase },
-  OTHER: { label: 'Otro', className: 'bg-[#2A2A2A] text-[#A1A1AA]', icon: MoreHorizontal }
+  EVENT: { label: 'Evento', className: 'bg-[#0046E2]/20 text-[#0046E2]', icon: Calendar },
+  MEETING: { label: 'Reunion', className: 'bg-[#0046E2]/20 text-[#0046E2]', icon: Users },
+  ADMIN: { label: 'Admin', className: 'bg-[#2d3c8a] text-[#A1A1AA]', icon: Briefcase },
+  OTHER: { label: 'Otro', className: 'bg-[#2d3c8a] text-[#A1A1AA]', icon: MoreHorizontal }
 }
 
 export default function CategoryBadge({ category, size = 'md', showIcon = true }: CategoryBadgeProps) {

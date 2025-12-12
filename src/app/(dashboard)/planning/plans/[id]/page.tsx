@@ -148,14 +148,14 @@ export default function PlanDetailPage() {
   const statusConfig: Record<ActionPlanStatus, { label: string; className: string }> = {
     DRAFT: { label: 'Borrador', className: 'bg-[#27272A] text-[#A1A1AA] border border-[#3F3F46]' },
     ACTIVE: { label: 'Activo', className: 'bg-[#00D68F]/10 text-[#00D68F] border border-[#00D68F]/20' },
-    COMPLETED: { label: 'Completado', className: 'bg-[#00E5FF]/10 text-[#00E5FF] border border-[#00E5FF]/20' },
-    ARCHIVED: { label: 'Archivado', className: 'bg-[#FFB830]/10 text-[#FFB830] border border-[#FFB830]/20' }
+    COMPLETED: { label: 'Completado', className: 'bg-[#0046E2]/10 text-[#0046E2] border border-[#0046E2]/20' },
+    ARCHIVED: { label: 'Archivado', className: 'bg-[#0046E2]/10 text-[#0046E2] border border-[#0046E2]/20' }
   }
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <Loader2 className="w-8 h-8 animate-spin text-[#00E5FF]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#0046E2]" />
       </div>
     )
   }
@@ -183,7 +183,7 @@ export default function PlanDetailPage() {
             <span className={`px-2.5 py-1 text-xs font-medium rounded-md ${statusConfig[plan.status].className}`}>
               {statusConfig[plan.status].label}
             </span>
-            <span className="text-2xl font-bold text-[#00E5FF]">{plan.year}</span>
+            <span className="text-2xl font-bold text-[#0046E2]">{plan.year}</span>
           </div>
           {plan.description && (
             <p className="text-[#A1A1AA] mt-1">{plan.description}</p>
@@ -207,10 +207,10 @@ export default function PlanDetailPage() {
             >
               <Settings className="w-4 h-4" />
             </Button>
-            <div className="absolute right-0 top-full mt-2 w-52 bg-[#0B0B0B] border border-[#27272A] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+            <div className="absolute right-0 top-full mt-2 w-52 bg-[#0f1a4a] border border-[#27272A] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
               <button
                 onClick={handleDeletePlan}
-                className="w-full px-4 py-2 text-left text-sm text-red-500 hover:bg-[#1F1F1F] rounded-lg flex items-center gap-2"
+                className="w-full px-4 py-2 text-left text-sm text-red-500 hover:bg-[#243178] rounded-lg flex items-center gap-2"
               >
                 <Trash2 className="w-4 h-4" />
                 Eliminar Plan
@@ -233,7 +233,7 @@ export default function PlanDetailPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#1F1F1F] rounded-xl p-4"
+          className="bg-[#243178] rounded-xl p-4"
         >
           <div className="flex items-center gap-3">
             <CheckSquare className="w-8 h-8 text-[#00D68F]" />
@@ -248,10 +248,10 @@ export default function PlanDetailPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-[#1F1F1F] rounded-xl p-4"
+          className="bg-[#243178] rounded-xl p-4"
         >
           <div className="flex items-center gap-3">
-            <BarChart3 className="w-8 h-8 text-[#00E5FF]" />
+            <BarChart3 className="w-8 h-8 text-[#0046E2]" />
             <div>
               <p className="text-2xl font-bold text-white">{plan.overallProgress}%</p>
               <p className="text-sm text-[#A1A1AA]">Progreso</p>
@@ -264,10 +264,10 @@ export default function PlanDetailPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-[#1F1F1F] rounded-xl p-4"
+            className="bg-[#243178] rounded-xl p-4"
           >
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-[#00E5FF]" />
+              <Calendar className="w-8 h-8 text-[#0046E2]" />
               <div>
                 <p className="text-lg font-bold text-white">{formatDate(plan.startDate)}</p>
                 <p className="text-sm text-[#A1A1AA]">Inicio</p>
@@ -281,10 +281,10 @@ export default function PlanDetailPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-[#1F1F1F] rounded-xl p-4"
+            className="bg-[#243178] rounded-xl p-4"
           >
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-[#FFB830]" />
+              <Calendar className="w-8 h-8 text-[#0046E2]" />
               <div>
                 <p className="text-lg font-bold text-white">{formatDate(plan.endDate)}</p>
                 <p className="text-sm text-[#A1A1AA]">Fin</p>
@@ -295,10 +295,10 @@ export default function PlanDetailPage() {
       </div>
 
       {/* Progress Bar */}
-      <div className="bg-[#1F1F1F] rounded-xl p-4 mb-6">
+      <div className="bg-[#243178] rounded-xl p-4 mb-6">
         <div className="flex items-center justify-between mb-2">
           <span className="font-medium text-white">Progreso General</span>
-          <span className="font-bold text-[#00E5FF]">{plan.overallProgress}%</span>
+          <span className="font-bold text-[#0046E2]">{plan.overallProgress}%</span>
         </div>
         <ProgressBar progress={plan.overallProgress} size="lg" showLabel={false} />
       </div>

@@ -8,9 +8,9 @@ interface StatusBadgeProps {
 }
 
 const statusConfig: Record<TaskStatus, { label: string; className: string }> = {
-  PENDING: { label: 'Pendiente', className: 'bg-[#2A2A2A] text-[#A1A1AA]' },
-  IN_PROGRESS: { label: 'En Progreso', className: 'bg-[#00E5FF]/20 text-[#00E5FF]' },
-  ON_HOLD: { label: 'En Espera', className: 'bg-[#FFB830]/20 text-[#FFB830]' },
+  PENDING: { label: 'Pendiente', className: 'bg-[#2d3c8a] text-[#A1A1AA]' },
+  IN_PROGRESS: { label: 'En Progreso', className: 'bg-[#0046E2]/20 text-[#0046E2]' },
+  ON_HOLD: { label: 'En Espera', className: 'bg-[#0046E2]/20 text-[#0046E2]' },
   COMPLETED: { label: 'Completado', className: 'bg-[#00D68F]/20 text-[#00D68F]' },
   CANCELLED: { label: 'Cancelado', className: 'bg-[#FF4757]/20 text-[#FF4757]' }
 }

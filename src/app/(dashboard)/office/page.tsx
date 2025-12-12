@@ -54,7 +54,7 @@ interface Document {
 }
 
 const documentTypes: { type: DocumentType; label: string; icon: typeof FileText; color: string }[] = [
-  { type: "document", label: "Document", icon: FileText, color: "#00E5FF" },
+  { type: "document", label: "Document", icon: FileText, color: "#0046E2" },
   { type: "spreadsheet", label: "Spreadsheet", icon: Table2, color: "#00D68F" },
   { type: "presentation", label: "Presentation", icon: Presentation, color: "#FF4757" },
 ]

@@ -158,7 +158,7 @@ export function ZeroNoiseDashboard() {
   const collapsedModules = visibleModules.filter((m) => !m.isExpanded)
 
   return (
-    <div className="min-h-full bg-[#0B0B0B] p-6">
+    <div className="min-h-full bg-[#0f1a4a] p-6">
       {/* Header with Command Bar */}
       <div className="mb-8">
         <motion.div

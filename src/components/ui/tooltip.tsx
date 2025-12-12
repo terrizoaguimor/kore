@@ -21,7 +21,7 @@ const TooltipContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 overflow-hidden rounded-lg bg-[#1A1A1A] border border-white/10 px-3 py-2 text-sm text-white shadow-xl",
+        "z-50 overflow-hidden rounded-lg bg-[#1b2d7c] border border-white/10 px-3 py-2 text-sm text-white shadow-xl",
         "animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
         "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         className
@@ -37,7 +37,7 @@ const TooltipContent = React.forwardRef<
         />
       )}
       {children}
-      <TooltipPrimitive.Arrow className="fill-[#1A1A1A]" />
+      <TooltipPrimitive.Arrow className="fill-[#1b2d7c]" />
     </TooltipPrimitive.Content>
   </TooltipPrimitive.Portal>
 ))
@@ -99,7 +99,7 @@ function FeatureTooltip({
   children,
   title,
   description,
-  gradient = "from-[#00E5FF] to-[#0EA5E9]",
+  gradient = "from-[#0046E2] to-[#1A5AE8]",
   side = "right",
   icon,
 }: FeatureTooltipProps) {
@@ -114,7 +114,7 @@ function FeatureTooltip({
         <div className={cn("absolute inset-0 rounded-lg opacity-30 bg-gradient-to-br", gradient)} />
 
         {/* Content */}
-        <div className="relative p-3 bg-[#1A1A1A] m-[1px] rounded-[7px]">
+        <div className="relative p-3 bg-[#1b2d7c] m-[1px] rounded-[7px]">
           <div className="flex items-start gap-3">
             {icon && (
               <div className={cn(
