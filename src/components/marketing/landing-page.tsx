@@ -45,7 +45,6 @@ import {
   Cloud,
 } from "lucide-react"
 import { NeuralNetworkField } from "@/components/effects/neural-network-field"
-import { FeaturesScrollStack } from "@/components/marketing/features-scroll-stack"
 import { createClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
 
@@ -112,6 +111,12 @@ export default function LandingPage() {
 
   const heroRef = useRef<HTMLDivElement>(null)
   const featuresRef = useRef<HTMLDivElement>(null)
+  const coreRef = useRef<HTMLDivElement>(null)
+  const driveRef = useRef<HTMLDivElement>(null)
+  const calendarRef = useRef<HTMLDivElement>(null)
+  const contactsRef = useRef<HTMLDivElement>(null)
+  const talkRef = useRef<HTMLDivElement>(null)
+  const tasksRef = useRef<HTMLDivElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
 
   // Detect mobile device
@@ -270,6 +275,298 @@ export default function LandingPage() {
         }
       )
 
+      // The Core section - Pin and reveal (desktop only)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: coreRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("core"),
+        })
+      }
+
+      gsap.fromTo(
+        ".core-title",
+        { opacity: 0, x: -100 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: coreRef.current,
+            start: "top 60%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      gsap.fromTo(
+        ".core-mockup",
+        { opacity: 0, x: 100, scale: 0.8, rotateY: -15 },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          rotateY: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: coreRef.current,
+            start: "top 50%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      gsap.fromTo(
+        ".core-feature",
+        { opacity: 0, y: 30, x: -20 },
+        {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: coreRef.current,
+            start: "top 40%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      // Drive section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: driveRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("drive"),
+        })
+      }
+
+      gsap.fromTo(
+        ".drive-content",
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: driveRef.current,
+            start: "top 60%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      gsap.fromTo(
+        ".file-item",
+        { opacity: 0, x: -50, rotateY: 10 },
+        {
+          opacity: 1,
+          x: 0,
+          rotateY: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: driveRef.current,
+            start: "top 40%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      // Calendar section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: calendarRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("calendar"),
+        })
+      }
+
+      gsap.fromTo(
+        ".calendar-content",
+        { opacity: 0, scale: 0.9 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: calendarRef.current,
+            start: "top 60%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      gsap.fromTo(
+        ".event-item",
+        { opacity: 0, y: 20, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: calendarRef.current,
+            start: "top 40%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      // Contacts section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: contactsRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("contacts"),
+        })
+      }
+
+      gsap.fromTo(
+        ".contacts-content",
+        { opacity: 0, x: -100 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: contactsRef.current,
+            start: "top 60%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      gsap.fromTo(
+        ".contact-card",
+        { opacity: 0, scale: 0.8, rotateX: 20 },
+        {
+          opacity: 1,
+          scale: 1,
+          rotateX: 0,
+          duration: 0.5,
+          stagger: 0.15,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: contactsRef.current,
+            start: "top 40%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      // Talk section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: talkRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("talk"),
+        })
+      }
+
+      gsap.fromTo(
+        ".talk-content",
+        { opacity: 0, y: 100 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: talkRef.current,
+            start: "top 60%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      gsap.fromTo(
+        ".message-item",
+        { opacity: 0, x: 50, scale: 0.9 },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.4,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: talkRef.current,
+            start: "top 40%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      // Tasks section (desktop only pin)
+      if (!isMobileDevice) {
+        ScrollTrigger.create({
+          trigger: tasksRef.current,
+          start: "top top",
+          end: "+=100%",
+          pin: true,
+          pinSpacing: true,
+          onEnter: () => setActiveSection("tasks"),
+        })
+      }
+
+      gsap.fromTo(
+        ".tasks-content",
+        { opacity: 0, scale: 0.9 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: tasksRef.current,
+            start: "top 60%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      gsap.fromTo(
+        ".task-item",
+        { opacity: 0, x: -30 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.4,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: tasksRef.current,
+            start: "top 40%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
 
       // CTA section
       gsap.fromTo(
@@ -566,10 +863,646 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Features Scroll Stack */}
-      <div id="features" ref={featuresRef}>
-        <FeaturesScrollStack />
-      </div>
+      {/* Features Overview */}
+      <section
+        ref={featuresRef}
+        id="features"
+        className="py-20 sm:py-32 px-4 sm:px-6 relative overflow-hidden"
+      >
+        {/* Background elements */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#00E5FF]/50 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#FFB830]/50 to-transparent" />
+
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00E5FF]/10 border border-[#00E5FF]/20 mb-4">
+              <Sparkles className="h-4 w-4 text-[#00E5FF]" />
+              <span className="text-sm text-[#00E5FF]">Why Choose KORE</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
+              Everything you need, <span className="bg-gradient-to-r from-[#00E5FF] to-[#FFB830] bg-clip-text text-transparent">unified</span>
+            </h2>
+            <p className="text-base sm:text-lg text-[#A1A1AA] max-w-2xl mx-auto">
+              One platform to manage files, schedule meetings, communicate with your team, and get AI-powered insights.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {features.map((feature, index) => {
+              const Icon = feature.icon
+              return (
+                <div
+                  key={index}
+                  className="feature-card group p-5 sm:p-6 rounded-2xl bg-gradient-to-b from-white/5 to-transparent border border-white/10 hover:border-[#00E5FF]/30 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-[#00E5FF]/10 cursor-pointer"
+                >
+                  <div className={cn(
+                    "h-12 w-12 sm:h-14 sm:w-14 rounded-xl bg-gradient-to-br flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg",
+                    feature.gradient
+                  )}>
+                    <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-[#00E5FF] transition-colors">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-[#A1A1AA]">{feature.description}</p>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Stats Section */}
+          <div className="stats-section mt-16 sm:mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="stat-item text-center p-4 sm:p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#00E5FF]/30 transition-all hover:scale-105">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#00E5FF] to-[#FFB830] bg-clip-text text-transparent mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm sm:text-base text-[#A1A1AA]">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The Core Section */}
+      <section
+        ref={coreRef}
+        id="core"
+        className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
+      >
+        {/* Background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[400px] sm:h-[800px] bg-[#00E5FF]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+          <div className="order-2 lg:order-1">
+            <div className="core-title">
+              <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#00E5FF] to-[#0EA5E9] flex items-center justify-center shadow-lg shadow-[#00E5FF]/30">
+                  <Brain className="h-5 w-5 sm:h-6 sm:w-6 text-[#0B0B0B]" />
+                </div>
+                <span className="text-[#00E5FF] font-semibold text-base sm:text-lg">THE CORE</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
+                Your <span className="bg-gradient-to-r from-[#00E5FF] to-[#8B5CF6] bg-clip-text text-transparent">AI-Powered</span> Command Center
+              </h2>
+              <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
+                Ask anything. Get intelligent answers. The Core understands your data across all modules and provides actionable insights in seconds.
+              </p>
+            </div>
+
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                { icon: Sparkles, text: "Natural language queries across all your data" },
+                { icon: TrendingUp, text: "AI-powered analytics and trend predictions" },
+                { icon: Bot, text: "Automated workflows and smart suggestions" },
+                { icon: BarChart3, text: "Real-time insights from your organization" },
+              ].map((item, index) => {
+                const Icon = item.icon
+                return (
+                  <div key={index} className="core-feature flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#00E5FF]/30 hover:bg-white/10 transition-all group cursor-pointer">
+                    <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-gradient-to-br from-[#00E5FF]/20 to-transparent flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#00E5FF]" />
+                    </div>
+                    <span className="text-sm sm:text-base text-white">{item.text}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Core Mockup */}
+          <div className="core-mockup order-1 lg:order-2">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#00E5FF]/30 via-[#8B5CF6]/20 to-[#FFB830]/30 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 p-4 sm:p-6 shadow-2xl">
+                <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-[#00E5FF]/20 flex items-center justify-center">
+                    <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-[#00E5FF]" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium text-sm sm:text-base">The Core</p>
+                    <p className="text-[10px] sm:text-xs text-[#A1A1AA]">AI Assistant</p>
+                  </div>
+                </div>
+
+                {/* Chat mockup */}
+                <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+                  <div className="flex justify-end">
+                    <div className="bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] text-[#0B0B0B] rounded-2xl rounded-br-md px-3 sm:px-4 py-2 max-w-[85%]">
+                      <p className="text-xs sm:text-sm">What were our top performing campaigns last quarter?</p>
+                    </div>
+                  </div>
+                  <div className="flex justify-start">
+                    <div className="bg-[#2A2A2A] text-white rounded-2xl rounded-bl-md px-3 sm:px-4 py-3 max-w-[90%]">
+                      <p className="text-xs sm:text-sm mb-2">Based on your analytics data, here are your top 3 campaigns from Q3:</p>
+                      <div className="space-y-2">
+                        {[
+                          { color: "#00E5FF", text: "Summer Sale - 245% ROI" },
+                          { color: "#FFB830", text: "Product Launch - 189% ROI" },
+                          { color: "#10B981", text: "Email Nurture - 156% ROI" },
+                        ].map((item, i) => (
+                          <div key={i} className="flex items-center gap-2 text-[10px] sm:text-xs group cursor-pointer hover:translate-x-1 transition-transform">
+                            <div className="h-2 w-2 rounded-full" style={{ backgroundColor: item.color }} />
+                            <span>{item.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 sm:gap-3 bg-[#2A2A2A] rounded-xl px-3 sm:px-4 py-2.5 sm:py-3 group hover:ring-2 hover:ring-[#00E5FF]/30 transition-all">
+                  <input
+                    type="text"
+                    placeholder="Ask The Core anything..."
+                    className="flex-1 bg-transparent text-xs sm:text-sm text-white placeholder:text-[#A1A1AA] outline-none"
+                    disabled
+                  />
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-r from-[#00E5FF] to-[#0EA5E9] flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4 text-[#0B0B0B]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Drive Section */}
+      <section
+        ref={driveRef}
+        id="drive"
+        className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
+      >
+        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#FFB830]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+          {/* Drive Mockup */}
+          <div className="drive-content">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#FFB830]/30 to-[#F59E0B]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+                {/* Header */}
+                <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <HardDrive className="h-4 w-4 sm:h-5 sm:w-5 text-[#FFB830]" />
+                    <span className="text-white font-medium text-sm sm:text-base">KORE Drive</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer">
+                      <Search className="h-3 w-3 sm:h-4 sm:w-4 text-[#A1A1AA]" />
+                    </div>
+                    <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors cursor-pointer">
+                      <Share2 className="h-3 w-3 sm:h-4 sm:w-4 text-[#A1A1AA]" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* File list */}
+                <div className="p-3 sm:p-4 space-y-1 sm:space-y-2">
+                  {mockFiles.map((file, index) => (
+                    <div
+                      key={index}
+                      className="file-item flex items-center gap-3 sm:gap-4 p-2.5 sm:p-3 rounded-lg hover:bg-white/5 transition-all cursor-pointer group"
+                    >
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-lg bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        {getFileIcon(file.type)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-white text-xs sm:text-sm font-medium truncate group-hover:text-[#FFB830] transition-colors">{file.name}</p>
+                        <p className="text-[10px] sm:text-xs text-[#A1A1AA]">
+                          {file.type === "folder" ? `${file.items} items` : file.size} • {file.modified}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Storage indicator */}
+                <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-white/10">
+                  <div className="flex items-center justify-between text-[10px] sm:text-xs text-[#A1A1AA] mb-2">
+                    <span>Storage used</span>
+                    <span>24.5 GB of 100 GB</span>
+                  </div>
+                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full w-1/4 bg-gradient-to-r from-[#FFB830] to-[#00E5FF] rounded-full" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#FFB830] to-[#F59E0B] flex items-center justify-center shadow-lg shadow-[#FFB830]/30">
+                <HardDrive className="h-5 w-5 sm:h-6 sm:w-6 text-[#0B0B0B]" />
+              </div>
+              <span className="text-[#FFB830] font-semibold text-base sm:text-lg">KORE DRIVE</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
+              All Your Files, <span className="bg-gradient-to-r from-[#FFB830] to-[#F59E0B] bg-clip-text text-transparent">One Secure Place</span>
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
+              Store, share, and collaborate on files with enterprise-grade security. Access everything from anywhere, on any device.
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {[
+                { icon: FolderOpen, text: "Smart organization" },
+                { icon: Share2, text: "Secure sharing" },
+                { icon: Search, text: "Instant search" },
+                { icon: Shield, text: "End-to-end encryption" },
+              ].map((item, index) => {
+                const Icon = item.icon
+                return (
+                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#FFB830]/30 hover:bg-white/10 transition-all cursor-pointer group">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#FFB830] group-hover:scale-110 transition-transform" />
+                    <span className="text-white text-xs sm:text-sm">{item.text}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Calendar Section */}
+      <section
+        ref={calendarRef}
+        id="calendar"
+        className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
+      >
+        <div className="absolute top-1/2 left-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#10B981]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+          <div className="order-2 lg:order-1">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#10B981] to-[#059669] flex items-center justify-center shadow-lg shadow-[#10B981]/30">
+                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+              </div>
+              <span className="text-[#10B981] font-semibold text-base sm:text-lg">KORE CALENDAR</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
+              Master <span className="bg-gradient-to-r from-[#10B981] to-[#059669] bg-clip-text text-transparent">Your Time</span>
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
+              Schedule meetings, set reminders, and coordinate with your team effortlessly. Smart scheduling that respects everyone&apos;s time.
+            </p>
+
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                "Drag-and-drop scheduling",
+                "Team availability at a glance",
+                "Smart meeting suggestions",
+                "Automatic timezone conversion",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-3 group cursor-pointer">
+                  <div className="h-2 w-2 rounded-full bg-[#10B981] group-hover:scale-150 transition-transform" />
+                  <span className="text-sm sm:text-base text-white group-hover:text-[#10B981] transition-colors">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Calendar Mockup */}
+          <div className="calendar-content order-1 lg:order-2">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#10B981]/30 to-[#059669]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+                <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-[#10B981]" />
+                    <span className="text-white font-medium text-sm sm:text-base">December 2024</span>
+                  </div>
+                  <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-[#A1A1AA]">
+                    <span className="hover:text-white cursor-pointer transition-colors">Week</span>
+                    <span className="text-white bg-white/10 px-2 py-1 rounded">Day</span>
+                    <span className="hover:text-white cursor-pointer transition-colors">Month</span>
+                  </div>
+                </div>
+
+                <div className="p-4 sm:p-6">
+                  <div className="text-[10px] sm:text-xs text-[#A1A1AA] mb-3 sm:mb-4">MONDAY, DEC 9</div>
+                  <div className="space-y-2 sm:space-y-3">
+                    {mockEvents.map((event, index) => (
+                      <div
+                        key={index}
+                        className="event-item flex items-center gap-3 sm:gap-4 p-2.5 sm:p-3 rounded-lg bg-white/5 border-l-4 hover:bg-white/10 transition-all cursor-pointer group"
+                        style={{ borderColor: event.color }}
+                      >
+                        <div className="flex-1">
+                          <p className="text-white font-medium text-xs sm:text-sm group-hover:translate-x-1 transition-transform">{event.title}</p>
+                          <p className="text-[10px] sm:text-xs text-[#A1A1AA]">
+                            {event.time} • {event.duration}
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <div className="flex -space-x-2">
+                            {Array.from({ length: Math.min(event.attendees, 3) }).map((_, i) => (
+                              <div
+                                key={i}
+                                className="h-5 w-5 sm:h-6 sm:w-6 rounded-full bg-white/20 border-2 border-[#1F1F1F]"
+                              />
+                            ))}
+                          </div>
+                          {event.attendees > 3 && (
+                            <span className="text-[10px] sm:text-xs text-[#A1A1AA]">+{event.attendees - 3}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contacts Section */}
+      <section
+        ref={contactsRef}
+        id="contacts"
+        className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
+      >
+        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#8B5CF6]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+          {/* Contacts Mockup */}
+          <div className="contacts-content">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#8B5CF6]/30 to-[#7C3AED]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl p-4 sm:p-6">
+                <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+                  <Users className="h-4 w-4 sm:h-5 sm:w-5 text-[#8B5CF6]" />
+                  <span className="text-white font-medium text-sm sm:text-base">KORE Contacts</span>
+                </div>
+
+                <div className="grid gap-3 sm:gap-4">
+                  {mockContacts.map((contact, index) => (
+                    <div
+                      key={index}
+                      className="contact-card flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all cursor-pointer group"
+                    >
+                      <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-gradient-to-br from-[#8B5CF6] to-[#00E5FF] flex items-center justify-center text-white font-semibold text-sm sm:text-base group-hover:scale-110 transition-transform">
+                        {contact.avatar}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-white font-medium text-sm sm:text-base">{contact.name}</p>
+                        <p className="text-xs sm:text-sm text-[#A1A1AA]">{contact.role}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#00E5FF]/20 transition-colors">
+                          <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-[#A1A1AA]" />
+                        </div>
+                        <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/5 flex items-center justify-center hover:bg-[#00E5FF]/20 transition-colors">
+                          <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-[#A1A1AA]" />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#8B5CF6] to-[#7C3AED] flex items-center justify-center shadow-lg shadow-[#8B5CF6]/30">
+                <Users className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+              </div>
+              <span className="text-[#8B5CF6] font-semibold text-base sm:text-lg">KORE CONTACTS</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
+              Your Network, <span className="bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] bg-clip-text text-transparent">Organized</span>
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
+              Keep all your contacts in one place. Rich profiles, smart groups, and instant access to connect with anyone.
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {[
+                { icon: Users, text: "Smart groups" },
+                { icon: Search, text: "Quick search" },
+                { icon: Mail, text: "One-click contact" },
+                { icon: MapPin, text: "Location info" },
+              ].map((item, index) => {
+                const Icon = item.icon
+                return (
+                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#8B5CF6]/30 hover:bg-white/10 transition-all cursor-pointer group">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#8B5CF6] group-hover:scale-110 transition-transform" />
+                    <span className="text-white text-xs sm:text-sm">{item.text}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Talk Section */}
+      <section
+        ref={talkRef}
+        id="talk"
+        className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
+      >
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[400px] sm:h-[800px] bg-[#EC4899]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+          <div className="order-2 lg:order-1">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#EC4899] to-[#DB2777] flex items-center justify-center shadow-lg shadow-[#EC4899]/30">
+                <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+              </div>
+              <span className="text-[#EC4899] font-semibold text-base sm:text-lg">KORE TALK</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
+              Connect <span className="bg-gradient-to-r from-[#EC4899] to-[#DB2777] bg-clip-text text-transparent">Instantly</span>
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
+              Real-time messaging, HD video calls, and seamless collaboration. Stay connected with your team wherever you are.
+            </p>
+
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                "Instant messaging with threads",
+                "Crystal-clear video calls",
+                "Screen sharing & recording",
+                "File sharing in conversations",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-3 group cursor-pointer">
+                  <div className="h-2 w-2 rounded-full bg-[#EC4899] group-hover:scale-150 transition-transform" />
+                  <span className="text-sm sm:text-base text-white group-hover:text-[#EC4899] transition-colors">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Talk Mockup */}
+          <div className="talk-content order-1 lg:order-2">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#EC4899]/30 to-[#DB2777]/20 rounded-2xl blur-xl opacity-50" />
+              <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+                <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 text-[#EC4899]" />
+                    <span className="text-white font-medium text-sm sm:text-base">Messages</span>
+                  </div>
+                  <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-[#EC4899] flex items-center justify-center">
+                    <Bell className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+                  </div>
+                </div>
+
+                <div className="p-3 sm:p-4 space-y-2 sm:space-y-3">
+                  {mockMessages.map((msg, index) => (
+                    <div
+                      key={index}
+                      className="message-item flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg hover:bg-white/5 transition-all cursor-pointer group"
+                    >
+                      <div className={`h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-medium flex-shrink-0 group-hover:scale-110 transition-transform ${msg.isGroup ? 'bg-gradient-to-br from-[#EC4899] to-[#8B5CF6]' : 'bg-gradient-to-br from-[#00E5FF] to-[#10B981]'}`}>
+                        {msg.avatar}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-white font-medium text-xs sm:text-sm">{msg.sender}</p>
+                          <span className="text-[10px] sm:text-xs text-[#A1A1AA]">{msg.time}</span>
+                        </div>
+                        <p className="text-xs sm:text-sm text-[#A1A1AA] truncate">{msg.message}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Video call preview */}
+                <div className="p-3 sm:p-4 border-t border-white/10">
+                  <div className="rounded-xl bg-gradient-to-br from-[#EC4899]/20 to-[#8B5CF6]/20 p-3 sm:p-4 flex items-center justify-between">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#EC4899] flex items-center justify-center animate-pulse">
+                        <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-white text-xs sm:text-sm font-medium">Incoming call</p>
+                        <p className="text-[10px] sm:text-xs text-[#A1A1AA]">Design Team</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-[#10B981] flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                        <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                      </div>
+                      <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-red-500 flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                        <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-white rotate-[135deg]" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tasks Section */}
+      <section
+        ref={tasksRef}
+        id="tasks"
+        className="min-h-screen flex items-center px-4 sm:px-6 relative overflow-hidden"
+      >
+        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#F59E0B]/10 rounded-full blur-[100px] sm:blur-[150px]" />
+
+        <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
+          {/* Tasks Mockup */}
+          <div className="tasks-content">
+            <div className="grid gap-4 sm:gap-6">
+              {/* Tasks Card */}
+              <div className="relative">
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#F59E0B]/30 to-[#D97706]/20 rounded-2xl blur-xl opacity-50" />
+                <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+                  <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center gap-2 sm:gap-3">
+                    <CheckSquare className="h-4 w-4 sm:h-5 sm:w-5 text-[#F59E0B]" />
+                    <span className="text-white font-medium text-sm sm:text-base">Tasks</span>
+                  </div>
+                  <div className="p-3 sm:p-4 space-y-2">
+                    {mockTasks.map((task, index) => (
+                      <div
+                        key={index}
+                        className="task-item flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer group"
+                      >
+                        <div className={`h-4 w-4 sm:h-5 sm:w-5 rounded border-2 flex items-center justify-center transition-all ${task.status === 'done' ? 'bg-[#10B981] border-[#10B981]' : 'border-white/30 group-hover:border-[#F59E0B]'}`}>
+                          {task.status === 'done' && (
+                            <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-white" />
+                          )}
+                        </div>
+                        <span className={`flex-1 text-xs sm:text-sm ${task.status === 'done' ? 'text-[#A1A1AA] line-through' : 'text-white'}`}>
+                          {task.title}
+                        </span>
+                        <span className={`text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 rounded-full ${
+                          task.priority === 'high' ? 'bg-red-500/20 text-red-400' :
+                          task.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                          'bg-gray-500/20 text-gray-400'
+                        }`}>
+                          {task.priority}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Notes Card */}
+              <div className="relative">
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#F59E0B]/20 to-[#D97706]/10 rounded-2xl blur-xl opacity-50" />
+                <div className="relative rounded-2xl bg-[#1F1F1F] border border-white/10 overflow-hidden shadow-2xl">
+                  <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center gap-2 sm:gap-3">
+                    <StickyNote className="h-4 w-4 sm:h-5 sm:w-5 text-[#F59E0B]" />
+                    <span className="text-white font-medium text-sm sm:text-base">Quick Note</span>
+                  </div>
+                  <div className="p-3 sm:p-4">
+                    <div className="bg-white/5 rounded-lg p-3 sm:p-4 hover:bg-white/10 transition-all cursor-pointer">
+                      <p className="text-white text-xs sm:text-sm mb-2 font-medium">Meeting Notes - Q4 Planning</p>
+                      <p className="text-[#A1A1AA] text-xs sm:text-sm leading-relaxed">
+                        Key takeaways from today&apos;s session:
+                        <br />• Focus on user retention
+                        <br />• Launch new features by Dec 15
+                        <br />• Schedule follow-up with marketing
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#F59E0B] to-[#D97706] flex items-center justify-center shadow-lg shadow-[#F59E0B]/30">
+                <CheckSquare className="h-5 w-5 sm:h-6 sm:w-6 text-[#0B0B0B]" />
+              </div>
+              <span className="text-[#F59E0B] font-semibold text-base sm:text-lg">TASKS & NOTES</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6">
+              Stay <span className="bg-gradient-to-r from-[#F59E0B] to-[#D97706] bg-clip-text text-transparent">on Track</span>
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-[#A1A1AA] mb-6 sm:mb-8">
+              Manage tasks with Kanban boards, capture ideas with rich notes, and never miss a deadline again.
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {[
+                { icon: CheckSquare, text: "Kanban boards" },
+                { icon: StickyNote, text: "Rich text notes" },
+                { icon: Bell, text: "Due date alerts" },
+                { icon: Users, text: "Team assignments" },
+              ].map((item, index) => {
+                const Icon = item.icon
+                return (
+                  <div key={index} className="flex items-center gap-2 sm:gap-3 p-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#F59E0B]/30 hover:bg-white/10 transition-all cursor-pointer group">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-[#F59E0B] group-hover:scale-110 transition-transform" />
+                    <span className="text-white text-xs sm:text-sm">{item.text}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section
