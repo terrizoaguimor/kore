@@ -86,7 +86,7 @@ function LoginForm() {
   const particleColor = isDark ? "#0046E2" : "#0046E2"
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-[#0f1a4a]">
       {/* Theme and Language toggles */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-2">
         <LanguageSwitcher />
@@ -94,7 +94,7 @@ function LoginForm() {
       </div>
 
       {/* Left side - Login form */}
-      <div className="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-16 xl:px-24">
+      <div className="flex w-full flex-col justify-center px-6 py-12 lg:w-1/2 lg:px-16 xl:px-24 bg-[#0f1a4a]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -136,7 +136,7 @@ function LoginForm() {
                     autoComplete="email"
                     disabled={isLoading}
                     {...register("email")}
-                    className="block w-full rounded-lg bg-card px-4 py-3 text-sm text-foreground border border-border placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all disabled:opacity-50"
+                    className="block w-full rounded-lg bg-[#1b2d7c] px-4 py-3 text-sm text-white border border-white/10 placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all disabled:opacity-50"
                     placeholder={t("auth.login.emailPlaceholder")}
                   />
                   {errors.email && (
@@ -160,7 +160,7 @@ function LoginForm() {
                     autoComplete="current-password"
                     disabled={isLoading}
                     {...register("password")}
-                    className="block w-full rounded-lg bg-card px-4 py-3 text-sm text-foreground border border-border placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all disabled:opacity-50 pr-12"
+                    className="block w-full rounded-lg bg-[#1b2d7c] px-4 py-3 text-sm text-white border border-white/10 placeholder:text-[#A1A1AA] focus:outline-none focus:ring-2 focus:ring-[#0046E2]/50 focus:border-[#0046E2] transition-all disabled:opacity-50 pr-12"
                     placeholder={t("auth.login.passwordPlaceholder")}
                   />
                   <button
@@ -189,7 +189,7 @@ function LoginForm() {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="h-4 w-4 rounded border-border bg-card text-primary focus:ring-primary/50"
+                    className="h-4 w-4 rounded border-white/10 bg-[#1b2d7c] text-[#0046E2] focus:ring-[#0046E2]/50"
                   />
                   <label
                     htmlFor="remember-me"
@@ -231,7 +231,7 @@ function LoginForm() {
                   <div className="w-full border-t border-border" />
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="bg-background px-4 text-muted-foreground">
+                  <span className="bg-[#0f1a4a] px-4 text-muted-foreground">
                     {t("auth.login.orContinueWith")}
                   </span>
                 </div>
@@ -242,7 +242,7 @@ function LoginForm() {
                 <button
                   type="button"
                   onClick={() => handleOAuthLogin("google")}
-                  className="flex w-full items-center justify-center gap-3 rounded-lg bg-card px-4 py-3 text-sm font-semibold text-foreground border border-border hover:bg-secondary hover:border-border transition-all"
+                  className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1b2d7c] px-4 py-3 text-sm font-semibold text-white border border-white/10 hover:bg-[#243178] hover:border-white/20 transition-all"
                 >
                   <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
                     <path
@@ -268,7 +268,7 @@ function LoginForm() {
                 <button
                   type="button"
                   onClick={() => handleOAuthLogin("github")}
-                  className="flex w-full items-center justify-center gap-3 rounded-lg bg-card px-4 py-3 text-sm font-semibold text-foreground border border-border hover:bg-secondary hover:border-border transition-all"
+                  className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1b2d7c] px-4 py-3 text-sm font-semibold text-white border border-white/10 hover:bg-[#243178] hover:border-white/20 transition-all"
                 >
                   <svg
                     fill="currentColor"
@@ -291,7 +291,7 @@ function LoginForm() {
       </div>
 
       {/* Right side - Visual panel with interactive particles */}
-      <div className="relative hidden lg:block lg:w-1/2 bg-card overflow-hidden">
+      <div className="relative hidden lg:block lg:w-1/2 bg-[#1b2d7c] overflow-hidden">
         {/* Interactive neural network field */}
         <NeuralNetworkField
           particleCount={500}
@@ -399,7 +399,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="flex min-h-screen items-center justify-center bg-[#0f1a4a]">
           <div className="flex items-center gap-3">
             <Loader2 className="h-6 w-6 animate-spin text-primary" />
             <span className="text-muted-foreground">{t("common.loading")}</span>
