@@ -12,6 +12,7 @@ import {
   Eye,
   Pencil,
   Trash2,
+  Download,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -54,7 +55,6 @@ interface CRMDataTableProps<T extends { id: string }> {
   selectedItems?: string[]
   onSelectionChange?: (ids: string[]) => void
   emptyMessage?: string
-  accentColor?: string
   customActions?: (item: T) => React.ReactNode
 }
 
@@ -71,7 +71,6 @@ export function CRMDataTable<T extends { id: string }>({
   selectedItems = [],
   onSelectionChange,
   emptyMessage = "No items found",
-  accentColor = "#F39C12",
   customActions,
 }: CRMDataTableProps<T>) {
   const [searchQuery, setSearchQuery] = useState("")
@@ -111,43 +110,77 @@ export function CRMDataTable<T extends { id: string }>({
       {/* Search and filters */}
       <div className="flex items-center gap-4">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#A1A1AA]" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder={searchPlaceholder}
             value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
-            className="pl-10 bg-[#243178] border-[#2d3c8a] text-white placeholder:text-[#A1A1AA] focus:border-[#F39C12]"
+            className="pl-10 bg-background border-input text-foreground placeholder:text-muted-foreground focus:ring-primary"
           />
         </div>
-        <Button variant="outline" className="border-[#2d3c8a] bg-[#243178] text-[#A1A1AA] hover:text-white hover:bg-[#2d3c8a]">
-          <Filter className="mr-2 h-4 w-4" />
-          Filter
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            className="border-input bg-background text-muted-foreground hover:text-foreground hover:bg-accent"
+            onClick={() => {
+              // Simple CSV Export Logic
+              if (!data.length) return
+
+              const headers = columns.map(c => c.label).join(",")
+              const rows = data.map(item =>
+                columns.map(c => {
+                  const val = (item as any)[c.key]
+                  return `"${String(val || "").replace(/"/g, '""')}"`
+                }).join(",")
+              )
+
+              const csvContent = [headers, ...rows].join("\n")
+              const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+              const link = document.createElement("a")
+              if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob)
+                link.setAttribute("href", url)
+                link.setAttribute("download", "export.csv")
+                link.style.visibility = "hidden"
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+              }
+            }}
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Export CSV
+          </Button>
+          <Button variant="outline" className="border-input bg-background text-muted-foreground hover:text-foreground hover:bg-accent">
+            <Filter className="mr-2 h-4 w-4" />
+            Filter
+          </Button>
+        </div>
       </div>
 
       {/* Table */}
-      <div className="rounded-xl border border-[#243178] bg-[#243178] overflow-hidden">
+      <div className="rounded-xl border border-border bg-card overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="border-[#2d3c8a] hover:bg-transparent">
+            <TableRow className="border-border hover:bg-transparent">
               {onSelectionChange && (
-                <TableHead className="w-12 text-[#A1A1AA]">
+                <TableHead className="w-12 text-muted-foreground">
                   <Checkbox
                     checked={selectedItems.length === data.length && data.length > 0}
                     onCheckedChange={toggleSelectAll}
-                    className="border-[#A1A1AA] data-[state=checked]:bg-[#F39C12] data-[state=checked]:border-[#F39C12]"
+                    className="border-muted-foreground/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                   />
                 </TableHead>
               )}
               {columns.map((column) => (
                 <TableHead
                   key={column.key}
-                  className={cn("text-[#A1A1AA] font-medium", column.className)}
+                  className={cn("text-muted-foreground font-medium", column.className)}
                 >
                   {column.sortable ? (
                     <button
                       onClick={() => handleSort(column.key)}
-                      className="flex items-center gap-1 hover:text-white transition-colors"
+                      className="flex items-center gap-1 hover:text-foreground transition-colors"
                     >
                       {column.label}
                       <ArrowUpDown className="h-4 w-4" />
@@ -158,7 +191,7 @@ export function CRMDataTable<T extends { id: string }>({
                 </TableHead>
               ))}
               {(onView || onEdit || onDelete) && (
-                <TableHead className="w-12 text-[#A1A1AA]"></TableHead>
+                <TableHead className="w-12 text-muted-foreground"></TableHead>
               )}
             </TableRow>
           </TableHeader>
@@ -166,19 +199,19 @@ export function CRMDataTable<T extends { id: string }>({
             {isLoading ? (
               // Loading skeleton
               Array.from({ length: 5 }).map((_, i) => (
-                <TableRow key={i} className="border-[#2d3c8a]">
+                <TableRow key={i} className="border-border">
                   {onSelectionChange && (
                     <TableCell>
-                      <div className="h-4 w-4 rounded bg-[#2d3c8a] animate-pulse" />
+                      <div className="h-4 w-4 rounded bg-muted animate-pulse" />
                     </TableCell>
                   )}
                   {columns.map((column) => (
                     <TableCell key={column.key}>
-                      <div className="h-4 w-24 rounded bg-[#2d3c8a] animate-pulse" />
+                      <div className="h-4 w-24 rounded bg-muted animate-pulse" />
                     </TableCell>
                   ))}
                   <TableCell>
-                    <div className="h-4 w-4 rounded bg-[#2d3c8a] animate-pulse" />
+                    <div className="h-4 w-4 rounded bg-muted animate-pulse" />
                   </TableCell>
                 </TableRow>
               ))
@@ -186,7 +219,7 @@ export function CRMDataTable<T extends { id: string }>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length + (onSelectionChange ? 2 : 1)}
-                  className="h-32 text-center text-[#A1A1AA]"
+                  className="h-32 text-center text-muted-foreground"
                 >
                   {emptyMessage}
                 </TableCell>
@@ -199,8 +232,8 @@ export function CRMDataTable<T extends { id: string }>({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                   className={cn(
-                    "border-[#2d3c8a] hover:bg-[#2d3c8a]/50 transition-colors cursor-pointer",
-                    selectedItems.includes(item.id) && "bg-[#F39C12]/10"
+                    "border-border hover:bg-muted/50 transition-colors cursor-pointer",
+                    selectedItems.includes(item.id) && "bg-muted"
                   )}
                   onClick={() => onView?.(item)}
                 >
@@ -209,12 +242,12 @@ export function CRMDataTable<T extends { id: string }>({
                       <Checkbox
                         checked={selectedItems.includes(item.id)}
                         onCheckedChange={() => toggleSelectItem(item.id)}
-                        className="border-[#A1A1AA] data-[state=checked]:bg-[#F39C12] data-[state=checked]:border-[#F39C12]"
+                        className="border-muted-foreground/50 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                       />
                     </TableCell>
                   )}
                   {columns.map((column) => (
-                    <TableCell key={column.key} className={cn("text-white", column.className)}>
+                    <TableCell key={column.key} className={cn("text-foreground", column.className)}>
                       {column.render
                         ? column.render(item)
                         : (item as Record<string, unknown>)[column.key]?.toString() || "-"}
@@ -224,19 +257,19 @@ export function CRMDataTable<T extends { id: string }>({
                     <TableCell onClick={(e) => e.stopPropagation()}>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 text-[#A1A1AA] hover:text-white">
+                          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end" className="bg-[#243178] border-[#2d3c8a]">
+                        <DropdownMenuContent align="end" className="bg-popover border-border">
                           {onView && (
-                            <DropdownMenuItem onClick={() => onView(item)} className="text-white hover:bg-[#2d3c8a]">
+                            <DropdownMenuItem onClick={() => onView(item)} className="text-foreground hover:bg-accent">
                               <Eye className="mr-2 h-4 w-4" />
                               View
                             </DropdownMenuItem>
                           )}
                           {onEdit && (
-                            <DropdownMenuItem onClick={() => onEdit(item)} className="text-white hover:bg-[#2d3c8a]">
+                            <DropdownMenuItem onClick={() => onEdit(item)} className="text-foreground hover:bg-accent">
                               <Pencil className="mr-2 h-4 w-4" />
                               Edit
                             </DropdownMenuItem>
@@ -244,7 +277,7 @@ export function CRMDataTable<T extends { id: string }>({
                           {onDelete && (
                             <DropdownMenuItem
                               onClick={() => onDelete(item)}
-                              className="text-red-400 hover:bg-[#2d3c8a] hover:text-red-400"
+                              className="text-destructive hover:bg-accent hover:text-destructive"
                             >
                               <Trash2 className="mr-2 h-4 w-4" />
                               Delete
@@ -264,24 +297,24 @@ export function CRMDataTable<T extends { id: string }>({
 
       {/* Pagination */}
       {data.length > 0 && (
-        <div className="flex items-center justify-between text-sm text-[#A1A1AA]">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <p>
-            Showing <span className="text-white">{data.length}</span> items
+            Showing <span className="text-foreground">{data.length}</span> items
           </p>
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 border-[#2d3c8a] bg-[#243178] text-[#A1A1AA] hover:text-white"
+              className="h-8 w-8 border-input bg-background text-muted-foreground hover:text-foreground"
               disabled
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
-            <span className="text-white">1</span>
+            <span className="text-foreground">1</span>
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8 border-[#2d3c8a] bg-[#243178] text-[#A1A1AA] hover:text-white"
+              className="h-8 w-8 border-input bg-background text-muted-foreground hover:text-foreground"
               disabled
             >
               <ChevronRight className="h-4 w-4" />
@@ -302,7 +335,7 @@ export function CRMStatusBadge({
   variant?: "default" | "success" | "warning" | "danger" | "info"
 }) {
   const variantClasses = {
-    default: "bg-[#2d3c8a] text-[#A1A1AA]",
+    default: "bg-muted text-muted-foreground",
     success: "bg-green-500/20 text-green-400 border-green-500/30",
     warning: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
     danger: "bg-red-500/20 text-red-400 border-red-500/30",
@@ -335,7 +368,7 @@ export function CRMRatingBadge({ rating }: { rating: "Hot" | "Warm" | "Cold" | n
 
 export function CRMDealStageBadge({ stage }: { stage: string }) {
   const stageConfig: Record<string, { class: string }> = {
-    "Prospecting": { class: "bg-gray-500/20 text-gray-400 border-gray-500/30" },
+    "Prospecting": { class: "bg-muted text-muted-foreground border-border" },
     "Qualification": { class: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
     "Proposal": { class: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
     "Negotiation": { class: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
@@ -356,7 +389,7 @@ export function CRMLeadStatusBadge({ status }: { status: string }) {
     "New": { class: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
     "Contacted": { class: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
     "Qualified": { class: "bg-green-500/20 text-green-400 border-green-500/30" },
-    "Unqualified": { class: "bg-gray-500/20 text-gray-400 border-gray-500/30" },
+    "Unqualified": { class: "bg-muted text-muted-foreground border-border" },
     "Converted": { class: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30" },
     "Lost": { class: "bg-red-500/20 text-red-400 border-red-500/30" },
   }
@@ -371,13 +404,13 @@ export function CRMLeadStatusBadge({ status }: { status: string }) {
 
 export function CRMInvoiceStatusBadge({ status }: { status: string }) {
   const statusConfig: Record<string, { class: string }> = {
-    "Draft": { class: "bg-gray-500/20 text-gray-400 border-gray-500/30" },
+    "Draft": { class: "bg-muted text-muted-foreground border-border" },
     "Sent": { class: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
     "Viewed": { class: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
     "Partially Paid": { class: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30" },
     "Paid": { class: "bg-green-500/20 text-green-400 border-green-500/30" },
     "Overdue": { class: "bg-red-500/20 text-red-400 border-red-500/30" },
-    "Cancelled": { class: "bg-gray-500/20 text-gray-400 border-gray-500/30" },
+    "Cancelled": { class: "bg-muted text-muted-foreground border-border" },
   }
 
   const config = statusConfig[status] || statusConfig["Draft"]
